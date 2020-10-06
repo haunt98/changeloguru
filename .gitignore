@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# IntelliJ
+.idea/
+
+# VSCode
+.vscode/
+
+# Go
+coverage.out
+coverage.html
