@@ -25,7 +25,8 @@ type Commit struct {
 }
 
 func NewCommit(c git.Commit) (result Commit, err error) {
-	messages := strings.Split(c.Message, "\n")
+	message := strings.TrimSpace(c.Message)
+	messages := strings.Split(message, "\n")
 	if len(messages) == 0 {
 		err = errors.New("empty commit")
 		return
@@ -36,7 +37,7 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 		return
 	}
 
-	bodyAndFooters := c.Message[len(header):]
+	bodyAndFooters := message[len(header):]
 	parseBodyAndFooters(bodyAndFooters, &result)
 
 	return
