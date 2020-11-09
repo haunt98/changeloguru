@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/haunt98/changeloguru/pkg/convention"
 	"github.com/haunt98/changeloguru/pkg/git"
 	"github.com/urfave/cli/v2"
 )
@@ -73,9 +74,24 @@ func action(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-
 	if verbose {
 		log.Printf("commits %+v", commits)
+	}
+
+	conventionalCommits := make([]convention.Commit, 0, len(commits))
+	for _, commit := range commits {
+		conventionalCommit, err := convention.NewCommit(commit)
+		if err != nil {
+			if verbose {
+				log.Printf("failed to new conventional commits %+v: %s", commit, err)
+			}
+			continue
+		}
+
+		conventionalCommits = append(conventionalCommits, conventionalCommit)
+	}
+	if verbose {
+		log.Printf("conventional commits %+v", conventionalCommits)
 	}
 
 	return nil
