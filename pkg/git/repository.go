@@ -15,6 +15,7 @@ const (
 
 type Repository interface {
 	LogExcludeTo(fromRev, toRev string) ([]Commit, error)
+	LogIncludeTo(fromRev, toRev string) ([]Commit, error)
 }
 
 var _ Repository = (*repo)(nil)
@@ -56,13 +57,39 @@ func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 		return nil, err
 	}
 
-	return r.logWithStopFnFirst(fromHash, func(c *object.Commit) error {
-		if c.Hash == *toHash {
-			return storer.ErrStop
-		}
+	commits, err := r.logWithStopFnFirst(fromHash, stopAtHash(toHash))
+	if err != nil {
+		return nil, err
+	}
 
-		return nil
-	})
+	return commits, nil
+}
+
+func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
+	if fromRev == "" {
+		fromRev = head
+	}
+
+	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
+	if err != nil {
+		return nil, err
+	}
+
+	if toRev == "" {
+		return r.logWithStopFnLast(fromHash, nil)
+	}
+
+	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
+	if err != nil {
+		return nil, err
+	}
+
+	commits, err := r.logWithStopFnLast(fromHash, stopAtHash(toHash))
+	if err != nil {
+		return nil, err
+	}
+
+	return commits, nil
 }
 
 func (r *repo) logWithStopFnFirst(fromHash *plumbing.Hash, fn stopFn) ([]Commit, error) {
@@ -91,4 +118,42 @@ func (r *repo) logWithStopFnFirst(fromHash *plumbing.Hash, fn stopFn) ([]Commit,
 	}
 
 	return commits, nil
+}
+
+func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, error) {
+	cIter, err := r.r.Log(&git.LogOptions{
+		From: *fromHash,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	commits := make([]Commit, 0, defaultCommitCount)
+
+	if err := cIter.ForEach(func(c *object.Commit) error {
+		commit := newCommit(c)
+		commits = append(commits, commit)
+
+		if fn != nil {
+			if err := fn(c); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	return commits, nil
+}
+
+func stopAtHash(hash *plumbing.Hash) stopFn {
+	return func(c *object.Commit) error {
+		if c.Hash == *hash {
+			return storer.ErrStop
+		}
+
+		return nil
+	}
 }
