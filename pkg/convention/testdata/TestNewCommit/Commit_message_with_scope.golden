@@ -1,4 +1,5 @@
 {
+  "RawHeader": "feat(lang): add polish language",
   "Type": "feat",
   "Scope": "lang",
   "Description": "add polish language"

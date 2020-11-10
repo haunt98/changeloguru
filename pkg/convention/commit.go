@@ -18,6 +18,7 @@ var (
 )
 
 type Commit struct {
+	RawHeader   string
 	Type        string
 	Scope       string
 	Description string
@@ -43,6 +44,8 @@ func parseHeader(header string, commit *Commit) error {
 	if !headerRegex.MatchString(header) {
 		return errors.New("wrong header format")
 	}
+
+	commit.RawHeader = header
 
 	headerSubmatches := headerRegex.FindStringSubmatch(header)
 
