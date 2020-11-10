@@ -70,14 +70,20 @@ func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
 		}
 	}
 
-	lines = append(lines, g.composeTypeHeader(addedType))
-	lines = append(lines, addedLines...)
+	if len(addedLines) != 0 {
+		lines = append(lines, g.composeTypeHeader(addedType))
+		lines = append(lines, addedLines...)
+	}
 
-	lines = append(lines, g.composeTypeHeader(fixedType))
-	lines = append(lines, fixedLines...)
+	if len(fixedLines) != 0 {
+		lines = append(lines, g.composeTypeHeader(fixedType))
+		lines = append(lines, fixedLines...)
+	}
 
-	lines = append(lines, g.composeTypeHeader(othersType))
-	lines = append(lines, othersLines...)
+	if len(othersLines) != 0 {
+		lines = append(lines, g.composeTypeHeader(othersType))
+		lines = append(lines, othersLines...)
+	}
 
 	return lines
 }

@@ -2,10 +2,10 @@
   "# CHANGELOG",
   "## v1.0.0 (1-1-1)",
   "### Added",
-  "* feat: description feat",
+  "- feat: description feat",
   "### Fixed",
-  "* fix: description fix",
+  "- fix: description fix",
   "### Others",
-  "* ci: description ci",
-  "* build: description build"
+  "- ci: description ci",
+  "- build: description build"
 ]
