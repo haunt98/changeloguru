@@ -18,10 +18,9 @@ var (
 )
 
 type Commit struct {
-	Type           string
-	Scope          string
-	Description    string
-	BodyAndFooters string
+	Type        string
+	Scope       string
+	Description string
 }
 
 func NewCommit(c git.Commit) (result Commit, err error) {
@@ -36,9 +35,6 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 	if err = parseHeader(header, &result); err != nil {
 		return
 	}
-
-	bodyAndFooters := message[len(header):]
-	parseBodyAndFooters(bodyAndFooters, &result)
 
 	return
 }
@@ -59,10 +55,4 @@ func parseHeader(header string, commit *Commit) error {
 	commit.Description = headerSubmatches[4]
 
 	return nil
-}
-
-func parseBodyAndFooters(bodyAndFooters string, commit *Commit) {
-	bodyAndFooters = strings.TrimSpace(bodyAndFooters)
-
-	commit.BodyAndFooters = bodyAndFooters
 }

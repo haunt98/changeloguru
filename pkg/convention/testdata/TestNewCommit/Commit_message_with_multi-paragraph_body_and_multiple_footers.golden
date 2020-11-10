@@ -1,6 +1,0 @@
-{
-  "Type": "fix",
-  "Scope": "",
-  "Description": "correct minor typos in code",
-  "BodyAndFooters": "see the issue for details\n\non typos fixed.\n\nReviewed-by: Z\nRefs #133"
-}

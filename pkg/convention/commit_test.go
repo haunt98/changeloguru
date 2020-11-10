@@ -1,9 +1,6 @@
 package convention
 
 import (
-	"fmt"
-	"io/ioutil"
-	"strings"
 	"testing"
 
 	"github.com/haunt98/changeloguru/pkg/comparision"
@@ -14,40 +11,34 @@ import (
 func TestNewCommit(t *testing.T) {
 	tests := []struct {
 		name    string
+		c       git.Commit
 		wantErr error
 	}{
 		{
-			name: "Commit message with description and breaking change footer",
-		},
-		{
 			name: "Commit message with not character to draw attention to breaking change",
+			c: git.Commit{
+				Message: "refactor!: drop support for Node 6",
+			},
 		},
 		{
 			name: "Commit message with no body",
+			c: git.Commit{
+				Message: "docs: correct spelling of CHANGELOG",
+			},
 		},
 		{
 			name: "Commit message with scope",
-		},
-		{
-			name: "Commit message with multi-paragraph body and multiple footers",
+			c: git.Commit{
+				Message: "feat(lang): add polish language",
+			},
 		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			g := goldie.New(t)
-			gName := g.GoldenFileName(t, t.Name())
 
-			inputName := strings.TrimSuffix(gName, ".golden") + ".txt"
-			fmt.Println("inputName", inputName)
-			bytes, err := ioutil.ReadFile(inputName)
-			if err != nil {
-				t.Error(err)
-			}
-
-			gotResult, gotErr := NewCommit(git.Commit{
-				Message: string(bytes),
-			})
+			gotResult, gotErr := NewCommit(tc.c)
 			comparision.Diff(t, tc.wantErr, gotErr)
 			if tc.wantErr != nil {
 				return

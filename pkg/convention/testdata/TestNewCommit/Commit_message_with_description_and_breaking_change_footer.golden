@@ -1,6 +1,0 @@
-{
-  "Type": "feat",
-  "Scope": "",
-  "Description": "allow provided config object to extend other configs",
-  "BodyAndFooters": "BREAKING CHANGE: `extends` key in config file is now used for extending other config files"
-}

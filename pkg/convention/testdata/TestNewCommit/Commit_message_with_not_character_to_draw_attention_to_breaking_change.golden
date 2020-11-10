@@ -1,6 +1,5 @@
 {
   "Type": "refactor",
   "Scope": "",
-  "Description": "drop support for Node 6",
-  "BodyAndFooters": ""
+  "Description": "drop support for Node 6"
 }
