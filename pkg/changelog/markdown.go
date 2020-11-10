@@ -9,6 +9,8 @@ import (
 	"github.com/haunt98/changeloguru/pkg/convention"
 )
 
+// https://guides.github.com/features/mastering-markdown/
+
 const (
 	markdownTitle = "# CHANGELOG"
 
