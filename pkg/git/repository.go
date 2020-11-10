@@ -72,12 +72,7 @@ func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 		return nil, err
 	}
 
-	commits, err := r.logWithStopFnFirst(fromHash, stopAtHash(toHash))
-	if err != nil {
-		return nil, err
-	}
-
-	return commits, nil
+	return r.logWithStopFnFirst(fromHash, stopAtHash(toHash))
 }
 
 // Get all commits between <from revision> and <to revision> (include <to revision>)
@@ -100,12 +95,7 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 		return nil, err
 	}
 
-	commits, err := r.logWithStopFnLast(fromHash, stopAtHash(toHash))
-	if err != nil {
-		return nil, err
-	}
-
-	return commits, nil
+	return r.logWithStopFnLast(fromHash, stopAtHash(toHash))
 }
 
 func (r *repo) log(fromHash *plumbing.Hash) ([]Commit, error) {
