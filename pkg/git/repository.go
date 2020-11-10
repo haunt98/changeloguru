@@ -38,6 +38,7 @@ func NewRepository(path string) (Repository, error) {
 	}, nil
 }
 
+// Get all commits start with <from revision>
 func (r *repo) Log(fromRev string) ([]Commit, error) {
 	if fromRev == "" {
 		fromRev = head
@@ -79,6 +80,7 @@ func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 	return commits, nil
 }
 
+// Get all commits between <from revision> and <to revision> (include <to revision>)
 func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 	if fromRev == "" {
 		fromRev = head
