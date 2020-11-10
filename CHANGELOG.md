@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.3.0 (2020-11-11)
+
+### Others
+
+- build: add Dockerfile
+
+- docs: Referencing the workflow file using the file path does not work if the workflow has a `name`
+
+- docs: add github action badge and install guide in README
+
+- refactor: move main.go to root dir for easy go get, go install
+
+- chore: generate CHANGELOG v0.2.1
+
 ## v0.2.1 (2020-11-11)
 
 ### Fixed
