@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.2.1 (2020-11-11)
+
+### Fixed
+
+- fix(changelog): correct get lines and skip generate if no new lines
+
+### Others
+
+- chore: generate CHANGELOG v0.2.0
+
 ## v0.2.0 (2020-11-10)
 
 ### Added
