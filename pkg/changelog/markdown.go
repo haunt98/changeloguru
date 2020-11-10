@@ -49,11 +49,11 @@ func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
 		t := getType(commit.Type)
 		switch t {
 		case addedType:
-			addedLines = append(addedLines, commit.RawHeader)
+			addedLines = append(addedLines, g.composeListItem(commit.RawHeader))
 		case fixedType:
-			fixedLines = append(fixedLines, commit.RawHeader)
+			fixedLines = append(fixedLines, g.composeListItem(commit.RawHeader))
 		case othersType:
-			othersLines = append(othersLines, commit.RawHeader)
+			othersLines = append(othersLines, g.composeListItem(commit.RawHeader))
 		default:
 			continue
 		}
@@ -73,9 +73,13 @@ func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
 
 func (g *MarkdownGenerator) composeVersionHeader() string {
 	year, month, day := g.t.Date()
-	return fmt.Sprintf("# %s (%d-%d-%d)", g.version, year, month, day)
+	return fmt.Sprintf("## %s (%d-%d-%d)", g.version, year, month, day)
 }
 
 func (g *MarkdownGenerator) composeTypeHeader(t string) string {
-	return fmt.Sprintf("## %s", t)
+	return fmt.Sprintf("### %s", t)
+}
+
+func (g *MarkdownGenerator) composeListItem(text string) string {
+	return fmt.Sprintf("* %s", text)
 }
