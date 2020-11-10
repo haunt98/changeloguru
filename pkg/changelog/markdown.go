@@ -2,6 +2,8 @@ package changelog
 
 import (
 	"fmt"
+	"io/ioutil"
+	"strings"
 	"time"
 
 	"github.com/haunt98/changeloguru/pkg/convention"
@@ -28,6 +30,18 @@ func NewMarkdownGenerator(path string, version string, t time.Time) *MarkdownGen
 }
 
 func (g *MarkdownGenerator) Generate(commits []convention.Commit) error {
+	lines := g.getLines(commits)
+	previousLines, err := g.getPreviousLines()
+	if err != nil {
+		return err
+	}
+
+	lines = append(lines, previousLines...)
+
+	if err := g.writeLines(lines); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -69,6 +83,35 @@ func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
 	lines = append(lines, othersLines...)
 
 	return lines
+}
+
+func (g *MarkdownGenerator) getPreviousLines() ([]string, error) {
+	prevData, err := ioutil.ReadFile(g.path)
+	if err != nil {
+		return nil, err
+	}
+
+	prevLines := strings.Split(string(prevData), "\n")
+	finalPrevLines := make([]string, 0, len(prevLines))
+	for _, prevLine := range prevLines {
+		prevLine = strings.TrimSpace(prevLine)
+		if prevLine == "" || prevLine == markdownTitle {
+			continue
+		}
+
+		finalPrevLines = append(finalPrevLines, prevLine)
+	}
+
+	return finalPrevLines, nil
+}
+
+func (g *MarkdownGenerator) writeLines(lines []string) error {
+	data := strings.Join(lines, "\n")
+	if err := ioutil.WriteFile(g.path, []byte(data), 0644); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (g *MarkdownGenerator) composeVersionHeader() string {
