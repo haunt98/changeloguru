@@ -107,6 +107,10 @@ func (a *action) getConventionalCommits(c *cli.Context, commits []git.Commit) []
 	return conventionalCommits
 }
 
+func (a *action) generateMarkdown(c *cli.Context, commits []convention.Commit) error {
+	return nil
+}
+
 func (a *action) log(format string, v ...interface{}) {
 	if a.verbose {
 		log.Printf(format, v...)
