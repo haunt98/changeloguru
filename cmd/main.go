@@ -17,6 +17,10 @@ const (
 )
 
 func main() {
+	a := &action{
+		verbose: false,
+	}
+
 	app := &cli.App{
 		Name:  "changeloguru",
 		Usage: "description",
@@ -35,7 +39,7 @@ func main() {
 				Usage:   "show what is going on",
 			},
 		},
-		Action: action,
+		Action: a.Run,
 	}
 
 	if err := app.Run(os.Args); err != nil {
@@ -43,56 +47,68 @@ func main() {
 	}
 }
 
-func action(c *cli.Context) error {
-	verbose := c.Bool(verboseFlag)
+type action struct {
+	verbose bool
+}
+
+func (a *action) Run(c *cli.Context) error {
+	a.verbose = c.Bool(verboseFlag)
 
 	path := currentPath
 	if c.NArg() > 0 {
 		path = c.Args().Get(0)
 	}
+	a.log("path %s", path)
 
-	if verbose {
-		log.Printf("path %s", path)
-	}
-
-	r, err := git.NewRepository(path)
+	commits, err := a.getCommits(c, path)
 	if err != nil {
 		return err
+	}
+	a.log("commits %+v", commits)
+
+	conventionalCommits := a.getConventionalCommits(c, commits)
+	a.log("conventional commits %+v", conventionalCommits)
+
+	return nil
+}
+
+func (a *action) getCommits(c *cli.Context, path string) ([]git.Commit, error) {
+	r, err := git.NewRepository(path)
+	if err != nil {
+		return nil, err
 	}
 
 	fromRev := c.String(fromFlag)
-	if verbose {
-		log.Printf("from revision %s", fromRev)
-	}
+	a.log("from revision %s", fromRev)
 
 	toRev := c.String(toFlag)
-	if verbose {
-		log.Printf("to revision %s", toRev)
-	}
+	a.log("to revision %s", toRev)
 
 	commits, err := r.LogExcludeTo(fromRev, toRev)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	if verbose {
-		log.Printf("commits %+v", commits)
-	}
+	return commits, nil
+}
 
+func (a *action) getConventionalCommits(c *cli.Context, commits []git.Commit) []convention.Commit {
 	conventionalCommits := make([]convention.Commit, 0, len(commits))
+
 	for _, commit := range commits {
 		conventionalCommit, err := convention.NewCommit(commit)
 		if err != nil {
-			if verbose {
-				log.Printf("failed to new conventional commits %+v: %s", commit, err)
-			}
+			a.log("failed to new conventional commits %+v: %s", commit, err)
 			continue
 		}
 
 		conventionalCommits = append(conventionalCommits, conventionalCommit)
 	}
-	if verbose {
-		log.Printf("conventional commits %+v", conventionalCommits)
-	}
 
-	return nil
+	return conventionalCommits
+}
+
+func (a *action) log(format string, v ...interface{}) {
+	if a.verbose {
+		log.Printf(format, v...)
+	}
 }
