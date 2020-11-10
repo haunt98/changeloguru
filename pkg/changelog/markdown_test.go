@@ -20,10 +20,8 @@ func TestMarkdownGeneratorGetLines(t *testing.T) {
 			name: "1 commit feat",
 			commits: []convention.Commit{
 				{
-					RawHeader:   "feat: description",
-					Type:        convention.FeatType,
-					Scope:       "",
-					Description: "description",
+					RawHeader: "feat: description",
+					Type:      convention.FeatType,
 				},
 			},
 		},
@@ -31,10 +29,8 @@ func TestMarkdownGeneratorGetLines(t *testing.T) {
 			name: "1 commit fixed",
 			commits: []convention.Commit{
 				{
-					RawHeader:   "fix: description",
-					Type:        convention.FixType,
-					Scope:       "",
-					Description: "description",
+					RawHeader: "fix: description",
+					Type:      convention.FixType,
 				},
 			},
 		},
@@ -42,10 +38,8 @@ func TestMarkdownGeneratorGetLines(t *testing.T) {
 			name: "1 commit other",
 			commits: []convention.Commit{
 				{
-					RawHeader:   "ci: description",
-					Type:        convention.CiType,
-					Scope:       "",
-					Description: "description",
+					RawHeader: "ci: description",
+					Type:      convention.CiType,
 				},
 			},
 		},
@@ -53,28 +47,20 @@ func TestMarkdownGeneratorGetLines(t *testing.T) {
 			name: "mixed",
 			commits: []convention.Commit{
 				{
-					RawHeader:   "feat: description feat",
-					Type:        convention.FeatType,
-					Scope:       "",
-					Description: "description feat",
+					RawHeader: "feat: description feat",
+					Type:      convention.FeatType,
 				},
 				{
-					RawHeader:   "fix: description fix",
-					Type:        convention.FixType,
-					Scope:       "",
-					Description: "description fix",
+					RawHeader: "fix: description fix",
+					Type:      convention.FixType,
 				},
 				{
-					RawHeader:   "ci: description ci",
-					Type:        convention.CiType,
-					Scope:       "",
-					Description: "description ci",
+					RawHeader: "ci: description ci",
+					Type:      convention.CiType,
 				},
 				{
-					RawHeader:   "build: description build",
-					Type:        convention.BuildType,
-					Scope:       "",
-					Description: "description build",
+					RawHeader: "build: description build",
+					Type:      convention.BuildType,
 				},
 			},
 		},

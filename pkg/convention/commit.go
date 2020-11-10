@@ -18,10 +18,8 @@ var (
 )
 
 type Commit struct {
-	RawHeader   string
-	Type        string
-	Scope       string
-	Description string
+	RawHeader string
+	Type      string
 }
 
 func NewCommit(c git.Commit) (result Commit, err error) {
@@ -50,12 +48,6 @@ func parseHeader(header string, commit *Commit) error {
 	headerSubmatches := headerRegex.FindStringSubmatch(header)
 
 	commit.Type = headerSubmatches[1]
-
-	commit.Scope = headerSubmatches[2]
-	commit.Scope = strings.TrimPrefix(commit.Scope, "(")
-	commit.Scope = strings.TrimSuffix(commit.Scope, ")")
-
-	commit.Description = headerSubmatches[4]
 
 	return nil
 }
