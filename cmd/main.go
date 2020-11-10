@@ -1,18 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
+	"time"
 
+	"github.com/haunt98/changeloguru/pkg/changelog"
 	"github.com/haunt98/changeloguru/pkg/convention"
 	"github.com/haunt98/changeloguru/pkg/git"
 	"github.com/urfave/cli/v2"
+	"golang.org/x/mod/semver"
 )
 
 const (
-	currentPath = "."
+	currentPath   = "."
+	changelogFile = "CHANGELOG.md"
+
 	fromFlag    = "from"
 	toFlag      = "to"
+	versionFlag = "version"
 	verboseFlag = "verbose"
 )
 
@@ -32,6 +41,10 @@ func main() {
 			&cli.StringFlag{
 				Name:  toFlag,
 				Usage: "to commit revision",
+			},
+			&cli.StringFlag{
+				Name:  versionFlag,
+				Usage: "version",
 			},
 			&cli.BoolFlag{
 				Name:    "verbose",
@@ -69,6 +82,10 @@ func (a *action) Run(c *cli.Context) error {
 	conventionalCommits := a.getConventionalCommits(c, commits)
 	a.log("conventional commits %+v", conventionalCommits)
 
+	if err := a.generateChangelog(c, path, conventionalCommits); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -105,6 +122,26 @@ func (a *action) getConventionalCommits(c *cli.Context, commits []git.Commit) []
 	}
 
 	return conventionalCommits
+}
+
+func (a *action) generateChangelog(c *cli.Context, path string, commits []convention.Commit) error {
+	changelogPath := filepath.Join(path, changelogFile)
+
+	version := c.String(versionFlag)
+	if !strings.HasPrefix(version, "v") {
+		version = "v" + version
+	}
+	if !semver.IsValid(version) {
+		return fmt.Errorf("invalid semver %s", version)
+	}
+
+	markdownGenerator := changelog.NewMarkdownGenerator(changelogPath, version, time.Now())
+
+	if err := markdownGenerator.Generate(commits); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (a *action) log(format string, v ...interface{}) {

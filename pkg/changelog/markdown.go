@@ -31,10 +31,7 @@ func NewMarkdownGenerator(path string, version string, t time.Time) *MarkdownGen
 
 func (g *MarkdownGenerator) Generate(commits []convention.Commit) error {
 	lines := g.getLines(commits)
-	previousLines, err := g.getPreviousLines()
-	if err != nil {
-		return err
-	}
+	previousLines := g.getPreviousLines()
 
 	lines = append(lines, previousLines...)
 
@@ -85,10 +82,10 @@ func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
 	return lines
 }
 
-func (g *MarkdownGenerator) getPreviousLines() ([]string, error) {
+func (g *MarkdownGenerator) getPreviousLines() []string {
 	prevData, err := ioutil.ReadFile(g.path)
 	if err != nil {
-		return nil, err
+		return nil
 	}
 
 	prevLines := strings.Split(string(prevData), "\n")
@@ -102,11 +99,11 @@ func (g *MarkdownGenerator) getPreviousLines() ([]string, error) {
 		finalPrevLines = append(finalPrevLines, prevLine)
 	}
 
-	return finalPrevLines, nil
+	return finalPrevLines
 }
 
 func (g *MarkdownGenerator) writeLines(lines []string) error {
-	data := strings.Join(lines, "\n")
+	data := strings.Join(lines, "\n\n")
 	if err := ioutil.WriteFile(g.path, []byte(data), 0644); err != nil {
 		return err
 	}
@@ -124,5 +121,5 @@ func (g *MarkdownGenerator) composeTypeHeader(t string) string {
 }
 
 func (g *MarkdownGenerator) composeListItem(text string) string {
-	return fmt.Sprintf("* %s", text)
+	return fmt.Sprintf("- %s", text)
 }
