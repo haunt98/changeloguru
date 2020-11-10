@@ -32,6 +32,10 @@ func NewMarkdownGenerator(path string, version string, t time.Time) *MarkdownGen
 }
 
 func (g *MarkdownGenerator) Generate(commits []convention.Commit) error {
+	if len(commits) == 0 {
+		return nil
+	}
+
 	lines := g.getLines(commits)
 	previousLines := g.getPreviousLines()
 
@@ -45,13 +49,8 @@ func (g *MarkdownGenerator) Generate(commits []convention.Commit) error {
 }
 
 func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
-	if len(commits) == 0 {
-		return nil
-	}
-
 	lines := make([]string, 0, defaultLinesLen)
 	lines = append(lines, markdownTitle)
-
 	lines = append(lines, g.composeVersionHeader())
 
 	addedLines := make([]string, 0, defaultLinesLen)
