@@ -117,12 +117,12 @@ func (a *action) getCommits(c *cli.Context, path string) ([]git.Commit, error) {
 		return nil, errors.New("excludeToFlag and includeToFlag can not appear same time")
 	}
 
-	if excludeToFlag != "" {
+	if excludeToRev != "" {
 		return r.LogExcludeTo(fromRev, excludeToRev)
 	}
 
-	if includeToFlag != "" {
-		return r.LogIncludeTo(fromRev, includeToFlag)
+	if includeToRev != "" {
+		return r.LogIncludeTo(fromRev, includeToRev)
 	}
 
 	return r.Log(fromRev)
