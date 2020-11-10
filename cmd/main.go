@@ -16,6 +16,9 @@ import (
 )
 
 const (
+	name        = "changeloguru"
+	description = "generate changelog from conventional commits"
+
 	currentPath   = "."
 	changelogFile = "CHANGELOG.md"
 
@@ -31,8 +34,8 @@ func main() {
 	}
 
 	app := &cli.App{
-		Name:  "changeloguru",
-		Usage: "description",
+		Name:  name,
+		Usage: description,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  fromFlag,
