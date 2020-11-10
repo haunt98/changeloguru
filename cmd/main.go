@@ -108,10 +108,10 @@ func (a *action) getCommits(c *cli.Context, path string) ([]git.Commit, error) {
 	a.log("from revision %s", fromRev)
 
 	excludeToRev := c.String(excludeToFlag)
-	a.log("exclude to revision %s", excludeToFlag)
+	a.log("exclude to revision %s", excludeToRev)
 
 	includeToRev := c.String(includeToFlag)
-	a.log("include to revision %s", includeToFlag)
+	a.log("include to revision %s", includeToRev)
 
 	if excludeToRev != "" && includeToRev != "" {
 		return nil, errors.New("excludeToFlag and includeToFlag can not appear same time")
