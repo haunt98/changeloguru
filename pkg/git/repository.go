@@ -14,6 +14,7 @@ const (
 )
 
 type Repository interface {
+	Log(fromRev string) ([]Commit, error)
 	LogExcludeTo(fromRev, toRev string) ([]Commit, error)
 	LogIncludeTo(fromRev, toRev string) ([]Commit, error)
 }
@@ -37,6 +38,19 @@ func NewRepository(path string) (Repository, error) {
 	}, nil
 }
 
+func (r *repo) Log(fromRev string) ([]Commit, error) {
+	if fromRev == "" {
+		fromRev = head
+	}
+
+	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
+	if err != nil {
+		return nil, err
+	}
+
+	return r.log(fromHash)
+}
+
 // Get all commits between <from revision> and <to revision> (exclude <to revision>)
 func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 	if fromRev == "" {
@@ -49,7 +63,7 @@ func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 	}
 
 	if toRev == "" {
-		return r.logWithStopFnFirst(fromHash, nil)
+		return r.log(fromHash)
 	}
 
 	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
@@ -76,7 +90,7 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 	}
 
 	if toRev == "" {
-		return r.logWithStopFnLast(fromHash, nil)
+		return r.log(fromHash)
 	}
 
 	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
@@ -86,6 +100,28 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 
 	commits, err := r.logWithStopFnLast(fromHash, stopAtHash(toHash))
 	if err != nil {
+		return nil, err
+	}
+
+	return commits, nil
+}
+
+func (r *repo) log(fromHash *plumbing.Hash) ([]Commit, error) {
+	cIter, err := r.r.Log(&git.LogOptions{
+		From: *fromHash,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	commits := make([]Commit, 0, defaultCommitCount)
+
+	if err := cIter.ForEach(func(c *object.Commit) error {
+		commit := newCommit(c)
+		commits = append(commits, commit)
+
+		return nil
+	}); err != nil {
 		return nil, err
 	}
 

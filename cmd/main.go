@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -22,10 +23,11 @@ const (
 	currentPath   = "."
 	changelogFile = "CHANGELOG.md"
 
-	fromFlag    = "from"
-	toFlag      = "to"
-	versionFlag = "version"
-	verboseFlag = "verbose"
+	fromFlag      = "from"
+	excludeToFlag = "exclude-to"
+	includeToFlag = "include-to"
+	versionFlag   = "version"
+	verboseFlag   = "verbose"
 )
 
 func main() {
@@ -42,8 +44,12 @@ func main() {
 				Usage: "from commit revision",
 			},
 			&cli.StringFlag{
-				Name:  toFlag,
-				Usage: "to commit revision",
+				Name:  excludeToFlag,
+				Usage: "to commit revision (exclude)",
+			},
+			&cli.StringFlag{
+				Name:  includeToFlag,
+				Usage: "to commit revision (include)",
 			},
 			&cli.StringFlag{
 				Name:  versionFlag,
@@ -101,14 +107,25 @@ func (a *action) getCommits(c *cli.Context, path string) ([]git.Commit, error) {
 	fromRev := c.String(fromFlag)
 	a.log("from revision %s", fromRev)
 
-	toRev := c.String(toFlag)
-	a.log("to revision %s", toRev)
+	excludeToRev := c.String(excludeToFlag)
+	a.log("exclude to revision %s", excludeToFlag)
 
-	commits, err := r.LogExcludeTo(fromRev, toRev)
-	if err != nil {
-		return nil, err
+	includeToRev := c.String(includeToFlag)
+	a.log("include to revision %s", includeToFlag)
+
+	if excludeToRev != "" && includeToRev != "" {
+		return nil, errors.New("excludeToFlag and includeToFlag can not appear same time")
 	}
-	return commits, nil
+
+	if excludeToFlag != "" {
+		return r.LogExcludeTo(fromRev, excludeToRev)
+	}
+
+	if includeToFlag != "" {
+		return r.LogIncludeTo(fromRev, includeToFlag)
+	}
+
+	return r.Log(fromRev)
 }
 
 func (a *action) getConventionalCommits(c *cli.Context, commits []git.Commit) []convention.Commit {
