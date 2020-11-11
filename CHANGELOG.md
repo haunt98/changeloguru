@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.4.0 (2020-11-11)
+
+### Added
+
+- feat(convention): make sure header commit is trimmed space
+
+### Others
+
+- docs: add usage guide in README
+
+- chore: generate CHANGELOG v0.3.0
+
 ## v0.3.0 (2020-11-11)
 
 ### Others
