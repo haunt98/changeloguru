@@ -30,7 +30,7 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 		return
 	}
 
-	header := messages[0]
+	header := strings.TrimSpace(messages[0])
 	if err = parseHeader(header, &result); err != nil {
 		return
 	}
