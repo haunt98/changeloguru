@@ -16,6 +16,9 @@ GO111module=on go get github.com/haunt98/changeloguru
 # Help
 changeloguru --help
 
+# Generate changelog v1.0.0
+changeloguru --version v1.0.0
+
 # Generate changelog v2.0.0 from HEAD to tag v1.0.0 (include commit in tag v1.0.0)
 changeloguru --include-to v1.0.0 --version v2.0.0
 
