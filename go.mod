@@ -13,8 +13,8 @@ require (
 	github.com/sebdah/goldie/v2 v2.5.3
 	github.com/urfave/cli/v2 v2.3.0
 	github.com/xanzy/ssh-agent v0.3.0 // indirect
-	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
+	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9 // indirect
 	golang.org/x/mod v0.3.0
 	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b // indirect
-	golang.org/x/sys v0.0.0-20201109165425-215b40eba54c // indirect
+	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
 )
