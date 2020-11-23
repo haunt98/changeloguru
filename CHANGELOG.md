@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.5.0 (2020-11-23)
+
+### Others
+
+- build: update go.mod
+
+- build: bump goldie v2.5.3
+
+- build: bump go-cmp v0.5.3
+
+- docs: add usage guide for generate changelog first time
+
+- chore: generate CHANGELOG v0.4.0
+
 ## v0.4.0 (2020-11-11)
 
 ### Added
