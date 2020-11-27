@@ -6,6 +6,47 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestParse(t *testing.T) {
+	tests := []struct {
+		name  string
+		lines []string
+		want  []Base
+	}{
+		{
+			name: "level 1",
+			lines: []string{
+				"# abc",
+				"- xyz",
+			},
+			want: []Base{
+				header{
+					level: 1,
+					text:  "abc",
+				},
+				listItem{
+					text: "xyz",
+				},
+			},
+		},
+		{
+			name: "level 3 with alternative",
+			lines: []string{
+				"### xyz",
+				"* abc",
+			},
+			want: []Base{
+				header{
+					level: 1,
+					text:  "xyz",
+				},
+				listItem{
+					text: "abc",
+				},
+			},
+		},
+	}
+}
+
 func TestParseHeader(t *testing.T) {
 	tests := []struct {
 		name string
