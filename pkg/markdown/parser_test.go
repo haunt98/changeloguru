@@ -36,7 +36,7 @@ func TestParse(t *testing.T) {
 			},
 			want: []Base{
 				header{
-					level: 1,
+					level: 3,
 					text:  "xyz",
 				},
 				listItem{
@@ -44,6 +44,13 @@ func TestParse(t *testing.T) {
 				},
 			},
 		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			got := Parse(tc.lines)
+			assert.Equal(t, tc.want, got)
+		})
 	}
 }
 
