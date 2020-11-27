@@ -9,7 +9,7 @@ const (
 	defaultListToken     = '-'
 	alternativeListToken = '*'
 	spaceToken           = ' '
-	newlineToken         = '\n'
+	NewlineToken         = '\n'
 )
 
 // Base is single markdown syntax representation
@@ -59,4 +59,8 @@ func (i listItem) String() string {
 	text := strings.TrimSpace(i.text)
 
 	return string(defaultListToken) + string(spaceToken) + text
+}
+
+func Equal(base1, base2 Base) bool {
+	return base1.String() == base2.String()
 }

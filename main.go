@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -155,10 +156,17 @@ func (a *action) generateChangelog(c *cli.Context, path string, commits []conven
 		return fmt.Errorf("invalid semver %s", version)
 	}
 
-	markdownGenerator := changelog.NewMarkdownGenerator(changelogPath, version, time.Now())
+	var oldData string
+	bytes, err := ioutil.ReadFile(changelogPath)
+	if err == nil {
+		oldData = string(bytes)
+	}
 
-	if err := markdownGenerator.Generate(commits); err != nil {
-		return err
+	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
+	newData := markdownGenerator.Generate(commits)
+
+	if err := ioutil.WriteFile(changelogPath, []byte(newData), 0644); err != nil {
+		return fmt.Errorf("failed to write file %s: %w", changelogPath, err)
 	}
 
 	return nil
