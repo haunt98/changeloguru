@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHeaderToString(t *testing.T) {
+func TestHeaderString(t *testing.T) {
 	tests := []struct {
 		name   string
 		header header
@@ -32,13 +32,13 @@ func TestHeaderToString(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got := tc.header.ToString()
+			got := tc.header.String()
 			assert.Equal(t, tc.want, got)
 		})
 	}
 }
 
-func TestListItemToString(t *testing.T) {
+func TestListItemString(t *testing.T) {
 	tests := []struct {
 		name     string
 		listItem listItem
@@ -55,7 +55,7 @@ func TestListItemToString(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got := tc.listItem.ToString()
+			got := tc.listItem.String()
 			assert.Equal(t, tc.want, got)
 		})
 	}
