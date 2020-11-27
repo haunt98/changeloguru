@@ -2,7 +2,7 @@ package markdown
 
 import "strings"
 
-func Generate(bases []Base) string {
+func Generate(bases []Node) string {
 	lines := make([]string, len(bases))
 
 	for i, base := range bases {

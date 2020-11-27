@@ -6,8 +6,8 @@ const (
 	defaultBaseLen = 10
 )
 
-func Parse(lines []string) []Base {
-	bases := make([]Base, 0, defaultBaseLen)
+func Parse(lines []string) []Node {
+	bases := make([]Node, 0, defaultBaseLen)
 
 	for _, line := range lines {
 		if line == "" {

@@ -8,13 +8,14 @@ const (
 	headerToken          = '#'
 	defaultListToken     = '-'
 	alternativeListToken = '*'
-	spaceToken           = ' '
-	NewlineToken         = '\n'
+
+	spaceToken   = ' '
+	NewlineToken = '\n'
 )
 
-// Base is single markdown syntax representation
+// Node is single markdown syntax representation
 // Example: header, list, ...
-type Base interface {
+type Node interface {
 	String() string
 }
 
@@ -23,7 +24,7 @@ type header struct {
 	text  string
 }
 
-func NewHeader(level int, text string) Base {
+func NewHeader(level int, text string) Node {
 	return header{
 		level: level,
 		text:  text,
@@ -49,7 +50,7 @@ type listItem struct {
 	text string
 }
 
-func NewListItem(text string) Base {
+func NewListItem(text string) Node {
 	return listItem{
 		text: text,
 	}
@@ -61,6 +62,6 @@ func (i listItem) String() string {
 	return string(defaultListToken) + string(spaceToken) + text
 }
 
-func Equal(base1, base2 Base) bool {
+func Equal(base1, base2 Node) bool {
 	return base1.String() == base2.String()
 }

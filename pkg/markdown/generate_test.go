@@ -9,12 +9,12 @@ import (
 func TestGenerate(t *testing.T) {
 	tests := []struct {
 		name  string
-		bases []Base
+		bases []Node
 		want  string
 	}{
 		{
 			name: "normal",
-			bases: []Base{
+			bases: []Node{
 				header{
 					level: 1,
 					text:  "header",
