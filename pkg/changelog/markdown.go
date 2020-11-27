@@ -2,135 +2,113 @@ package changelog
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 	"time"
 
 	"github.com/haunt98/changeloguru/pkg/convention"
+	"github.com/haunt98/changeloguru/pkg/markdown"
 )
 
-// https://guides.github.com/features/mastering-markdown/
-
 const (
-	markdownTitle = "# CHANGELOG"
+	title = "CHANGELOG"
 
-	defaultLinesLen = 10
+	defaultBasesLen = 10
 )
 
 type MarkdownGenerator struct {
-	path    string
+	oldData string
 	version string
 	t       time.Time
 }
 
-func NewMarkdownGenerator(path string, version string, t time.Time) *MarkdownGenerator {
+func NewMarkdownGenerator(oldData, version string, t time.Time) *MarkdownGenerator {
 	return &MarkdownGenerator{
-		path:    path,
+		oldData: oldData,
 		version: version,
 		t:       t,
 	}
 }
 
-func (g *MarkdownGenerator) Generate(commits []convention.Commit) error {
-	lines := g.getLines(commits)
-	if len(lines) == 0 {
-		return nil
+func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
+	newBases := g.getNewMarkdownBases(commits)
+	if len(newBases) == 0 {
+		return ""
 	}
 
-	previousLines := g.getPreviousLines()
+	bases := make([]markdown.Base, 0, defaultBasesLen)
 
-	lines = append(lines, previousLines...)
+	// title
+	bases = append(bases, markdown.NewHeader(1, title))
 
-	if err := g.writeLines(lines); err != nil {
-		return err
-	}
+	// version
+	year, month, day := g.t.Date()
+	versionHeader := fmt.Sprintf("%s (%d-%d-%d)", g.version, year, month, day)
+	bases = append(bases, markdown.NewHeader(2, versionHeader))
 
-	return nil
+	// new
+	bases = append(bases, newBases...)
+
+	// old
+	oldBases := g.getOldBases()
+	bases = append(bases, oldBases...)
+
+	return markdown.Generate(bases)
 }
 
-func (g *MarkdownGenerator) getLines(commits []convention.Commit) []string {
+func (g *MarkdownGenerator) getNewMarkdownBases(commits []convention.Commit) []markdown.Base {
 	if len(commits) == 0 {
 		return nil
 	}
 
-	lines := make([]string, 0, defaultLinesLen)
-	lines = append(lines, markdownTitle)
-	lines = append(lines, g.composeVersionHeader())
+	result := make([]markdown.Base, 0, defaultBasesLen)
 
-	addedLines := make([]string, 0, defaultLinesLen)
-	fixedLines := make([]string, 0, defaultLinesLen)
-	othersLines := make([]string, 0, defaultLinesLen)
+	commitBases := make(map[string][]markdown.Base)
+	commitBases[addedType] = make([]markdown.Base, 0, defaultBasesLen)
+	commitBases[fixedType] = make([]markdown.Base, 0, defaultBasesLen)
+	commitBases[othersType] = make([]markdown.Base, 0, defaultBasesLen)
 
 	for _, commit := range commits {
 		t := getType(commit.Type)
 		switch t {
 		case addedType:
-			addedLines = append(addedLines, g.composeListItem(commit.RawHeader))
+			commitBases[addedType] = append(commitBases[addedType], markdown.NewListItem(commit.RawHeader))
 		case fixedType:
-			fixedLines = append(fixedLines, g.composeListItem(commit.RawHeader))
+			commitBases[fixedType] = append(commitBases[fixedType], markdown.NewListItem(commit.RawHeader))
 		case othersType:
-			othersLines = append(othersLines, g.composeListItem(commit.RawHeader))
+			commitBases[othersType] = append(commitBases[othersType], markdown.NewListItem(commit.RawHeader))
 		default:
 			continue
 		}
 	}
 
-	if len(addedLines) != 0 {
-		lines = append(lines, g.composeTypeHeader(addedType))
-		lines = append(lines, addedLines...)
+	if len(commitBases[addedType]) != 0 {
+		result = append(result, markdown.NewHeader(3, addedType))
+		result = append(result, commitBases[addedType]...)
 	}
 
-	if len(fixedLines) != 0 {
-		lines = append(lines, g.composeTypeHeader(fixedType))
-		lines = append(lines, fixedLines...)
+	if len(commitBases[fixedType]) != 0 {
+		result = append(result, markdown.NewHeader(3, fixedType))
+		result = append(result, commitBases[addedType]...)
 	}
 
-	if len(othersLines) != 0 {
-		lines = append(lines, g.composeTypeHeader(othersType))
-		lines = append(lines, othersLines...)
+	if len(commitBases[othersType]) != 0 {
+		result = append(result, markdown.NewHeader(3, othersType))
+		result = append(result, commitBases[othersType]...)
 	}
 
-	return lines
+	return result
 }
 
-func (g *MarkdownGenerator) getPreviousLines() []string {
-	prevData, err := ioutil.ReadFile(g.path)
-	if err != nil {
-		return nil
+func (g *MarkdownGenerator) getOldBases() []markdown.Base {
+	result := make([]markdown.Base, 0, defaultBasesLen)
+
+	lines := strings.Split(g.oldData, string(markdown.NewlineToken))
+
+	result = append(result, markdown.Parse(lines)...)
+
+	if len(result) > 0 && markdown.Equal(result[0], markdown.NewHeader(1, title)) {
+		result = result[1:]
 	}
 
-	prevLines := strings.Split(string(prevData), "\n")
-	finalPrevLines := make([]string, 0, len(prevLines))
-	for _, prevLine := range prevLines {
-		prevLine = strings.TrimSpace(prevLine)
-		if prevLine == "" || prevLine == markdownTitle {
-			continue
-		}
-
-		finalPrevLines = append(finalPrevLines, prevLine)
-	}
-
-	return finalPrevLines
-}
-
-func (g *MarkdownGenerator) writeLines(lines []string) error {
-	data := strings.Join(lines, "\n\n")
-	if err := ioutil.WriteFile(g.path, []byte(data), 0644); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (g *MarkdownGenerator) composeVersionHeader() string {
-	year, month, day := g.t.Date()
-	return fmt.Sprintf("## %s (%d-%d-%d)", g.version, year, month, day)
-}
-
-func (g *MarkdownGenerator) composeTypeHeader(t string) string {
-	return fmt.Sprintf("### %s", t)
-}
-
-func (g *MarkdownGenerator) composeListItem(text string) string {
-	return fmt.Sprintf("- %s", text)
+	return result
 }
