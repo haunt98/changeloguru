@@ -3,7 +3,7 @@ package markdown
 import (
 	"testing"
 
-	"github.com/haunt98/changeloguru/pkg/comparision"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHeaderToString(t *testing.T) {
@@ -33,7 +33,7 @@ func TestHeaderToString(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			got := tc.header.ToString()
-			comparision.Diff(t, tc.want, got)
+			assert.Equal(t, tc.want, got)
 		})
 	}
 }
@@ -56,7 +56,7 @@ func TestListItemToString(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			got := tc.listItem.ToString()
-			comparision.Diff(t, tc.want, got)
+			assert.Equal(t, tc.want, got)
 		})
 	}
 }

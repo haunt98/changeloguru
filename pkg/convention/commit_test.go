@@ -3,9 +3,9 @@ package convention
 import (
 	"testing"
 
-	"github.com/haunt98/changeloguru/pkg/comparision"
 	"github.com/haunt98/changeloguru/pkg/git"
 	"github.com/sebdah/goldie/v2"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewCommit(t *testing.T) {
@@ -39,7 +39,7 @@ func TestNewCommit(t *testing.T) {
 			g := goldie.New(t)
 
 			gotResult, gotErr := NewCommit(tc.c)
-			comparision.Diff(t, tc.wantErr, gotErr)
+			assert.Equal(t, tc.wantErr, gotErr)
 			if tc.wantErr != nil {
 				return
 			}
