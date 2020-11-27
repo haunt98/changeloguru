@@ -10,7 +10,7 @@ func TestParse(t *testing.T) {
 	tests := []struct {
 		name  string
 		lines []string
-		want  []Base
+		want  []Node
 	}{
 		{
 			name: "level 1",
@@ -18,7 +18,7 @@ func TestParse(t *testing.T) {
 				"# abc",
 				"- xyz",
 			},
-			want: []Base{
+			want: []Node{
 				header{
 					level: 1,
 					text:  "abc",
@@ -34,7 +34,7 @@ func TestParse(t *testing.T) {
 				"### xyz",
 				"* abc",
 			},
-			want: []Base{
+			want: []Node{
 				header{
 					level: 3,
 					text:  "xyz",

@@ -35,7 +35,7 @@ func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
 		return ""
 	}
 
-	bases := make([]markdown.Base, 0, defaultBasesLen)
+	bases := make([]markdown.Node, 0, defaultBasesLen)
 
 	// title
 	bases = append(bases, markdown.NewHeader(1, title))
@@ -55,17 +55,17 @@ func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
 	return markdown.Generate(bases)
 }
 
-func (g *MarkdownGenerator) getNewMarkdownBases(commits []convention.Commit) []markdown.Base {
+func (g *MarkdownGenerator) getNewMarkdownBases(commits []convention.Commit) []markdown.Node {
 	if len(commits) == 0 {
 		return nil
 	}
 
-	result := make([]markdown.Base, 0, defaultBasesLen)
+	result := make([]markdown.Node, 0, defaultBasesLen)
 
-	commitBases := make(map[string][]markdown.Base)
-	commitBases[addedType] = make([]markdown.Base, 0, defaultBasesLen)
-	commitBases[fixedType] = make([]markdown.Base, 0, defaultBasesLen)
-	commitBases[othersType] = make([]markdown.Base, 0, defaultBasesLen)
+	commitBases := make(map[string][]markdown.Node)
+	commitBases[addedType] = make([]markdown.Node, 0, defaultBasesLen)
+	commitBases[fixedType] = make([]markdown.Node, 0, defaultBasesLen)
+	commitBases[othersType] = make([]markdown.Node, 0, defaultBasesLen)
 
 	for _, commit := range commits {
 		t := getType(commit.Type)
@@ -99,8 +99,8 @@ func (g *MarkdownGenerator) getNewMarkdownBases(commits []convention.Commit) []m
 	return result
 }
 
-func (g *MarkdownGenerator) getOldBases() []markdown.Base {
-	result := make([]markdown.Base, 0, defaultBasesLen)
+func (g *MarkdownGenerator) getOldBases() []markdown.Node {
+	result := make([]markdown.Node, 0, defaultBasesLen)
 
 	lines := strings.Split(g.oldData, string(markdown.NewlineToken))
 
