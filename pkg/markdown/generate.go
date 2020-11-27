@@ -9,5 +9,5 @@ func Generate(bases []Base) string {
 		lines[i] = base.String()
 	}
 
-	return strings.Join(lines, string(newlineToken))
+	return strings.Join(lines, string(newlineToken)+string(newlineToken))
 }
