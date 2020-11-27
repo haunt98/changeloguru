@@ -12,7 +12,11 @@ import (
 const (
 	title = "CHANGELOG"
 
-	defaultBasesLen = 10
+	defaultNodesLen = 10
+
+	firstLevel  = 1
+	secondLevel = 2
+	thirdLevel  = 3
 )
 
 type MarkdownGenerator struct {
@@ -30,42 +34,42 @@ func NewMarkdownGenerator(oldData, version string, t time.Time) *MarkdownGenerat
 }
 
 func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
-	newBases := g.getNewMarkdownBases(commits)
+	newBases := g.getNewNodes(commits)
 	if len(newBases) == 0 {
 		return ""
 	}
 
-	bases := make([]markdown.Node, 0, defaultBasesLen)
+	nodes := make([]markdown.Node, 0, defaultNodesLen)
 
 	// title
-	bases = append(bases, markdown.NewHeader(1, title))
+	nodes = append(nodes, markdown.NewHeader(firstLevel, title))
 
 	// version
 	year, month, day := g.t.Date()
 	versionHeader := fmt.Sprintf("%s (%d-%d-%d)", g.version, year, month, day)
-	bases = append(bases, markdown.NewHeader(2, versionHeader))
+	nodes = append(nodes, markdown.NewHeader(secondLevel, versionHeader))
 
 	// new
-	bases = append(bases, newBases...)
+	nodes = append(nodes, newBases...)
 
 	// old
-	oldBases := g.getOldBases()
-	bases = append(bases, oldBases...)
+	oldNodes := g.getOldNodes()
+	nodes = append(nodes, oldNodes...)
 
-	return markdown.Generate(bases)
+	return markdown.Generate(nodes)
 }
 
-func (g *MarkdownGenerator) getNewMarkdownBases(commits []convention.Commit) []markdown.Node {
+func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit) []markdown.Node {
 	if len(commits) == 0 {
 		return nil
 	}
 
-	result := make([]markdown.Node, 0, defaultBasesLen)
+	result := make([]markdown.Node, 0, defaultNodesLen)
 
 	commitBases := make(map[string][]markdown.Node)
-	commitBases[addedType] = make([]markdown.Node, 0, defaultBasesLen)
-	commitBases[fixedType] = make([]markdown.Node, 0, defaultBasesLen)
-	commitBases[othersType] = make([]markdown.Node, 0, defaultBasesLen)
+	commitBases[addedType] = make([]markdown.Node, 0, defaultNodesLen)
+	commitBases[fixedType] = make([]markdown.Node, 0, defaultNodesLen)
+	commitBases[othersType] = make([]markdown.Node, 0, defaultNodesLen)
 
 	for _, commit := range commits {
 		t := getType(commit.Type)
@@ -82,31 +86,36 @@ func (g *MarkdownGenerator) getNewMarkdownBases(commits []convention.Commit) []m
 	}
 
 	if len(commitBases[addedType]) != 0 {
-		result = append(result, markdown.NewHeader(3, addedType))
+		result = append(result, markdown.NewHeader(thirdLevel, addedType))
 		result = append(result, commitBases[addedType]...)
 	}
 
 	if len(commitBases[fixedType]) != 0 {
-		result = append(result, markdown.NewHeader(3, fixedType))
+		result = append(result, markdown.NewHeader(thirdLevel, fixedType))
 		result = append(result, commitBases[addedType]...)
 	}
 
 	if len(commitBases[othersType]) != 0 {
-		result = append(result, markdown.NewHeader(3, othersType))
+		result = append(result, markdown.NewHeader(thirdLevel, othersType))
 		result = append(result, commitBases[othersType]...)
 	}
 
 	return result
 }
 
-func (g *MarkdownGenerator) getOldBases() []markdown.Node {
-	result := make([]markdown.Node, 0, defaultBasesLen)
+func (g *MarkdownGenerator) getOldNodes() []markdown.Node {
+	if g.oldData == "" {
+		return nil
+	}
+
+	result := make([]markdown.Node, 0, defaultNodesLen)
 
 	lines := strings.Split(g.oldData, string(markdown.NewlineToken))
 
 	result = append(result, markdown.Parse(lines)...)
 
-	if len(result) > 0 && markdown.Equal(result[0], markdown.NewHeader(1, title)) {
+	// remove title
+	if len(result) > 0 && markdown.Equal(result[0], markdown.NewHeader(firstLevel, title)) {
 		result = result[1:]
 	}
 
