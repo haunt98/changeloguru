@@ -15,6 +15,14 @@ func Parse(lines []string) []Base {
 		}
 
 		if strings.HasPrefix(line, string(headerToken)) {
+			bases = append(bases, parseHeader(line))
+			continue
+		}
+
+		if strings.HasPrefix(line, string(defaultListToken)) ||
+			strings.HasPrefix(line, string(alternativeListToken)) {
+			bases = append(bases, parseListItem(line))
+			continue
 		}
 	}
 

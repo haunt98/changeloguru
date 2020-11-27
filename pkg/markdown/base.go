@@ -23,7 +23,7 @@ type header struct {
 	text  string
 }
 
-func (h *header) ToString() string {
+func (h header) ToString() string {
 	var builder strings.Builder
 
 	for i := 0; i < h.level; i++ {
@@ -42,7 +42,7 @@ type listItem struct {
 	text string
 }
 
-func (i *listItem) ToString() string {
+func (i listItem) ToString() string {
 	text := strings.TrimSpace(i.text)
 
 	return string(defaultListToken) + string(spaceToken) + text
