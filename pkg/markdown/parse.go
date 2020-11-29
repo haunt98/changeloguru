@@ -10,6 +10,8 @@ func Parse(lines []string) []Node {
 	bases := make([]Node, 0, defaultBaseLen)
 
 	for _, line := range lines {
+		line = strings.TrimSpace(line)
+
 		if line == "" {
 			continue
 		}
