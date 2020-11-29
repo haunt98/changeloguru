@@ -112,7 +112,7 @@ func (g *MarkdownGenerator) getOldNodes() []markdown.Node {
 
 	result = append(result, markdown.Parse(lines)...)
 
-	// remove title
+	// remove title as we will add later
 	if len(result) > 0 && markdown.Equal(result[0], markdown.NewHeader(firstLevel, title)) {
 		result = result[1:]
 	}
