@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## v0.6.0 (2020-11-29)
+
+### Added
+
+- feat(changelog): use newly markdown parser and generate
+
+- feat(markdown): double newline when generate
+
+- feat: generate 1 line for markdown
+
+- feat: parse markdown to base syntax guide
+
+- feat: use testify assert
+
+- feat: add markdown parser
+
+### Others
+
+- test(changelog): unit test for changelog with markdown
+
+- refactor(changelog): split get version header
+
+- refactor(changelog): remove magic number
+
+- refactor: rename markdown.Base -> markdown.Node
+
+- refactor(markdown): rename parser -> parse
+
+- build: bump go-cmp v0.5.4
+
+- chore: bump golangci-lint v1.33.0 in github action
+
+- chore: make github action run on pull request
+
+- chore: add build using gotip in github action
+
+- chore: generate CHANGELOG v0.5.0
+
 ## v0.5.0 (2020-11-23)
 
 ### Others
