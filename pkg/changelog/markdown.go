@@ -45,9 +45,7 @@ func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
 	nodes = append(nodes, markdown.NewHeader(firstLevel, title))
 
 	// version
-	year, month, day := g.t.Date()
-	versionHeader := fmt.Sprintf("%s (%d-%d-%d)", g.version, year, month, day)
-	nodes = append(nodes, markdown.NewHeader(secondLevel, versionHeader))
+	nodes = append(nodes, markdown.NewHeader(secondLevel, g.getVersionHeader()))
 
 	// new
 	nodes = append(nodes, newBases...)
@@ -120,4 +118,9 @@ func (g *MarkdownGenerator) getOldNodes() []markdown.Node {
 	}
 
 	return result
+}
+
+func (g *MarkdownGenerator) getVersionHeader() string {
+	year, month, day := g.t.Date()
+	return fmt.Sprintf("%s (%d-%d-%d)", g.version, year, month, day)
 }
