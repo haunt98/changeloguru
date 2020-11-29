@@ -1,6 +1,8 @@
 # Changeloguru
 
-![Go](https://github.com/haunt98/changeloguru/workflows/Go/badge.svg?branch=master)
+![Go](https://github.com/haunt98/changeloguru/workflows/Go/badge.svg?branch=main)
+
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/haunt98/changeloguru)](https://pkg.go.dev/github.com/haunt98/changeloguru)
 
 Tool to generate `CHANGELOG.md` from [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
