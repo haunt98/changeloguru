@@ -29,11 +29,15 @@ const (
 	includeToFlag = "include-to"
 	versionFlag   = "version"
 	verboseFlag   = "verbose"
+
+	pathArgs = "path"
 )
 
 func main() {
 	a := &action{
 		verbose: false,
+		flags:   make(map[string]string),
+		args:    make(map[string]string),
 	}
 
 	app := &cli.App{
@@ -72,46 +76,62 @@ func main() {
 
 type action struct {
 	verbose bool
+	flags   map[string]string
+	args    map[string]string
 }
 
 func (a *action) Run(c *cli.Context) error {
-	a.verbose = c.Bool(verboseFlag)
+	// set up
+	a.getFlags(c)
+	a.getArgs(c)
 
-	path := currentPath
-	if c.NArg() > 0 {
-		path = c.Args().Get(0)
-	}
-	a.log("path %s", path)
-
-	commits, err := a.getCommits(c, path)
+	commits, err := a.getCommits()
 	if err != nil {
 		return err
 	}
 	a.log("commits %+v", commits)
 
-	conventionalCommits := a.getConventionalCommits(c, commits)
+	conventionalCommits := a.getConventionalCommits(commits)
 	a.log("conventional commits %+v", conventionalCommits)
 
-	if err := a.generateChangelog(c, path, conventionalCommits); err != nil {
+	if err := a.generateChangelog(conventionalCommits); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (a *action) getCommits(c *cli.Context, path string) ([]git.Commit, error) {
+func (a *action) getArgs(c *cli.Context) {
+	a.args[pathArgs] = currentPath
+	if c.NArg() > 0 {
+		a.args[pathArgs] = c.Args().Get(0)
+	}
+}
+
+func (a *action) getFlags(c *cli.Context) {
+	a.verbose = c.Bool(verboseFlag)
+	a.flags[fromFlag] = c.String(fromFlag)
+	a.flags[excludeToFlag] = c.String(excludeToFlag)
+	a.flags[includeToFlag] = c.String(includeToFlag)
+	a.flags[versionFlag] = c.String(versionFlag)
+}
+
+func (a *action) getCommits() ([]git.Commit, error) {
+	path := a.args[pathArgs]
+	a.log("path %s", path)
+
 	r, err := git.NewRepository(path)
 	if err != nil {
 		return nil, err
 	}
 
-	fromRev := c.String(fromFlag)
+	fromRev := a.flags[fromFlag]
 	a.log("from revision %s", fromRev)
 
-	excludeToRev := c.String(excludeToFlag)
+	excludeToRev := a.flags[excludeToFlag]
 	a.log("exclude to revision %s", excludeToRev)
 
-	includeToRev := c.String(includeToFlag)
+	includeToRev := a.flags[includeToFlag]
 	a.log("include to revision %s", includeToRev)
 
 	if excludeToRev != "" && includeToRev != "" {
@@ -129,7 +149,7 @@ func (a *action) getCommits(c *cli.Context, path string) ([]git.Commit, error) {
 	return r.Log(fromRev)
 }
 
-func (a *action) getConventionalCommits(c *cli.Context, commits []git.Commit) []convention.Commit {
+func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commit {
 	conventionalCommits := make([]convention.Commit, 0, len(commits))
 
 	for _, commit := range commits {
@@ -145,10 +165,12 @@ func (a *action) getConventionalCommits(c *cli.Context, commits []git.Commit) []
 	return conventionalCommits
 }
 
-func (a *action) generateChangelog(c *cli.Context, path string, commits []convention.Commit) error {
+func (a *action) generateChangelog(commits []convention.Commit) error {
+	path := a.args[pathArgs]
 	changelogPath := filepath.Join(path, changelogFile)
+	a.log("changelog path %s", path)
 
-	version := c.String(versionFlag)
+	version := a.flags[versionFlag]
 	if !strings.HasPrefix(version, "v") {
 		version = "v" + version
 	}
