@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.6.1 (2020-12-2)
+
+### Others
+
+- refactor: split get flags, get args from cli
+
+- chore: remove new line between badges
+
+- chore: add badge for pkg go dev in README
+
+- build: update go.mod
+
+- chore: generate CHANGELOG v0.6.0
+
 ## v0.6.0 (2020-11-29)
 
 ### Added
