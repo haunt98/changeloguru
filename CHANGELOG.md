@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.7.0 (2020-12-2)
+
+### Added
+
+- feat(convention): support mixed-case for type
+
+### Others
+
+- test(convetion): unit test for mixedcase types
+
+- chore: generate CHANGELOG v0.6.1
+
 ## v0.6.1 (2020-12-2)
 
 ### Others
