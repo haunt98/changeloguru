@@ -47,7 +47,7 @@ func parseHeader(header string, commit *Commit) error {
 
 	headerSubmatches := headerRegex.FindStringSubmatch(header)
 
-	commit.Type = headerSubmatches[1]
+	commit.Type = strings.ToLower(headerSubmatches[1])
 
 	return nil
 }
