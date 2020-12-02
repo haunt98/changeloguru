@@ -32,6 +32,18 @@ func TestNewCommit(t *testing.T) {
 				Message: "feat(lang): add polish language",
 			},
 		},
+		{
+			name: "Uppercase",
+			c: git.Commit{
+				Message: "REFACTOR!: drop support for Node 6",
+			},
+		},
+		{
+			name: "Mixedcase",
+			c: git.Commit{
+				Message: "Docs: correct spelling of CHANGELOG",
+			},
+		},
 	}
 
 	for _, tc := range tests {
