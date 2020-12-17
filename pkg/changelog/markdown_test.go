@@ -35,6 +35,41 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:    "many commits",
+			version: "v1.0.0",
+			t:       time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+			commits: []convention.Commit{
+				{
+					RawHeader: "feat: new feature",
+					Type:      convention.FeatType,
+				},
+				{
+					RawHeader: "feat: support new client",
+					Type:      convention.FeatType,
+				},
+				{
+					RawHeader: "fix: new fix",
+					Type:      convention.FixType,
+				},
+				{
+					RawHeader: "fix: wrong color",
+					Type:      convention.FixType,
+				},
+				{
+					RawHeader: "chore: new build",
+					Type:      convention.ChoreType,
+				},
+				{
+					RawHeader: "chore(github): release on github",
+					Type:      convention.ChoreType,
+				},
+				{
+					RawHeader: "chore(gitlab): release on gitlab",
+					Type:      convention.ChoreType,
+				},
+			},
+		},
 	}
 
 	for _, tc := range tests {
