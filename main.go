@@ -22,10 +22,12 @@ const (
 	description = "generate changelog from conventional commits"
 
 	currentPath      = "."
-	defaultPath      = currentPath
-	defaultFilename  = "CHANGELOG"
 	markdownFiletype = "md"
-	defaultFiletype  = markdownFiletype
+
+	defaultPath     = currentPath
+	defaultFilename = "CHANGELOG"
+	defaultFiletype = markdownFiletype
+	defaultVersion  = "0.1.0"
 
 	fromFlag      = "from"
 	excludeToFlag = "exclude-to"
@@ -181,27 +183,11 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 }
 
 func (a *action) generateChangelog(commits []convention.Commit) error {
-	path := a.args[pathArgs]
+	changelogPath, _, filetype := a.getChangelogPath()
 
-	filename := a.flags[filenameFlag]
-	if filename == "" {
-		filename = defaultFilename
-	}
-
-	filetype := a.flags[filetypeFlag]
-	if filetypeFlag == "" {
-		filetype = defaultFiletype
-	}
-
-	changelogPath := filepath.Join(path, filename+"."+filetype)
-	a.log("changelog path %s", path)
-
-	version := a.flags[versionFlag]
-	if !strings.HasPrefix(version, "v") {
-		version = "v" + version
-	}
-	if !semver.IsValid(version) {
-		return fmt.Errorf("invalid semver %s", version)
+	version, err := a.getVersion()
+	if err != nil {
+		return err
 	}
 
 	switch filetype {
@@ -210,6 +196,43 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 	default:
 		return fmt.Errorf("unknown filetype %s", filetype)
 	}
+}
+
+func (a *action) getChangelogPath() (string, string, string) {
+	path := a.args[pathArgs]
+
+	filename := a.flags[filenameFlag]
+	if filename == "" {
+		filename = defaultFilename
+	}
+
+	filetype := a.flags[filetypeFlag]
+	if filetype == "" {
+		filetype = defaultFiletype
+	}
+
+	changelogName := filename + "." + filetype
+	changelogPath := filepath.Join(path, changelogName)
+	a.log("changelog path %s", changelogPath)
+
+	return changelogPath, filename, filetype
+}
+
+func (a *action) getVersion() (string, error) {
+	version := a.flags[versionFlag]
+	if version == "" {
+		version = defaultVersion
+	}
+
+	if !strings.HasPrefix(version, "v") {
+		version = "v" + version
+	}
+
+	if !semver.IsValid(version) {
+		return "", fmt.Errorf("invalid semver %s", version)
+	}
+
+	return version, nil
 }
 
 func (a *action) generateMarkdownChangelog(path, version string, commits []convention.Commit) error {
