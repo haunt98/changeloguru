@@ -21,13 +21,18 @@ const (
 	name        = "changeloguru"
 	description = "generate changelog from conventional commits"
 
-	currentPath   = "."
-	changelogFile = "CHANGELOG.md"
+	currentPath      = "."
+	defaultPath      = currentPath
+	defaultFilename  = "CHANGELOG"
+	markdownFiletype = "md"
+	defaultFiletype  = markdownFiletype
 
 	fromFlag      = "from"
 	excludeToFlag = "exclude-to"
 	includeToFlag = "include-to"
 	versionFlag   = "version"
+	filenameFlag  = "filename"
+	filetypeFlag  = "filetype"
 	verboseFlag   = "verbose"
 
 	pathArgs = "path"
@@ -46,19 +51,27 @@ func main() {
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  fromFlag,
-				Usage: "from commit revision",
+				Usage: "generate from commit revision",
 			},
 			&cli.StringFlag{
 				Name:  excludeToFlag,
-				Usage: "to commit revision (exclude)",
+				Usage: "generate to commit revision (exclude that commit)",
 			},
 			&cli.StringFlag{
 				Name:  includeToFlag,
-				Usage: "to commit revision (include)",
+				Usage: "generate to commit revision (include that commit)",
 			},
 			&cli.StringFlag{
 				Name:  versionFlag,
 				Usage: "version",
+			},
+			&cli.StringFlag{
+				Name:  filenameFlag,
+				Usage: fmt.Sprintf("output filename, default is %s", defaultFilename),
+			},
+			&cli.StringFlag{
+				Name:  filetypeFlag,
+				Usage: fmt.Sprintf("output filetype, default is %s", defaultFiletype),
 			},
 			&cli.BoolFlag{
 				Name:    "verbose",
@@ -102,7 +115,7 @@ func (a *action) Run(c *cli.Context) error {
 }
 
 func (a *action) getArgs(c *cli.Context) {
-	a.args[pathArgs] = currentPath
+	a.args[pathArgs] = defaultPath
 	if c.NArg() > 0 {
 		a.args[pathArgs] = c.Args().Get(0)
 	}
@@ -114,6 +127,8 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags[excludeToFlag] = c.String(excludeToFlag)
 	a.flags[includeToFlag] = c.String(includeToFlag)
 	a.flags[versionFlag] = c.String(versionFlag)
+	a.flags[filenameFlag] = c.String(filenameFlag)
+	a.flags[filetypeFlag] = c.String(filetypeFlag)
 }
 
 func (a *action) getCommits() ([]git.Commit, error) {
@@ -167,7 +182,18 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 
 func (a *action) generateChangelog(commits []convention.Commit) error {
 	path := a.args[pathArgs]
-	changelogPath := filepath.Join(path, changelogFile)
+
+	filename := a.flags[filenameFlag]
+	if filename == "" {
+		filename = defaultFilename
+	}
+
+	filetype := a.flags[filetypeFlag]
+	if filetypeFlag == "" {
+		filetype = defaultFiletype
+	}
+
+	changelogPath := filepath.Join(path, filename+"."+filetype)
 	a.log("changelog path %s", path)
 
 	version := a.flags[versionFlag]
@@ -178,8 +204,17 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 		return fmt.Errorf("invalid semver %s", version)
 	}
 
+	switch filetype {
+	case markdownFiletype:
+		return a.generateMarkdownChangelog(changelogPath, version, commits)
+	default:
+		return fmt.Errorf("unknown filetype %s", filetype)
+	}
+}
+
+func (a *action) generateMarkdownChangelog(path, version string, commits []convention.Commit) error {
 	var oldData string
-	bytes, err := ioutil.ReadFile(changelogPath)
+	bytes, err := ioutil.ReadFile(path)
 	if err == nil {
 		oldData = string(bytes)
 	}
@@ -187,8 +222,8 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
 	newData := markdownGenerator.Generate(commits)
 
-	if err := ioutil.WriteFile(changelogPath, []byte(newData), 0644); err != nil {
-		return fmt.Errorf("failed to write file %s: %w", changelogPath, err)
+	if err := ioutil.WriteFile(path, []byte(newData), 0644); err != nil {
+		return fmt.Errorf("failed to write file %s: %w", path, err)
 	}
 
 	return nil
