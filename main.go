@@ -51,27 +51,27 @@ func main() {
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  fromFlag,
-				Usage: "generate from commit revision",
+				Usage: "generate from `COMMIT`",
 			},
 			&cli.StringFlag{
 				Name:  excludeToFlag,
-				Usage: "generate to commit revision (exclude that commit)",
+				Usage: "generate to `COMMIT` (exclude that commit)",
 			},
 			&cli.StringFlag{
 				Name:  includeToFlag,
-				Usage: "generate to commit revision (include that commit)",
+				Usage: "generate to `COMMIT` (include that commit)",
 			},
 			&cli.StringFlag{
 				Name:  versionFlag,
-				Usage: "version",
+				Usage: "generate new `VERSION`",
 			},
 			&cli.StringFlag{
 				Name:  filenameFlag,
-				Usage: fmt.Sprintf("output filename, default is %s", defaultFilename),
+				Usage: fmt.Sprintf("output `FILENAME`, default is %s", defaultFilename),
 			},
 			&cli.StringFlag{
 				Name:  filetypeFlag,
-				Usage: fmt.Sprintf("output filetype, default is %s", defaultFiletype),
+				Usage: fmt.Sprintf("output `FILETYPE`, default is %s", defaultFiletype),
 			},
 			&cli.BoolFlag{
 				Name:    "verbose",
