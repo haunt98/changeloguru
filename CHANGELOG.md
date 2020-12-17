@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## v0.8.0 (2020-12-17)
+
+### Added
+
+- feat: make 0.1.0 default version, split getChangelogPath
+
+- feat: add --filename, --filetype flags
+
+### Fixed
+
+- fix(changelog): wrong header for fixed type
+
+### Others
+
+- test(changelog): more test for generate changelog
+
+- test(changelog): re-gen golden data for correct header
+
+- chore: log version verbose
+
+- chore: add placeholder of urfave/cli
+
+- chore: generate CHANGELOG v0.7.0
+
 ## v0.7.0 (2020-12-2)
 
 ### Added
