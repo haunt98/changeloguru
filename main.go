@@ -213,6 +213,7 @@ func (a *action) getChangelogPath() (string, string, string) {
 
 	changelogName := filename + "." + filetype
 	changelogPath := filepath.Join(path, changelogName)
+
 	a.log("changelog path %s", changelogPath)
 
 	return changelogPath, filename, filetype
@@ -231,6 +232,8 @@ func (a *action) getVersion() (string, error) {
 	if !semver.IsValid(version) {
 		return "", fmt.Errorf("invalid semver %s", version)
 	}
+
+	a.log("version %s", version)
 
 	return version, nil
 }
