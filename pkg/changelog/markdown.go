@@ -90,7 +90,7 @@ func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit) []markdown.
 
 	if len(commitBases[fixedType]) != 0 {
 		result = append(result, markdown.NewHeader(thirdLevel, fixedType))
-		result = append(result, commitBases[addedType]...)
+		result = append(result, commitBases[fixedType]...)
 	}
 
 	if len(commitBases[othersType]) != 0 {
