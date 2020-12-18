@@ -89,9 +89,8 @@ func main() {
 				DefaultText: defaultFiletype,
 			},
 			&cli.BoolFlag{
-				Name:    verboseFlag,
-				Aliases: []string{"v"},
-				Usage:   "show what is going on",
+				Name:  verboseFlag,
+				Usage: "show what is going on",
 			},
 		},
 		Action: a.Run,
