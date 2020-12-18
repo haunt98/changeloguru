@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.9.0 (2020-12-18)
+
+### Added
+
+- feat: by default show help if use do nothing
+
+- feat: remove -v as alias for --verbose
+
+- feat: use urfave/cli DefaultText
+
+- feat: add --repository and --output-dir
+
+### Others
+
+- chore: add Thanks in README
+
+- chore: remove markdown ext from LICENSE
+
+- chore: generate CHANGELOG v0.8.0
+
 ## v0.8.0 (2020-12-17)
 
 ### Added
