@@ -26,3 +26,11 @@ changeloguru --include-to v1.0.0 --version v2.0.0
 # Generate changelog v2.0.0 from HEAD to tag v1.0.0 (exclude commit in tag v1.0.0)
 changeloguru --exclude-to v1.0.0 --version v2.0.0
 ```
+
+## Thanks
+
+- [go-git/go-git](https://github.com/go-git/go-git)
+- [google/go-cmp](https://github.com/google/go-cmp)
+- [sebdah/goldie](https://github.com/sebdah/goldie)
+- [stretchr/testify](https://github.com/stretchr/testify)
+- [urfave/cli](https://github.com/urfave/cli)
