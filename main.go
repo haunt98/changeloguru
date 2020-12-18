@@ -108,6 +108,11 @@ type action struct {
 }
 
 func (a *action) Run(c *cli.Context) error {
+	// Show help if there is nothing
+	if c.NArg() == 0 && c.NumFlags() == 0 {
+		return cli.ShowAppHelp(c)
+	}
+
 	// Set up
 	a.getFlags(c)
 
