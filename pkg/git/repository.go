@@ -1,6 +1,8 @@
 package git
 
 import (
+	"fmt"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -46,7 +48,7 @@ func (r *repo) Log(fromRev string) ([]Commit, error) {
 
 	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to resolve %s: %w", fromRev, err)
 	}
 
 	return r.log(fromHash)
@@ -60,7 +62,7 @@ func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 
 	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to resolve %s: %w", fromRev, err)
 	}
 
 	if toRev == "" {
@@ -69,7 +71,7 @@ func (r *repo) LogExcludeTo(fromRev, toRev string) ([]Commit, error) {
 
 	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to resolve %s: %w", toRev, err)
 	}
 
 	return r.logWithStopFnFirst(fromHash, stopAtHash(toHash))
@@ -83,7 +85,7 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 
 	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to resolve %s: %w", fromRev, err)
 	}
 
 	if toRev == "" {
@@ -92,7 +94,7 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 
 	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to resolve %s: %w", toRev, err)
 	}
 
 	return r.logWithStopFnLast(fromHash, stopAtHash(toHash))
@@ -103,7 +105,7 @@ func (r *repo) log(fromHash *plumbing.Hash) ([]Commit, error) {
 		From: *fromHash,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to git log: %w", err)
 	}
 
 	commits := make([]Commit, 0, defaultCommitCount)
@@ -114,7 +116,7 @@ func (r *repo) log(fromHash *plumbing.Hash) ([]Commit, error) {
 
 		return nil
 	}); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
 	}
 
 	return commits, nil
@@ -125,7 +127,7 @@ func (r *repo) logWithStopFnFirst(fromHash *plumbing.Hash, fn stopFn) ([]Commit,
 		From: *fromHash,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to git log: %w", err)
 	}
 
 	commits := make([]Commit, 0, defaultCommitCount)
@@ -142,7 +144,7 @@ func (r *repo) logWithStopFnFirst(fromHash *plumbing.Hash, fn stopFn) ([]Commit,
 
 		return nil
 	}); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
 	}
 
 	return commits, nil
@@ -153,7 +155,7 @@ func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, 
 		From: *fromHash,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to git log: %w", err)
 	}
 
 	commits := make([]Commit, 0, defaultCommitCount)
@@ -170,7 +172,7 @@ func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, 
 
 		return nil
 	}); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
 	}
 
 	return commits, nil
