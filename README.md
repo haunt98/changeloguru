@@ -29,6 +29,7 @@ changeloguru --exclude-to v1.0.0 --version v2.0.0
 
 ## Thanks
 
+- [fatih/color](https://github.com/fatih/color)
 - [go-git/go-git](https://github.com/go-git/go-git)
 - [google/go-cmp](https://github.com/google/go-cmp)
 - [sebdah/goldie](https://github.com/sebdah/goldie)
