@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.10.0 (2020-12-24)
+
+### Added
+
+- feat: highlight error
+
+### Others
+
+- chore(readme): add fatih/color in thanks
+
+- chore(git): better error return
+
+- build: update go.mod
+
+- chore(changelog): generate v0.9.0
+
 ## v0.9.0 (2020-12-18)
 
 ### Added
