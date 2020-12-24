@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
+	github.com/fatih/color v1.10.0
 	github.com/go-git/go-git/v5 v5.2.0
 	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/imdario/mergo v0.3.11 // indirect

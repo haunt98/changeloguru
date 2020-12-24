@@ -10,6 +10,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/haunt98/changeloguru/pkg/changelog"
 	"github.com/haunt98/changeloguru/pkg/convention"
 	"github.com/haunt98/changeloguru/pkg/git"
@@ -97,8 +98,14 @@ func main() {
 	}
 
 	if err := app.Run(os.Args); err != nil {
-		log.Fatal(err)
+		// Highlight error
+		fmtErr := color.New(color.FgRed)
+		fmtErr.Printf("[%s error]: ", name)
+		fmt.Printf("%s\n", err.Error())
+		os.Exit(1)
 	}
+
+	os.Exit(0)
 }
 
 type action struct {
@@ -255,7 +262,7 @@ func (a *action) generateMarkdownChangelog(outputPath, version string, commits [
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
 	newData := markdownGenerator.Generate(commits)
 
-	if err := ioutil.WriteFile(outputPath, []byte(newData), 0644); err != nil {
+	if err := ioutil.WriteFile(outputPath, []byte(newData), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", outputPath, err)
 	}
 
