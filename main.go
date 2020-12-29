@@ -102,10 +102,7 @@ func main() {
 		fmtErr := color.New(color.FgRed)
 		fmtErr.Printf("[%s error]: ", name)
 		fmt.Printf("%s\n", err.Error())
-		os.Exit(1)
 	}
-
-	os.Exit(0)
 }
 
 type action struct {
