@@ -1,5 +1,61 @@
 # CHANGELOG
 
+## v1.0.0 (2021-1-5)
+
+### Added
+
+- feat(convention): remove directly access conventional commit
+
+- feat(cli): remove default version
+
+- feat(cli): remove unused output filename
+
+- feat(git): stop with begin, end fn
+
+- feat(git): only use git log, remove logIncludeTo
+
+- feat(cli): args is need, I was wrong
+
+- feat(cli): this program doest not need any args
+
+- feat: only use --to to replace --exclude-to, --include-to
+
+- feat(cli): use --debug instead of --verbose
+
+- feat(cli): correct description cli
+
+- feat: exit gracefully
+
+### Fixed
+
+- fix(cli): correct --debug short alias
+
+### Others
+
+- chore(git): useless type cast
+
+- chore(cli): lowercase debug message
+
+- chore(cli): remove default flags
+
+- chore(readme): remove --include-to, --exclude-to in guide
+
+- chore(readme): add thanks Command Line Interface Guidelines
+
+- chore(cli): FILETYPE is a misc
+
+- refactor(cli): rename output path to real output
+
+- refactor(cli): rename output-dir to output
+
+- chore(cli): better usage text
+
+- build: update go.mod
+
+- chore: bump golangci-lint v1.34 in github action
+
+- chore(changelog): generate v0.10.0
+
 ## v0.10.0 (2020-12-24)
 
 ### Added
