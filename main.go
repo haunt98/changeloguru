@@ -84,7 +84,7 @@ func main() {
 			},
 			&cli.BoolFlag{
 				Name:    debugFlag,
-				Aliases: []string{"-d"},
+				Aliases: []string{"d"},
 				Usage:   "Show debugging info",
 			},
 		},
