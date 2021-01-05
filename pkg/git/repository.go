@@ -19,8 +19,6 @@ type Repository interface {
 	Log(fromRev, toRev string) ([]Commit, error)
 }
 
-var _ Repository = (*repo)(nil)
-
 type repo struct {
 	r *git.Repository
 }
