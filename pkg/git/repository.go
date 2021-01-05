@@ -48,7 +48,7 @@ func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 	}
 
 	if toRev == "" {
-		return r.logWithStopFnLast(fromHash, nil)
+		return r.logWithStopFn(fromHash, nil, nil)
 	}
 
 	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
@@ -56,10 +56,10 @@ func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 		return nil, fmt.Errorf("failed to resolve %s: %w", toRev, err)
 	}
 
-	return r.logWithStopFnLast(fromHash, stopAtHash(toHash))
+	return r.logWithStopFn(fromHash, nil, stopAtHash(toHash))
 }
 
-func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, error) {
+func (r *repo) logWithStopFn(fromHash *plumbing.Hash, beginStopFn, endStopFn stopFn) ([]Commit, error) {
 	cIter, err := r.r.Log(&git.LogOptions{
 		From: *fromHash,
 	})
@@ -70,14 +70,22 @@ func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, 
 	commits := make([]Commit, 0, defaultCommitCount)
 
 	if err := cIter.ForEach(func(c *object.Commit) error {
+		if beginStopFn != nil {
+			if err := beginStopFn(c); err != nil {
+				return err
+			}
+		}
+
 		commit := newCommit(c)
 		commits = append(commits, commit)
 
-		if fn == nil {
-			return nil
+		if endStopFn != nil {
+			if err := endStopFn(c); err != nil {
+				return err
+			}
 		}
 
-		return fn(c)
+		return nil
 	}); err != nil {
 		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
 	}
