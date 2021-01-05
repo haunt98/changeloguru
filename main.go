@@ -85,7 +85,7 @@ func main() {
 			&cli.BoolFlag{
 				Name:    debugFlag,
 				Aliases: []string{"d"},
-				Usage:   "Show debugging info",
+				Usage:   "show debugging info",
 			},
 		},
 		Action: a.Run,
