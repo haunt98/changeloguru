@@ -18,8 +18,7 @@ import (
 )
 
 const (
-	name        = "changeloguru"
-	description = "generate changelog from conventional commits"
+	name = "changeloguru"
 
 	currentDir       = "."
 	markdownFiletype = "md"
@@ -47,8 +46,8 @@ func main() {
 	}
 
 	app := &cli.App{
-		Name:        name,
-		Description: description,
+		Name:  name,
+		Usage: "generate changelog from conventional commits",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  fromFlag,
@@ -56,7 +55,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:  toFlag,
-				Usage: "generate to `COMMIT` (include that commit)",
+				Usage: "generate to `COMMIT`",
 			},
 			&cli.StringFlag{
 				Name:        versionFlag,
