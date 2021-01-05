@@ -13,16 +13,18 @@ import (
 // [optional body]
 // [optional footer(s)]
 
-var (
-	headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
-)
+var headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
 
 type Commit struct {
+	GitCommit git.Commit
 	RawHeader string
 	Type      string
 }
 
 func NewCommit(c git.Commit) (result Commit, err error) {
+	// For directly use git commit
+	result.GitCommit = c
+
 	message := strings.TrimSpace(c.Message)
 	messages := strings.Split(message, "\n")
 	if len(messages) == 0 {
