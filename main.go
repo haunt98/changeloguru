@@ -39,7 +39,7 @@ const (
 	outputDirFlag  = "output-dir"
 	filenameFlag   = "filename"
 	filetypeFlag   = "filetype"
-	verboseFlag    = "verbose"
+	debugFlag      = "debug"
 )
 
 func main() {
@@ -90,8 +90,9 @@ func main() {
 				DefaultText: defaultFiletype,
 			},
 			&cli.BoolFlag{
-				Name:  verboseFlag,
-				Usage: "show what is going on",
+				Name:    debugFlag,
+				Aliases: []string{"-d"},
+				Usage:   "Show debugging info",
 			},
 		},
 		Action: a.Run,
@@ -106,9 +107,9 @@ func main() {
 }
 
 type action struct {
-	verbose bool
-	flags   map[string]string
-	args    map[string]string
+	debug bool
+	flags map[string]string
+	args  map[string]string
 }
 
 func (a *action) Run(c *cli.Context) error {
@@ -124,10 +125,10 @@ func (a *action) Run(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	a.log("commits %+v", commits)
+	a.logDebug("commits %+v", commits)
 
 	conventionalCommits := a.getConventionalCommits(commits)
-	a.log("conventional commits %+v", conventionalCommits)
+	a.logDebug("conventional commits %+v", conventionalCommits)
 
 	if err := a.generateChangelog(conventionalCommits); err != nil {
 		return err
@@ -137,7 +138,7 @@ func (a *action) Run(c *cli.Context) error {
 }
 
 func (a *action) getFlags(c *cli.Context) {
-	a.verbose = c.Bool(verboseFlag)
+	a.debug = c.Bool(debugFlag)
 	a.flags[fromFlag] = c.String(fromFlag)
 	a.flags[excludeToFlag] = c.String(excludeToFlag)
 	a.flags[includeToFlag] = c.String(includeToFlag)
@@ -159,7 +160,7 @@ func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {
 
 func (a *action) getCommits() ([]git.Commit, error) {
 	repository := a.flags[repositoryFlag]
-	a.log("repository %s", repository)
+	a.logDebug("repository %s", repository)
 
 	r, err := git.NewRepository(repository)
 	if err != nil {
@@ -167,13 +168,13 @@ func (a *action) getCommits() ([]git.Commit, error) {
 	}
 
 	fromRev := a.flags[fromFlag]
-	a.log("from revision %s", fromRev)
+	a.logDebug("from revision %s", fromRev)
 
 	excludeToRev := a.flags[excludeToFlag]
-	a.log("exclude to revision %s", excludeToRev)
+	a.logDebug("exclude to revision %s", excludeToRev)
 
 	includeToRev := a.flags[includeToFlag]
-	a.log("include to revision %s", includeToRev)
+	a.logDebug("include to revision %s", includeToRev)
 
 	if excludeToRev != "" && includeToRev != "" {
 		return nil, errors.New("excludeToFlag and includeToFlag can not appear same time")
@@ -195,7 +196,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 	for _, commit := range commits {
 		conventionalCommit, err := convention.NewCommit(commit)
 		if err != nil {
-			a.log("failed to new conventional commits %+v: %s", commit, err)
+			a.logDebug("failed to new conventional commits %+v: %s", commit, err)
 			continue
 		}
 
@@ -228,7 +229,7 @@ func (a *action) getOutputPath() (string, string, string) {
 
 	nameWithExt := filename + "." + filetype
 	path := filepath.Join(outputDir, nameWithExt)
-	a.log("output path %s", path)
+	a.logDebug("output path %s", path)
 
 	return path, filename, filetype
 }
@@ -243,7 +244,7 @@ func (a *action) getVersion() (string, error) {
 		return "", fmt.Errorf("invalid semver %s", version)
 	}
 
-	a.log("version %s", version)
+	a.logDebug("version %s", version)
 
 	return version, nil
 }
@@ -266,8 +267,8 @@ func (a *action) generateMarkdownChangelog(outputPath, version string, commits [
 	return nil
 }
 
-func (a *action) log(format string, v ...interface{}) {
-	if a.verbose {
+func (a *action) logDebug(format string, v ...interface{}) {
+	if a.debug {
 		log.Printf(format, v...)
 	}
 }
