@@ -24,7 +24,7 @@ const (
 	markdownFiletype = "md"
 
 	defaultRepositry = currentDir
-	defaultOutputDir = currentDir
+	defaultOutput    = currentDir
 	defaultFilename  = "CHANGELOG"
 	defaultFiletype  = markdownFiletype
 	defaultVersion   = "0.1.0"
@@ -33,7 +33,7 @@ const (
 	toFlag         = "to"
 	versionFlag    = "version"
 	repositoryFlag = "repository"
-	outputDirFlag  = "output-dir"
+	outputFlag     = "output"
 	filenameFlag   = "filename"
 	filetypeFlag   = "filetype"
 	debugFlag      = "debug"
@@ -64,13 +64,13 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:        repositoryFlag,
-				Usage:       "`REPOSITORY` path, example /go/src/myapp",
+				Usage:       "`REPOSITORY` directory path, example /go/src/myapp",
 				DefaultText: defaultRepositry,
 			},
 			&cli.StringFlag{
-				Name:        outputDirFlag,
-				Usage:       "`OUTPUT_DIR` path, example /go/src/myapp",
-				DefaultText: defaultOutputDir,
+				Name:        outputFlag,
+				Usage:       "`OUTPUT` directory path, example /go/src/myapp",
+				DefaultText: defaultOutput,
 			},
 			&cli.StringFlag{
 				Name:        filenameFlag,
@@ -79,7 +79,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:        filetypeFlag,
-				Usage:       "output `FILETYPE` support md (markdown)",
+				Usage:       "output `FILETYPE`, currently support md (markdown)",
 				DefaultText: defaultFiletype,
 			},
 			&cli.BoolFlag{
@@ -136,7 +136,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags[toFlag] = c.String(toFlag)
 	a.flags[versionFlag] = a.getFlagValue(c, versionFlag, defaultVersion)
 	a.flags[repositoryFlag] = a.getFlagValue(c, repositoryFlag, defaultRepositry)
-	a.flags[outputDirFlag] = a.getFlagValue(c, outputDirFlag, defaultOutputDir)
+	a.flags[outputFlag] = a.getFlagValue(c, outputFlag, defaultOutput)
 	a.flags[filenameFlag] = a.getFlagValue(c, filenameFlag, defaultFilename)
 	a.flags[filetypeFlag] = a.getFlagValue(c, filetypeFlag, defaultFiletype)
 }
@@ -204,7 +204,7 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 }
 
 func (a *action) getOutputPath() (string, string, string) {
-	outputDir := a.flags[outputDirFlag]
+	outputDir := a.flags[outputFlag]
 	filename := a.flags[filenameFlag]
 	filetype := a.flags[filetypeFlag]
 
