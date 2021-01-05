@@ -49,8 +49,8 @@ func main() {
 	}
 
 	app := &cli.App{
-		Name:  name,
-		Usage: description,
+		Name:        name,
+		Description: description,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  fromFlag,
