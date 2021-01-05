@@ -40,6 +40,14 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 	return
 }
 
+func (c Commit) GetType() string {
+	return c.Type
+}
+
+func (c Commit) String() string {
+	return c.GitCommit.Hash + " " + c.RawHeader
+}
+
 func parseHeader(header string, commit *Commit) error {
 	if !headerRegex.MatchString(header) {
 		return errors.New("wrong header format")
