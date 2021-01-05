@@ -59,17 +59,17 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:        versionFlag,
-				Usage:       "`VERSION` to generate, follow Semantic Versioning, example 1.0.0",
+				Usage:       "`VERSION` to generate, follow Semantic Versioning",
 				DefaultText: defaultVersion,
 			},
 			&cli.StringFlag{
 				Name:        repositoryFlag,
-				Usage:       "`REPOSITORY` directory path, example /go/src/myapp",
+				Usage:       "`REPOSITORY` directory path",
 				DefaultText: defaultRepositry,
 			},
 			&cli.StringFlag{
 				Name:        outputFlag,
-				Usage:       "`OUTPUT` directory path, example /go/src/myapp",
+				Usage:       "`OUTPUT` directory path",
 				DefaultText: defaultOutput,
 			},
 			&cli.StringFlag{
