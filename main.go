@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -32,8 +31,7 @@ const (
 	defaultVersion   = "0.1.0"
 
 	fromFlag       = "from"
-	excludeToFlag  = "exclude-to"
-	includeToFlag  = "include-to"
+	toFlag         = "to"
 	versionFlag    = "version"
 	repositoryFlag = "repository"
 	outputDirFlag  = "output-dir"
@@ -57,11 +55,7 @@ func main() {
 				Usage: "generate from `COMMIT`",
 			},
 			&cli.StringFlag{
-				Name:  excludeToFlag,
-				Usage: "generate to `COMMIT` (exclude that commit)",
-			},
-			&cli.StringFlag{
-				Name:  includeToFlag,
+				Name:  toFlag,
 				Usage: "generate to `COMMIT` (include that commit)",
 			},
 			&cli.StringFlag{
@@ -140,8 +134,7 @@ func (a *action) Run(c *cli.Context) error {
 func (a *action) getFlags(c *cli.Context) {
 	a.debug = c.Bool(debugFlag)
 	a.flags[fromFlag] = c.String(fromFlag)
-	a.flags[excludeToFlag] = c.String(excludeToFlag)
-	a.flags[includeToFlag] = c.String(includeToFlag)
+	a.flags[toFlag] = c.String(toFlag)
 	a.flags[versionFlag] = a.getFlagValue(c, versionFlag, defaultVersion)
 	a.flags[repositoryFlag] = a.getFlagValue(c, repositoryFlag, defaultRepositry)
 	a.flags[outputDirFlag] = a.getFlagValue(c, outputDirFlag, defaultOutputDir)
@@ -170,19 +163,8 @@ func (a *action) getCommits() ([]git.Commit, error) {
 	fromRev := a.flags[fromFlag]
 	a.logDebug("from revision %s", fromRev)
 
-	excludeToRev := a.flags[excludeToFlag]
-	a.logDebug("exclude to revision %s", excludeToRev)
-
-	includeToRev := a.flags[includeToFlag]
-	a.logDebug("include to revision %s", includeToRev)
-
-	if excludeToRev != "" && includeToRev != "" {
-		return nil, errors.New("excludeToFlag and includeToFlag can not appear same time")
-	}
-
-	if excludeToRev != "" {
-		return r.LogExcludeTo(fromRev, excludeToRev)
-	}
+	includeToRev := a.flags[toFlag]
+	a.logDebug("to revision %s", includeToRev)
 
 	if includeToRev != "" {
 		return r.LogIncludeTo(fromRev, includeToRev)
