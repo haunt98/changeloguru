@@ -184,7 +184,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 }
 
 func (a *action) generateChangelog(commits []convention.Commit) error {
-	realOutput, _, filetype := a.getRealOutput()
+	realOutput, filetype := a.getRealOutput()
 
 	version, err := a.getVersion()
 	if err != nil {
@@ -199,7 +199,7 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 	}
 }
 
-func (a *action) getRealOutput() (string, string, string) {
+func (a *action) getRealOutput() (string, string) {
 	output := a.flags[outputFlag]
 	filename := a.flags[filenameFlag]
 	filetype := a.flags[filetypeFlag]
@@ -208,7 +208,7 @@ func (a *action) getRealOutput() (string, string, string) {
 	realOutput := filepath.Join(output, nameWithExt)
 	a.logDebug("output path %s", realOutput)
 
-	return realOutput, filename, filetype
+	return realOutput, filetype
 }
 
 func (a *action) getVersion() (string, error) {
