@@ -162,14 +162,10 @@ func (a *action) getCommits() ([]git.Commit, error) {
 	fromRev := a.flags[fromFlag]
 	a.logDebug("from revision %s", fromRev)
 
-	includeToRev := a.flags[toFlag]
-	a.logDebug("to revision %s", includeToRev)
+	toRev := a.flags[toFlag]
+	a.logDebug("to revision %s", toRev)
 
-	if includeToRev != "" {
-		return r.LogIncludeTo(fromRev, includeToRev)
-	}
-
-	return r.Log(fromRev)
+	return r.Log(fromRev, toRev)
 }
 
 func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commit {

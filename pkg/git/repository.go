@@ -16,8 +16,7 @@ const (
 )
 
 type Repository interface {
-	Log(fromRev string) ([]Commit, error)
-	LogIncludeTo(fromRev, toRev string) ([]Commit, error)
+	Log(fromRev, toRev string) ([]Commit, error)
 }
 
 var _ Repository = (*repo)(nil)
@@ -39,22 +38,8 @@ func NewRepository(path string) (Repository, error) {
 	}, nil
 }
 
-// Get all commits start with <from revision>
-func (r *repo) Log(fromRev string) ([]Commit, error) {
-	if fromRev == "" {
-		fromRev = head
-	}
-
-	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
-	if err != nil {
-		return nil, fmt.Errorf("failed to resolve %s: %w", fromRev, err)
-	}
-
-	return r.log(fromHash)
-}
-
-// Get all commits between <from revision> and <to revision> (include <to revision>)
-func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
+// Get all commits between <from revision> and <to revision>
+func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 	if fromRev == "" {
 		fromRev = head
 	}
@@ -65,7 +50,7 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 	}
 
 	if toRev == "" {
-		return r.log(fromHash)
+		return r.logWithStopFnLast(fromHash, nil)
 	}
 
 	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
@@ -74,28 +59,6 @@ func (r *repo) LogIncludeTo(fromRev, toRev string) ([]Commit, error) {
 	}
 
 	return r.logWithStopFnLast(fromHash, stopAtHash(toHash))
-}
-
-func (r *repo) log(fromHash *plumbing.Hash) ([]Commit, error) {
-	cIter, err := r.r.Log(&git.LogOptions{
-		From: *fromHash,
-	})
-	if err != nil {
-		return nil, fmt.Errorf("failed to git log: %w", err)
-	}
-
-	commits := make([]Commit, 0, defaultCommitCount)
-
-	if err := cIter.ForEach(func(c *object.Commit) error {
-		commit := newCommit(c)
-		commits = append(commits, commit)
-
-		return nil
-	}); err != nil {
-		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
-	}
-
-	return commits, nil
 }
 
 func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, error) {
@@ -112,13 +75,11 @@ func (r *repo) logWithStopFnLast(fromHash *plumbing.Hash, fn stopFn) ([]Commit, 
 		commit := newCommit(c)
 		commits = append(commits, commit)
 
-		if fn != nil {
-			if err := fn(c); err != nil {
-				return err
-			}
+		if fn == nil {
+			return nil
 		}
 
-		return nil
+		return fn(c)
 	}); err != nil {
 		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
 	}
