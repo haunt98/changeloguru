@@ -27,7 +27,6 @@ const (
 	defaultOutput    = currentDir
 	defaultFilename  = "CHANGELOG"
 	defaultFiletype  = markdownFiletype
-	defaultVersion   = "0.1.0"
 
 	fromFlag       = "from"
 	toFlag         = "to"
@@ -58,9 +57,8 @@ func main() {
 				Usage: "generate to `COMMIT`",
 			},
 			&cli.StringFlag{
-				Name:        versionFlag,
-				Usage:       "`VERSION` to generate, follow Semantic Versioning",
-				DefaultText: defaultVersion,
+				Name:  versionFlag,
+				Usage: "`VERSION` to generate, follow Semantic Versioning",
 			},
 			&cli.StringFlag{
 				Name:        repositoryFlag,
@@ -134,7 +132,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.debug = c.Bool(debugFlag)
 	a.flags[fromFlag] = c.String(fromFlag)
 	a.flags[toFlag] = c.String(toFlag)
-	a.flags[versionFlag] = a.getFlagValue(c, versionFlag, defaultVersion)
+	a.flags[versionFlag] = c.String(versionFlag)
 	a.flags[repositoryFlag] = a.getFlagValue(c, repositoryFlag, defaultRepositry)
 	a.flags[outputFlag] = a.getFlagValue(c, outputFlag, defaultOutput)
 	a.flags[filenameFlag] = a.getFlagValue(c, filenameFlag, defaultFilename)
@@ -206,13 +204,17 @@ func (a *action) getRealOutput() (string, string) {
 
 	nameWithExt := filename + "." + filetype
 	realOutput := filepath.Join(output, nameWithExt)
-	a.logDebug("output path %s", realOutput)
+	a.logDebug("real output %s", realOutput)
 
 	return realOutput, filetype
 }
 
 func (a *action) getVersion() (string, error) {
 	version := a.flags[versionFlag]
+	if version == "" {
+		return "", fmt.Errorf("empty version")
+	}
+
 	if !strings.HasPrefix(version, "v") {
 		version = "v" + version
 	}
