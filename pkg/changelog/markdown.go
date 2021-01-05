@@ -70,14 +70,14 @@ func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit) []markdown.
 	commitBases[othersType] = make([]markdown.Node, 0, defaultNodesLen)
 
 	for _, commit := range commits {
-		t := getType(commit.Type)
+		t := getType(commit.GetType())
 		switch t {
 		case addedType:
-			commitBases[addedType] = append(commitBases[addedType], markdown.NewListItem(commit.RawHeader))
+			commitBases[addedType] = append(commitBases[addedType], markdown.NewListItem(commit.String()))
 		case fixedType:
-			commitBases[fixedType] = append(commitBases[fixedType], markdown.NewListItem(commit.RawHeader))
+			commitBases[fixedType] = append(commitBases[fixedType], markdown.NewListItem(commit.String()))
 		case othersType:
-			commitBases[othersType] = append(commitBases[othersType], markdown.NewListItem(commit.RawHeader))
+			commitBases[othersType] = append(commitBases[othersType], markdown.NewListItem(commit.String()))
 		default:
 			continue
 		}

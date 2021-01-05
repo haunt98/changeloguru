@@ -13,9 +13,7 @@ import (
 // [optional body]
 // [optional footer(s)]
 
-var (
-	headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
-)
+var headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
 
 type Commit struct {
 	RawHeader string
@@ -36,6 +34,14 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 	}
 
 	return
+}
+
+func (c Commit) GetType() string {
+	return c.Type
+}
+
+func (c Commit) String() string {
+	return c.RawHeader
 }
 
 func parseHeader(header string, commit *Commit) error {
