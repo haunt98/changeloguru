@@ -79,7 +79,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:        filetypeFlag,
-				Usage:       "output `FILETYPE`, currently support md (markdown)",
+				Usage:       "output `FILETYPE`",
 				DefaultText: defaultFiletype,
 			},
 			&cli.BoolFlag{
