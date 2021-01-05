@@ -188,7 +188,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 }
 
 func (a *action) generateChangelog(commits []convention.Commit) error {
-	outputPath, _, filetype := a.getOutputPath()
+	realOutput, _, filetype := a.getRealOutput()
 
 	version, err := a.getVersion()
 	if err != nil {
@@ -197,22 +197,22 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 
 	switch filetype {
 	case markdownFiletype:
-		return a.generateMarkdownChangelog(outputPath, version, commits)
+		return a.generateMarkdownChangelog(realOutput, version, commits)
 	default:
 		return fmt.Errorf("unknown filetype %s", filetype)
 	}
 }
 
-func (a *action) getOutputPath() (string, string, string) {
-	outputDir := a.flags[outputFlag]
+func (a *action) getRealOutput() (string, string, string) {
+	output := a.flags[outputFlag]
 	filename := a.flags[filenameFlag]
 	filetype := a.flags[filetypeFlag]
 
 	nameWithExt := filename + "." + filetype
-	path := filepath.Join(outputDir, nameWithExt)
-	a.logDebug("output path %s", path)
+	realOutput := filepath.Join(output, nameWithExt)
+	a.logDebug("output path %s", realOutput)
 
-	return path, filename, filetype
+	return realOutput, filename, filetype
 }
 
 func (a *action) getVersion() (string, error) {
@@ -230,10 +230,10 @@ func (a *action) getVersion() (string, error) {
 	return version, nil
 }
 
-func (a *action) generateMarkdownChangelog(outputPath, version string, commits []convention.Commit) error {
+func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
 	// If CHANGELOG file already exist
 	var oldData string
-	bytes, err := ioutil.ReadFile(outputPath)
+	bytes, err := ioutil.ReadFile(output)
 	if err == nil {
 		oldData = string(bytes)
 	}
@@ -241,8 +241,8 @@ func (a *action) generateMarkdownChangelog(outputPath, version string, commits [
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
 	newData := markdownGenerator.Generate(commits)
 
-	if err := ioutil.WriteFile(outputPath, []byte(newData), 0o644); err != nil {
-		return fmt.Errorf("failed to write file %s: %w", outputPath, err)
+	if err := ioutil.WriteFile(output, []byte(newData), 0o644); err != nil {
+		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
 	return nil
