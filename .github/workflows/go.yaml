@@ -24,7 +24,7 @@ jobs:
       - run: go get golang.org/dl/gotip
       - run: gotip download
       - run: gotip version
-      - run: gotip build main.go
+      - run: gotip build
   lint:
     name: Lint
     runs-on: ubuntu-latest
