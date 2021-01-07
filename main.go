@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	name = "changeloguru"
+	appName = "changeloguru"
 
 	currentDir       = "."
 	markdownFiletype = "md"
@@ -42,7 +42,7 @@ func main() {
 	a := &action{}
 
 	app := &cli.App{
-		Name:  name,
+		Name:  appName,
 		Usage: "generate changelog from conventional commits",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -89,7 +89,7 @@ func main() {
 	if err := app.Run(os.Args); err != nil {
 		// Highlight error
 		fmtErr := color.New(color.FgRed)
-		fmtErr.Printf("[%s error]: ", name)
+		fmtErr.Printf("[%s error]: ", appName)
 		fmt.Printf("%s\n", err.Error())
 	}
 }
