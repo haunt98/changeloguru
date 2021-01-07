@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.1.0 (2021-1-7)
+
+### Added
+
+- feat(cli): remove use of args
+
+### Others
+
+- chore(cli): remove unused log debug
+
+- refactor(cli): change name -> appName
+
+- refactor(cli): replace flags map with directly field
+
+- chore(changelog): generate v1.0.0
+
 ## v1.0.0 (2021-1-5)
 
 ### Added
