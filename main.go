@@ -41,7 +41,6 @@ const (
 func main() {
 	a := &action{
 		flags: make(map[string]string),
-		args:  make(map[string]string),
 	}
 
 	app := &cli.App{
@@ -100,7 +99,6 @@ func main() {
 type action struct {
 	debug bool
 	flags map[string]string
-	args  map[string]string
 }
 
 func (a *action) Run(c *cli.Context) error {
