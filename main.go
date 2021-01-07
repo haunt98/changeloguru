@@ -113,17 +113,14 @@ func (a *action) Run(c *cli.Context) error {
 		return cli.ShowAppHelp(c)
 	}
 
-	// Set up
 	a.getFlags(c)
 
 	commits, err := a.getCommits()
 	if err != nil {
 		return err
 	}
-	a.logDebug("commits %+v", commits)
 
 	conventionalCommits := a.getConventionalCommits(commits)
-	a.logDebug("conventional commits %+v", conventionalCommits)
 
 	if err := a.generateChangelog(conventionalCommits); err != nil {
 		return err
