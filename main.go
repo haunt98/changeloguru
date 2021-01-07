@@ -39,9 +39,7 @@ const (
 )
 
 func main() {
-	a := &action{
-		flags: make(map[string]string),
-	}
+	a := &action{}
 
 	app := &cli.App{
 		Name:  name,
@@ -97,8 +95,16 @@ func main() {
 }
 
 type action struct {
-	debug bool
-	flags map[string]string
+	flags struct {
+		debug      bool
+		from       string
+		to         string
+		version    string
+		repository string
+		output     string
+		filename   string
+		filetype   string
+	}
 }
 
 func (a *action) Run(c *cli.Context) error {
@@ -127,14 +133,14 @@ func (a *action) Run(c *cli.Context) error {
 }
 
 func (a *action) getFlags(c *cli.Context) {
-	a.debug = c.Bool(debugFlag)
-	a.flags[fromFlag] = c.String(fromFlag)
-	a.flags[toFlag] = c.String(toFlag)
-	a.flags[versionFlag] = c.String(versionFlag)
-	a.flags[repositoryFlag] = a.getFlagValue(c, repositoryFlag, defaultRepositry)
-	a.flags[outputFlag] = a.getFlagValue(c, outputFlag, defaultOutput)
-	a.flags[filenameFlag] = a.getFlagValue(c, filenameFlag, defaultFilename)
-	a.flags[filetypeFlag] = a.getFlagValue(c, filetypeFlag, defaultFiletype)
+	a.flags.debug = c.Bool(debugFlag)
+	a.flags.from = c.String(fromFlag)
+	a.flags.to = c.String(toFlag)
+	a.flags.version = c.String(versionFlag)
+	a.flags.repository = a.getFlagValue(c, repositoryFlag, defaultRepositry)
+	a.flags.output = a.getFlagValue(c, outputFlag, defaultOutput)
+	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
+	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
 }
 
 func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {
@@ -147,21 +153,12 @@ func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {
 }
 
 func (a *action) getCommits() ([]git.Commit, error) {
-	repository := a.flags[repositoryFlag]
-	a.logDebug("repository %s", repository)
-
-	r, err := git.NewRepository(repository)
+	r, err := git.NewRepository(a.flags.repository)
 	if err != nil {
 		return nil, err
 	}
 
-	fromRev := a.flags[fromFlag]
-	a.logDebug("from revision %s", fromRev)
-
-	toRev := a.flags[toFlag]
-	a.logDebug("to revision %s", toRev)
-
-	return r.Log(fromRev, toRev)
+	return r.Log(a.flags.from, a.flags.to)
 }
 
 func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commit {
@@ -180,50 +177,44 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 }
 
 func (a *action) generateChangelog(commits []convention.Commit) error {
-	realOutput, filetype := a.getRealOutput()
+	realOutput := a.getRealOutput()
 
 	version, err := a.getVersion()
 	if err != nil {
 		return err
 	}
 
-	switch filetype {
+	switch a.flags.filetype {
 	case markdownFiletype:
 		return a.generateMarkdownChangelog(realOutput, version, commits)
 	default:
-		return fmt.Errorf("unknown filetype %s", filetype)
+		return fmt.Errorf("unknown filetype %s", a.flags.filetype)
 	}
 }
 
-func (a *action) getRealOutput() (string, string) {
-	output := a.flags[outputFlag]
-	filename := a.flags[filenameFlag]
-	filetype := a.flags[filetypeFlag]
+func (a *action) getRealOutput() string {
+	nameWithExt := a.flags.filename + "." + a.flags.filetype
+	realOutput := filepath.Join(a.flags.output, nameWithExt)
 
-	nameWithExt := filename + "." + filetype
-	realOutput := filepath.Join(output, nameWithExt)
-	a.logDebug("real output %s", realOutput)
-
-	return realOutput, filetype
+	return realOutput
 }
 
 func (a *action) getVersion() (string, error) {
-	version := a.flags[versionFlag]
-	if version == "" {
+	if a.flags.version == "" {
 		return "", fmt.Errorf("empty version")
 	}
 
-	if !strings.HasPrefix(version, "v") {
-		version = "v" + version
+	if !strings.HasPrefix(a.flags.version, "v") {
+		a.flags.version = "v" + a.flags.version
 	}
 
-	if !semver.IsValid(version) {
-		return "", fmt.Errorf("invalid semver %s", version)
+	if !semver.IsValid(a.flags.version) {
+		return "", fmt.Errorf("invalid semver %s", a.flags.version)
 	}
 
-	a.logDebug("version %s", version)
+	a.logDebug("version %s", a.flags.version)
 
-	return version, nil
+	return a.flags.version, nil
 }
 
 func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
@@ -245,7 +236,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 }
 
 func (a *action) logDebug(format string, v ...interface{}) {
-	if a.debug {
+	if a.flags.debug {
 		log.Printf(format, v...)
 	}
 }
