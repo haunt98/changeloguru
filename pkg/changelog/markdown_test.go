@@ -68,6 +68,10 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 					RawHeader: "chore(gitlab): release on gitlab",
 					Type:      convention.ChoreType,
 				},
+				{
+					RawHeader: "unleash the dragon",
+					Type:      convention.MiscType,
+				},
 			},
 		},
 	}
