@@ -6,7 +6,3 @@
 
 # VSCode
 .vscode/
-
-# Go
-coverage.out
-coverage.html
