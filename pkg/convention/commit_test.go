@@ -44,6 +44,12 @@ func TestNewCommit(t *testing.T) {
 				Message: "Docs: correct spelling of CHANGELOG",
 			},
 		},
+		{
+			name: "Misc",
+			c: git.Commit{
+				Message: "random git message",
+			},
+		},
 	}
 
 	for _, tc := range tests {
