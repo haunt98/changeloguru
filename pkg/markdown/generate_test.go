@@ -26,7 +26,7 @@ func TestGenerate(t *testing.T) {
 					text: "item 2",
 				},
 			},
-			want: "# header\n\n- item 1\n\n- item 2",
+			want: "# header\n\n- item 1\n\n- item 2\n",
 		},
 	}
 
