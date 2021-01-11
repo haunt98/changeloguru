@@ -28,32 +28,26 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 		return
 	}
 
-	header := strings.TrimSpace(messages[0])
-	if err = parseHeader(header, &result); err != nil {
-		return
-	}
+	result.RawHeader = strings.TrimSpace(messages[0])
+	result.UpdateType()
 
 	return
 }
 
-func (c Commit) GetType() string {
+func (c *Commit) GetType() string {
 	return c.Type
 }
 
-func (c Commit) String() string {
+func (c *Commit) String() string {
 	return c.RawHeader
 }
 
-func parseHeader(header string, commit *Commit) error {
-	if !headerRegex.MatchString(header) {
-		return errors.New("wrong header format")
+func (c *Commit) UpdateType() {
+	if !headerRegex.MatchString(c.RawHeader) {
+		c.Type = MiscType
+		return
 	}
 
-	commit.RawHeader = header
-
-	headerSubmatches := headerRegex.FindStringSubmatch(header)
-
-	commit.Type = strings.ToLower(headerSubmatches[1])
-
-	return nil
+	headerSubmatches := headerRegex.FindStringSubmatch(c.RawHeader)
+	c.Type = strings.ToLower(headerSubmatches[1])
 }

@@ -11,4 +11,5 @@ const (
 	RefactorType = "refactor"
 	PerfType     = "perf"
 	TestType     = "test"
+	MiscType     = "misc"
 )
