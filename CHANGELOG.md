@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v1.2.0 (2021-1-12)
+
+### Fixed
+
+- fix: no newline at end of file
+
+### Others
+
+- test(changelog): unit test for misc type
+
+- test(convention): unit test for misc type
+
+- refactor(convention): replace commit parseHeader with updateType
+
+- chore: update gitignore
+
+- chore: build generally with go tip
+
+- chore(changelog): generate v1.1.0
+
 ## v1.1.0 (2021-1-7)
 
 ### Added
