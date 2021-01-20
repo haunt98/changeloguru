@@ -23,10 +23,10 @@ const (
 	currentDir       = "."
 	markdownFiletype = "md"
 
-	defaultRepositry = currentDir
-	defaultOutput    = currentDir
-	defaultFilename  = "CHANGELOG"
-	defaultFiletype  = markdownFiletype
+	defaultRepository = currentDir
+	defaultOutput     = currentDir
+	defaultFilename   = "CHANGELOG"
+	defaultFiletype   = markdownFiletype
 
 	fromFlag       = "from"
 	toFlag         = "to"
@@ -60,7 +60,7 @@ func main() {
 			&cli.StringFlag{
 				Name:        repositoryFlag,
 				Usage:       "`REPOSITORY` directory path",
-				DefaultText: defaultRepositry,
+				DefaultText: defaultRepository,
 			},
 			&cli.StringFlag{
 				Name:        outputFlag,
@@ -134,7 +134,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.from = c.String(fromFlag)
 	a.flags.to = c.String(toFlag)
 	a.flags.version = c.String(versionFlag)
-	a.flags.repository = a.getFlagValue(c, repositoryFlag, defaultRepositry)
+	a.flags.repository = a.getFlagValue(c, repositoryFlag, defaultRepository)
 	a.flags.output = a.getFlagValue(c, outputFlag, defaultOutput)
 	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
 	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
