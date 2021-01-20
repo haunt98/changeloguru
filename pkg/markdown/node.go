@@ -2,7 +2,7 @@ package markdown
 
 import "strings"
 
-//https://guides.github.com/features/mastering-markdown/
+// https://guides.github.com/features/mastering-markdown/
 
 const (
 	headerToken          = '#'
