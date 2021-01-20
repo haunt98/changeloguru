@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v1.3.0 (2021-1-20)
+
+### Others
+
+- chore(markdown): re-format file
+
+- chore: move fmtErr global var
+
+- chore: typo defaultRepository
+
+- build: update go.mod
+
+- build: update go.mod
+
+- chore(readme): add lgtm badge
+
+- chore(changelog): generate v1.2.0
+
 ## v1.2.0 (2021-1-12)
 
 ### Fixed
