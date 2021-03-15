@@ -8,6 +8,14 @@ Tool to generate `CHANGELOG.md` from [Conventional Commits](https://www.conventi
 
 ## Install
 
+With Go version `>= 1.16`:
+
+```sh
+go install github.com/haunt98/changeloguru@latest
+```
+
+With Go version `< 1.16`:
+
 ```sh
 GO111module=on go get github.com/haunt98/changeloguru
 ```
