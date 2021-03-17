@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## v1.4.0 (2021-3-17)
+
+### Added
+
+- feat: deprecated ioutil
+
+### Others
+
+- chore: bump go 1.16 in Dockerfile
+
+- build: bump go 1.16 in go.mod
+
+- build: update go.mod
+
+- chore(readme): add guide for install with go 1.16
+
+- chore: bump go v1.16, golangci-lint v1.37 in github action
+
+- build: update go.mod
+
+- build: update go.mod
+
+- chore(license): bump 2021
+
+- chore(changelog): generate v1.3.0
+
 ## v1.3.0 (2021-1-20)
 
 ### Others
