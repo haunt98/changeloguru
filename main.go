@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -220,7 +219,7 @@ func (a *action) getVersion() (string, error) {
 func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
 	// If CHANGELOG file already exist
 	var oldData string
-	bytes, err := ioutil.ReadFile(output)
+	bytes, err := os.ReadFile(output)
 	if err == nil {
 		oldData = string(bytes)
 	}
@@ -228,7 +227,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
 	newData := markdownGenerator.Generate(commits)
 
-	if err := ioutil.WriteFile(output, []byte(newData), 0o644); err != nil {
+	if err := os.WriteFile(output, []byte(newData), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
