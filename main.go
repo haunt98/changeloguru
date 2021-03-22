@@ -30,6 +30,7 @@ const (
 	fromFlag       = "from"
 	toFlag         = "to"
 	versionFlag    = "version"
+	scopeFlag      = "scope"
 	repositoryFlag = "repository"
 	outputFlag     = "output"
 	filenameFlag   = "filename"
@@ -59,6 +60,10 @@ func main() {
 			&cli.StringFlag{
 				Name:  versionFlag,
 				Usage: "`VERSION` to generate, follow Semantic Versioning",
+			},
+			&cli.StringSliceFlag{
+				Name:  scopeFlag,
+				Usage: "scope to generate",
 			},
 			&cli.StringFlag{
 				Name:        repositoryFlag,
@@ -102,6 +107,7 @@ type action struct {
 		from       string
 		to         string
 		version    string
+		scopes     []string
 		repository string
 		output     string
 		filename   string
@@ -136,10 +142,15 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.from = c.String(fromFlag)
 	a.flags.to = c.String(toFlag)
 	a.flags.version = c.String(versionFlag)
+	a.flags.scopes = c.StringSlice(scopeFlag)
 	a.flags.repository = a.getFlagValue(c, repositoryFlag, defaultRepository)
 	a.flags.output = a.getFlagValue(c, outputFlag, defaultOutput)
 	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
 	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
+
+	if a.flags.debug {
+		a.logDebug("flags %+v", a.flags)
+	}
 }
 
 func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {
