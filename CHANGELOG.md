@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## v1.5.0 (2021-3-22)
+
+### Added
+
+- feat: support filter commit scope (#5)
+
+### Others
+
+- build: update go.mod
+
+- chore: bump go 1.16.2 in github action
+
+- chore: use go 1.16.x in github action
+
+- chore: remove gotip from github action
+
+- chore: remove gotip build as time consuming
+
+- chore: use semver go version in github action
+
+- chore(changelog): generate v1.4.0
+
 ## v1.4.0 (2021-3-17)
 
 ### Added
