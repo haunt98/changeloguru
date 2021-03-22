@@ -70,6 +70,11 @@ func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit, scopes map[
 	commitBases[othersType] = make([]markdown.Node, 0, defaultNodesLen)
 
 	for _, commit := range commits {
+		// Skip commit outside scopes
+		if _, ok := scopes[commit.Scope]; !ok {
+			continue
+		}
+
 		t := getType(commit.Type)
 		switch t {
 		case addedType:
