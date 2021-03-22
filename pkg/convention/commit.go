@@ -16,8 +16,11 @@ import (
 var headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
 
 type Commit struct {
+	// Commit as is
 	RawHeader string
-	Type      string
+
+	Type  string
+	Scope string
 }
 
 func NewCommit(c git.Commit) (result Commit, err error) {
@@ -50,4 +53,5 @@ func (c *Commit) UpdateType() {
 
 	headerSubmatches := headerRegex.FindStringSubmatch(c.RawHeader)
 	c.Type = strings.ToLower(headerSubmatches[1])
+	c.Scope = strings.ToLower(headerSubmatches[2])
 }
