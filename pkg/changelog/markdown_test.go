@@ -75,6 +75,48 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:    "ignore commits outside scope",
+			version: "v1.0.0",
+			t:       time.Date(2020, 3, 22, 0, 0, 0, 0, time.Local),
+			commits: []convention.Commit{
+				{
+					RawHeader: "feat: new feature",
+					Type:      convention.FeatType,
+				},
+				{
+					RawHeader: "feat(a): support new client",
+					Type:      convention.FeatType,
+					Scope:     "a",
+				},
+				{
+					RawHeader: "fix: new fix",
+					Type:      convention.FixType,
+				},
+				{
+					RawHeader: "fix(b): wrong color",
+					Type:      convention.FixType,
+					Scope:     "b",
+				},
+				{
+					RawHeader: "chore(a): new build",
+					Type:      convention.ChoreType,
+					Scope:     "a",
+				},
+				{
+					RawHeader: "chore(b): new build",
+					Type:      convention.ChoreType,
+					Scope:     "b",
+				},
+				{
+					RawHeader: "unleash the dragon",
+					Type:      convention.MiscType,
+				},
+			},
+			scopes: map[string]struct{}{
+				"a": struct{}{},
+			},
+		},
 	}
 
 	for _, tc := range tests {
