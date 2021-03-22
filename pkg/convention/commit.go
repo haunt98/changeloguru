@@ -46,6 +46,8 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 	headerSubmatches := headerRegex.FindStringSubmatch(result.RawHeader)
 	result.Type = strings.ToLower(headerSubmatches[1])
 	result.Scope = strings.ToLower(headerSubmatches[2])
+	result.Scope = strings.TrimLeft(result.Scope, "(")
+	result.Scope = strings.TrimRight(result.Scope, ")")
 
 	return
 }
