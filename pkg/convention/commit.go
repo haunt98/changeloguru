@@ -37,10 +37,6 @@ func NewCommit(c git.Commit) (result Commit, err error) {
 	return
 }
 
-func (c *Commit) GetType() string {
-	return c.Type
-}
-
 func (c *Commit) String() string {
 	return c.RawHeader
 }
