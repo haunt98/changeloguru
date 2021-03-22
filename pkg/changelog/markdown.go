@@ -33,8 +33,8 @@ func NewMarkdownGenerator(oldData, version string, t time.Time) *MarkdownGenerat
 	}
 }
 
-func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
-	newBases := g.getNewNodes(commits)
+func (g *MarkdownGenerator) Generate(commits []convention.Commit, scopes map[string]struct{}) string {
+	newBases := g.getNewNodes(commits, scopes)
 	if len(newBases) == 0 {
 		return ""
 	}
@@ -57,7 +57,7 @@ func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
 	return markdown.Generate(nodes)
 }
 
-func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit) []markdown.Node {
+func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit, scopes map[string]struct{}) []markdown.Node {
 	if len(commits) == 0 {
 		return nil
 	}

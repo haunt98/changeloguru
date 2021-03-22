@@ -15,6 +15,7 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 		version string
 		t       time.Time
 		commits []convention.Commit
+		scopes  map[string]struct{}
 	}{
 		{
 			name:    "empty old data",
@@ -80,7 +81,7 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			g := goldie.New(t)
 			markdownGenerator := NewMarkdownGenerator(tc.oldData, tc.version, tc.t)
-			got := markdownGenerator.Generate(tc.commits)
+			got := markdownGenerator.Generate(tc.commits, tc.scopes)
 			g.Assert(t, t.Name(), []byte(got))
 		})
 	}

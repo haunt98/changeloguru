@@ -241,7 +241,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
-	newData := markdownGenerator.Generate(commits)
+	newData := markdownGenerator.Generate(commits, a.flags.scopes)
 
 	if err := os.WriteFile(output, []byte(newData), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
