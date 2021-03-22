@@ -1,4 +1,5 @@
 {
   "RawHeader": "random git message",
-  "Type": "misc"
+  "Type": "misc",
+  "Scope": ""
 }

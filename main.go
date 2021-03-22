@@ -30,6 +30,7 @@ const (
 	fromFlag       = "from"
 	toFlag         = "to"
 	versionFlag    = "version"
+	scopeFlag      = "scope"
 	repositoryFlag = "repository"
 	outputFlag     = "output"
 	filenameFlag   = "filename"
@@ -59,6 +60,10 @@ func main() {
 			&cli.StringFlag{
 				Name:  versionFlag,
 				Usage: "`VERSION` to generate, follow Semantic Versioning",
+			},
+			&cli.StringSliceFlag{
+				Name:  scopeFlag,
+				Usage: "scope to generate",
 			},
 			&cli.StringFlag{
 				Name:        repositoryFlag,
@@ -102,6 +107,7 @@ type action struct {
 		from       string
 		to         string
 		version    string
+		scopes     map[string]struct{}
 		repository string
 		output     string
 		filename   string
@@ -136,10 +142,20 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.from = c.String(fromFlag)
 	a.flags.to = c.String(toFlag)
 	a.flags.version = c.String(versionFlag)
+
+	a.flags.scopes = make(map[string]struct{})
+	for _, scope := range c.StringSlice(scopeFlag) {
+		a.flags.scopes[scope] = struct{}{}
+	}
+
 	a.flags.repository = a.getFlagValue(c, repositoryFlag, defaultRepository)
 	a.flags.output = a.getFlagValue(c, outputFlag, defaultOutput)
 	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
 	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
+
+	if a.flags.debug {
+		a.logDebug("flags %+v", a.flags)
+	}
 }
 
 func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {
@@ -225,7 +241,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
-	newData := markdownGenerator.Generate(commits)
+	newData := markdownGenerator.Generate(commits, a.flags.scopes)
 
 	if err := os.WriteFile(output, []byte(newData), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)

@@ -13,41 +13,45 @@ import (
 // [optional body]
 // [optional footer(s)]
 
-var headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
+var (
+	headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
+
+	ErrEmptyCommit = errors.New("empty commit")
+)
 
 type Commit struct {
+	// Commit as is
 	RawHeader string
-	Type      string
+
+	Type  string
+	Scope string
 }
 
 func NewCommit(c git.Commit) (result Commit, err error) {
+	// Preprocess
 	message := strings.TrimSpace(c.Message)
 	messages := strings.Split(message, "\n")
 	if len(messages) == 0 {
-		err = errors.New("empty commit")
+		err = ErrEmptyCommit
 		return
 	}
 
+	// Use regex to detect
 	result.RawHeader = strings.TrimSpace(messages[0])
-	result.UpdateType()
+	if !headerRegex.MatchString(result.RawHeader) {
+		result.Type = MiscType
+		return
+	}
+
+	headerSubmatches := headerRegex.FindStringSubmatch(result.RawHeader)
+	result.Type = strings.ToLower(headerSubmatches[1])
+	result.Scope = strings.ToLower(headerSubmatches[2])
+	result.Scope = strings.TrimLeft(result.Scope, "(")
+	result.Scope = strings.TrimRight(result.Scope, ")")
 
 	return
 }
 
-func (c *Commit) GetType() string {
-	return c.Type
-}
-
 func (c *Commit) String() string {
 	return c.RawHeader
-}
-
-func (c *Commit) UpdateType() {
-	if !headerRegex.MatchString(c.RawHeader) {
-		c.Type = MiscType
-		return
-	}
-
-	headerSubmatches := headerRegex.FindStringSubmatch(c.RawHeader)
-	c.Type = strings.ToLower(headerSubmatches[1])
 }

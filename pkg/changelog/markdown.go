@@ -33,8 +33,8 @@ func NewMarkdownGenerator(oldData, version string, t time.Time) *MarkdownGenerat
 	}
 }
 
-func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
-	newBases := g.getNewNodes(commits)
+func (g *MarkdownGenerator) Generate(commits []convention.Commit, scopes map[string]struct{}) string {
+	newBases := g.getNewNodes(commits, scopes)
 	if len(newBases) == 0 {
 		return ""
 	}
@@ -57,7 +57,7 @@ func (g *MarkdownGenerator) Generate(commits []convention.Commit) string {
 	return markdown.Generate(nodes)
 }
 
-func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit) []markdown.Node {
+func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit, scopes map[string]struct{}) []markdown.Node {
 	if len(commits) == 0 {
 		return nil
 	}
@@ -70,7 +70,15 @@ func (g *MarkdownGenerator) getNewNodes(commits []convention.Commit) []markdown.
 	commitBases[othersType] = make([]markdown.Node, 0, defaultNodesLen)
 
 	for _, commit := range commits {
-		t := getType(commit.GetType())
+		// If scopes is empty or commit scope is empty, pass all commits
+		if len(scopes) != 0 && commit.Scope != "" {
+			// Skip commit outside scopes
+			if _, ok := scopes[commit.Scope]; !ok {
+				continue
+			}
+		}
+
+		t := getType(commit.Type)
 		switch t {
 		case addedType:
 			commitBases[addedType] = append(commitBases[addedType], markdown.NewListItem(commit.String()))
