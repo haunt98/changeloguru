@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.6.0 (2021-3-29)
+
+### Others
+
+- docs: documenting export methods (#6)
+
+- build: bump go-git v5.3.0
+
+- chore: better build with many OS
+
+- chore(readme): remove lgtm alerts badge
+
+- chore: use semver for future 1.16 go version
+
+- chore(changelog): generate v1.5.0
+
 ## v1.5.0 (2021-3-22)
 
 ### Added
