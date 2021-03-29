@@ -19,6 +19,7 @@ var (
 	ErrEmptyCommit = errors.New("empty commit")
 )
 
+// Commit represens conventional commit
 type Commit struct {
 	// Commit as is
 	RawHeader string
@@ -27,6 +28,7 @@ type Commit struct {
 	Scope string
 }
 
+// NewCommit return conventional commit from git commit
 func NewCommit(c git.Commit) (result Commit, err error) {
 	// Preprocess
 	message := strings.TrimSpace(c.Message)
