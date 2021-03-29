@@ -6,6 +6,7 @@ const (
 	defaultBaseLen = 10
 )
 
+// Parse return all markdown nodes from lines
 func Parse(lines []string) []Node {
 	bases := make([]Node, 0, defaultBaseLen)
 
