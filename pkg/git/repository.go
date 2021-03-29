@@ -38,7 +38,7 @@ func NewRepository(path string) (Repository, error) {
 	}, nil
 }
 
-// Get all commits between <from revision> and <to revision>
+// Log return all commits between <from revision> and <to revision>
 func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 	if fromRev == "" {
 		fromRev = head
