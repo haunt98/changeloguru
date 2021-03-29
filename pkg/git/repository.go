@@ -15,6 +15,7 @@ const (
 	defaultCommitCount = 10
 )
 
+// Repository is an abstraction for git-repository
 type Repository interface {
 	Log(fromRev, toRev string) ([]Commit, error)
 }
@@ -25,6 +26,7 @@ type repo struct {
 
 type stopFn func(*object.Commit) error
 
+// NewRepository return Repository from path
 func NewRepository(path string) (Repository, error) {
 	r, err := git.PlainOpen(path)
 	if err != nil {
