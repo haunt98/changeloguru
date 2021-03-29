@@ -12,9 +12,12 @@ jobs:
         with:
           go-version: "~1.16"
       - run: go test -race ./...
-  build-gotip:
+  build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
