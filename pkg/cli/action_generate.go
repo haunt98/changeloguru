@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"fmt"
@@ -14,9 +14,9 @@ import (
 	"golang.org/x/mod/semver"
 )
 
-func (a *action) runGenerate(c *cli.Context) error {
+func (a *action) RunGenerate(c *cli.Context) error {
 	// Show help if there is nothing
-	if c.NArg() == 0 && c.NumFlags() == 0 {
+	if c.NumFlags() == 0 {
 		return cli.ShowAppHelp(c)
 	}
 

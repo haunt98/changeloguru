@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"log"
@@ -30,7 +30,7 @@ type action struct {
 	}
 }
 
-func (a *action) runHelp(c *cli.Context) error {
+func (a *action) RunHelp(c *cli.Context) error {
 	return cli.ShowAppHelp(c)
 }
 
