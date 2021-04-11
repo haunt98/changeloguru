@@ -35,11 +35,13 @@ const (
 	outputFlag     = "output"
 	filenameFlag   = "filename"
 	filetypeFlag   = "filetype"
-	debugFlag      = "debug"
+	verboseFlag    = "verbose"
 )
 
 var (
 	fmtErr = color.New(color.FgRed)
+
+	verboseAliases = []string{"v"}
 )
 
 func main() {
@@ -86,9 +88,9 @@ func main() {
 				DefaultText: defaultFiletype,
 			},
 			&cli.BoolFlag{
-				Name:    debugFlag,
-				Aliases: []string{"d"},
-				Usage:   "show debugging info",
+				Name:    verboseFlag,
+				Aliases: verboseAliases,
+				Usage:   "show what is going on",
 			},
 		},
 		Action: a.Run,
@@ -103,7 +105,7 @@ func main() {
 
 type action struct {
 	flags struct {
-		debug      bool
+		verbose    bool
 		from       string
 		to         string
 		version    string
@@ -138,7 +140,7 @@ func (a *action) Run(c *cli.Context) error {
 }
 
 func (a *action) getFlags(c *cli.Context) {
-	a.flags.debug = c.Bool(debugFlag)
+	a.flags.verbose = c.Bool(verboseFlag)
 	a.flags.from = c.String(fromFlag)
 	a.flags.to = c.String(toFlag)
 	a.flags.version = c.String(versionFlag)
@@ -153,8 +155,8 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
 	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
 
-	if a.flags.debug {
-		a.logDebug("flags %+v", a.flags)
+	if a.flags.verbose {
+		a.log("flags %+v", a.flags)
 	}
 }
 
@@ -181,7 +183,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 	for _, commit := range commits {
 		conventionalCommit, err := convention.NewCommit(commit)
 		if err != nil {
-			a.logDebug("failed to new conventional commits %+v: %s", commit, err)
+			a.log("failed to new conventional commits %+v: %s", commit, err)
 			continue
 		}
 
@@ -227,7 +229,7 @@ func (a *action) getVersion() (string, error) {
 		return "", fmt.Errorf("invalid semver %s", a.flags.version)
 	}
 
-	a.logDebug("version %s", a.flags.version)
+	a.log("version %s", a.flags.version)
 
 	return a.flags.version, nil
 }
@@ -250,8 +252,8 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	return nil
 }
 
-func (a *action) logDebug(format string, v ...interface{}) {
-	if a.flags.debug {
+func (a *action) log(format string, v ...interface{}) {
+	if a.flags.verbose {
 		log.Printf(format, v...)
 	}
 }
