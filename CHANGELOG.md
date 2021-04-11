@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.7.0 (2021-4-11)
+
+### Others
+
+- chore: only run github action on main branch (#8)
+
+- refactor: use better commands and flags name (#7)
+
+- chore(changelog): generate v1.6.0
+
 ## v1.6.0 (2021-3-29)
 
 ### Others
