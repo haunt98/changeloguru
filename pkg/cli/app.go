@@ -14,6 +14,7 @@ const (
 	outputFlag     = "output"
 	filenameFlag   = "filename"
 	filetypeFlag   = "filetype"
+	dryRunFlag     = "dry-run"
 	verboseFlag    = "verbose"
 
 	// commands
@@ -81,6 +82,10 @@ func NewApp() *cli.App {
 						Name:        filetypeFlag,
 						Usage:       "output `FILETYPE`",
 						DefaultText: defaultFiletype,
+					},
+					&cli.BoolFlag{
+						Name:  dryRunFlag,
+						Usage: "demo run without actually changing anything",
 					},
 				},
 				Action: a.RunGenerate,
