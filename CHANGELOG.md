@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v1.8.0 (2021-4-14)
+
+### Added
+
+- feat: add dry run (#10)
+
+- feat: use my own color pkg to wrap fatih/color (#9)
+
+### Others
+
+- chore(reamde): add --dry-run and --scope flag in guide
+
+- refactor: better changelog parser and generator (#11)
+
+- build: update go.mod
+
+- chore(changelog): generate v1.7.0
+
 ## v1.7.0 (2021-4-11)
 
 ### Others
