@@ -110,6 +110,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	if err == nil {
 		oldNodes = changelog.ParseMarkdown(string(bytes))
 	}
+	a.log("%+v\n", oldNodes)
 
 	// Generate markdown from commits
 	newNodes := changelog.GenerateMarkdown(commits, a.flags.scopes, version, time.Now())
