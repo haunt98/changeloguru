@@ -27,6 +27,7 @@ type action struct {
 		output     string
 		filename   string
 		filetype   string
+		dryRun     bool
 	}
 }
 
@@ -49,6 +50,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.output = a.getFlagValue(c, outputFlag, defaultOutput)
 	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
 	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
+	a.flags.dryRun = c.Bool(dryRunFlag)
 
 	if a.flags.verbose {
 		a.log("flags %+v", a.flags)

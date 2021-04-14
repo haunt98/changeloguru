@@ -10,6 +10,8 @@ import (
 	"github.com/haunt98/changeloguru/pkg/changelog"
 	"github.com/haunt98/changeloguru/pkg/convention"
 	"github.com/haunt98/changeloguru/pkg/git"
+	"github.com/haunt98/changeloguru/pkg/markdown"
+	"github.com/pkg/diff"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/mod/semver"
 )
@@ -111,6 +113,16 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 
 	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
 	newData := markdownGenerator.Generate(commits, a.flags.scopes)
+
+	if a.flags.dryRun {
+		oldLines := strings.Split(oldData, string(markdown.NewlineToken))
+		newLines := strings.Split(newData, string(markdown.NewlineToken))
+		if err := diff.Slices("old", "new", oldLines, newLines, os.Stdout); err != nil {
+			return fmt.Errorf("failed to diff old and new data: %w", err)
+		}
+
+		return nil
+	}
 
 	if err := os.WriteFile(output, []byte(newData), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
