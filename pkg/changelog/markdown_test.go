@@ -5,22 +5,20 @@ import (
 	"time"
 
 	"github.com/haunt98/changeloguru/pkg/convention"
+	"github.com/haunt98/changeloguru/pkg/markdown"
 	"github.com/sebdah/goldie/v2"
 )
 
-func TestMarkdownGeneratorGenerate(t *testing.T) {
+func TestGenerateMarkdown(t *testing.T) {
 	tests := []struct {
 		name    string
-		oldData string
-		version string
-		t       time.Time
 		commits []convention.Commit
 		scopes  map[string]struct{}
+		version string
+		t       time.Time
 	}{
 		{
-			name:    "empty old data",
-			version: "v1.0.0",
-			t:       time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+			name: "empty old data",
 			commits: []convention.Commit{
 				{
 					RawHeader: "feat: new feature",
@@ -35,11 +33,11 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 					Type:      convention.ChoreType,
 				},
 			},
-		},
-		{
-			name:    "many commits",
 			version: "v1.0.0",
 			t:       time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+		},
+		{
+			name: "many commits",
 			commits: []convention.Commit{
 				{
 					RawHeader: "feat: new feature",
@@ -74,11 +72,11 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 					Type:      convention.MiscType,
 				},
 			},
+			version: "v1.0.0",
+			t:       time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
 		},
 		{
-			name:    "ignore commits outside scope",
-			version: "v1.0.0",
-			t:       time.Date(2020, 3, 22, 0, 0, 0, 0, time.Local),
+			name: "ignore commits outside scope",
 			commits: []convention.Commit{
 				{
 					RawHeader: "feat: new feature",
@@ -116,15 +114,16 @@ func TestMarkdownGeneratorGenerate(t *testing.T) {
 			scopes: map[string]struct{}{
 				"a": struct{}{},
 			},
+			version: "v1.0.0",
+			t:       time.Date(2020, 3, 22, 0, 0, 0, 0, time.Local),
 		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			g := goldie.New(t)
-			markdownGenerator := NewMarkdownGenerator(tc.oldData, tc.version, tc.t)
-			got := markdownGenerator.Generate(tc.commits, tc.scopes)
-			g.Assert(t, t.Name(), []byte(got))
+			got := GenerateMarkdown(tc.commits, tc.scopes, tc.version, tc.t)
+			g.Assert(t, t.Name(), []byte(markdown.Generate(got)))
 		})
 	}
 }
