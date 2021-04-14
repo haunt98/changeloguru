@@ -123,7 +123,7 @@ func TestGenerateMarkdown(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			g := goldie.New(t)
 			got := GenerateMarkdown(tc.commits, tc.scopes, tc.version, tc.t)
-			g.Assert(t, t.Name(), []byte(markdown.Generate(got)))
+			g.Assert(t, t.Name(), []byte(markdown.GenerateText(got)))
 		})
 	}
 }

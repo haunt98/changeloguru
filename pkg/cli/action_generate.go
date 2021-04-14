@@ -128,7 +128,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 
 	// Actually writing to changelog file
 	nodes := append(newNodes, oldNodes...)
-	changelogData := markdown.Generate(nodes)
+	changelogData := markdown.GenerateText(nodes)
 	if err := os.WriteFile(output, []byte(changelogData), 0644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}

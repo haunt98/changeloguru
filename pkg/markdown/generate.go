@@ -2,8 +2,8 @@ package markdown
 
 import "strings"
 
-// Generate return string which represents all markdown nodes
-func Generate(bases []Node) string {
+// GenerateText return single string which represents all markdown nodes
+func GenerateText(bases []Node) string {
 	lines := make([]string, len(bases))
 	for i, base := range bases {
 		lines[i] = base.String()
@@ -15,6 +15,7 @@ func Generate(bases []Node) string {
 	return result
 }
 
+// GenerateLines return lines represents all markdown nodes
 func GenerateLines(bases []Node) []string {
 	lines := make([]string, len(bases))
 	for i, base := range bases {
