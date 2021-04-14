@@ -4,9 +4,9 @@ go 1.16
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
-	github.com/fatih/color v1.10.0
 	github.com/go-git/go-git/v5 v5.3.0
 	github.com/google/go-cmp v0.5.5 // indirect
+	github.com/haunt98/color v0.1.0
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sebdah/goldie/v2 v2.5.3
