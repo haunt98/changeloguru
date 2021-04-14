@@ -14,13 +14,3 @@ func GenerateText(bases []Node) string {
 	result += string(NewlineToken)
 	return result
 }
-
-// GenerateLines return lines represents all markdown nodes
-func GenerateLines(bases []Node) []string {
-	lines := make([]string, len(bases))
-	for i, base := range bases {
-		lines[i] = base.String()
-	}
-
-	return lines
-}
