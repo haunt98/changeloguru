@@ -110,16 +110,20 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	if err == nil {
 		oldNodes = changelog.ParseMarkdown(string(bytes))
 	}
-	a.log("%+v\n", oldNodes)
 
 	// Generate markdown from commits
 	newNodes := changelog.GenerateMarkdown(commits, a.flags.scopes, version, time.Now())
 
+	// Final changelog
+	nodes := append(newNodes, oldNodes...)
+	changelogText := markdown.GenerateText(nodes)
+
 	// Demo run
 	if a.flags.dryRun {
+		oldLines := strings.Split(string(bytes), string(markdown.NewlineToken))
+		newLines := strings.Split(changelogText, string(markdown.NewlineToken))
 		if err := diff.Slices("old", "new",
-			markdown.GenerateLines(oldNodes),
-			markdown.GenerateLines(newNodes),
+			oldLines, newLines,
 			os.Stdout); err != nil {
 			return fmt.Errorf("failed to diff old and new changelog: %w", err)
 		}
@@ -128,9 +132,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	// Actually writing to changelog file
-	nodes := append(newNodes, oldNodes...)
-	changelogData := markdown.GenerateText(nodes)
-	if err := os.WriteFile(output, []byte(changelogData), 0644); err != nil {
+	if err := os.WriteFile(output, []byte(changelogText), 0644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
