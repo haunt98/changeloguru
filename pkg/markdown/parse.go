@@ -8,6 +8,10 @@ const (
 
 // Parse return all markdown nodes from lines
 func Parse(lines []string) []Node {
+	if len(lines) == 0 {
+		return nil
+	}
+
 	bases := make([]Node, 0, defaultBaseLen)
 
 	for _, line := range lines {

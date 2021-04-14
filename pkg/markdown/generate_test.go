@@ -32,7 +32,7 @@ func TestGenerate(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got := Generate(tc.bases)
+			got := GenerateText(tc.bases)
 			assert.Equal(t, tc.want, got)
 		})
 	}
