@@ -14,3 +14,12 @@ func Generate(bases []Node) string {
 	result += string(NewlineToken)
 	return result
 }
+
+func GenerateLines(bases []Node) []string {
+	lines := make([]string, len(bases))
+	for i, base := range bases {
+		lines[i] = base.String()
+	}
+
+	return lines
+}

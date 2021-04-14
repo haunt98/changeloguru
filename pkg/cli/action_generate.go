@@ -104,27 +104,32 @@ func (a *action) getVersion() (string, error) {
 }
 
 func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
-	// If CHANGELOG file already exist
-	var oldData string
+	// If changelog file already exist, parse markdown from exist file
+	var oldNodes []markdown.Node
 	bytes, err := os.ReadFile(output)
 	if err == nil {
-		oldData = string(bytes)
+		oldNodes = changelog.ParseMarkdown(string(bytes))
 	}
 
-	markdownGenerator := changelog.NewMarkdownGenerator(oldData, version, time.Now())
-	newData := markdownGenerator.Generate(commits, a.flags.scopes)
+	// Generate markdown from commits
+	newNodes := changelog.GenerateMarkdown(commits, a.flags.scopes, version, time.Now())
 
+	// Demo run
 	if a.flags.dryRun {
-		oldLines := strings.Split(oldData, string(markdown.NewlineToken))
-		newLines := strings.Split(newData, string(markdown.NewlineToken))
-		if err := diff.Slices("old", "new", oldLines, newLines, os.Stdout); err != nil {
-			return fmt.Errorf("failed to diff old and new data: %w", err)
+		if err := diff.Slices("old", "new",
+			markdown.GenerateLines(oldNodes),
+			markdown.GenerateLines(newNodes),
+			os.Stdout); err != nil {
+			return fmt.Errorf("failed to diff old and new changelog: %w", err)
 		}
 
 		return nil
 	}
 
-	if err := os.WriteFile(output, []byte(newData), 0o644); err != nil {
+	// Actually writing to changelog file
+	nodes := append(newNodes, oldNodes...)
+	changelogData := markdown.Generate(nodes)
+	if err := os.WriteFile(output, []byte(changelogData), 0644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
