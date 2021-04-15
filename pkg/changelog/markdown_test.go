@@ -15,7 +15,7 @@ func TestGenerateMarkdown(t *testing.T) {
 		commits []convention.Commit
 		scopes  map[string]struct{}
 		version string
-		t       time.Time
+		when    time.Time
 	}{
 		{
 			name: "empty old data",
@@ -34,7 +34,7 @@ func TestGenerateMarkdown(t *testing.T) {
 				},
 			},
 			version: "v1.0.0",
-			t:       time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+			when:    time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
 		},
 		{
 			name: "many commits",
@@ -73,7 +73,7 @@ func TestGenerateMarkdown(t *testing.T) {
 				},
 			},
 			version: "v1.0.0",
-			t:       time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+			when:    time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
 		},
 		{
 			name: "ignore commits outside scope",
@@ -115,14 +115,14 @@ func TestGenerateMarkdown(t *testing.T) {
 				"a": struct{}{},
 			},
 			version: "v1.0.0",
-			t:       time.Date(2020, 3, 22, 0, 0, 0, 0, time.Local),
+			when:    time.Date(2020, 3, 22, 0, 0, 0, 0, time.Local),
 		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			g := goldie.New(t)
-			got := GenerateMarkdown(tc.commits, tc.scopes, tc.version, tc.t)
+			got := GenerateMarkdown(tc.commits, tc.scopes, tc.version, tc.when)
 			g.Assert(t, t.Name(), []byte(markdown.GenerateText(got)))
 		})
 	}

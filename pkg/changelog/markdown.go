@@ -19,7 +19,7 @@ const (
 	thirdLevel  = 3
 )
 
-func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, version string, t time.Time) []markdown.Node {
+func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, version string, when time.Time) []markdown.Node {
 	if len(commits) == 0 {
 		return nil
 	}
@@ -72,7 +72,7 @@ func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, v
 	// Adding title, version to nodes
 	nodes = append([]markdown.Node{
 		markdown.NewHeader(firstLevel, title),
-		markdown.NewHeader(secondLevel, getVersionHeader(version, t)),
+		markdown.NewHeader(secondLevel, getVersionHeader(version, when)),
 	}, nodes...)
 
 	return nodes
@@ -90,7 +90,7 @@ func ParseMarkdown(data string) []markdown.Node {
 	return nodes
 }
 
-func getVersionHeader(version string, t time.Time) string {
-	year, month, day := t.Date()
+func getVersionHeader(version string, when time.Time) string {
+	year, month, day := when.Date()
 	return fmt.Sprintf("%s (%d-%d-%d)", version, year, month, day)
 }
