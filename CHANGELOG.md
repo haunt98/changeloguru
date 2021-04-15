@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.9.0 (2021-4-15)
+
+### Added
+
+- feat: show time of each commit as the default (#12) (2021-4-15)
+
+### Others
+
+- chore(changelog): generate v1.8.0 (2021-4-14)
+
 ## v1.8.0 (2021-4-14)
 
 ### Added
