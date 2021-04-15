@@ -2,6 +2,7 @@ package convention
 
 import (
 	"errors"
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -43,6 +44,15 @@ func GetTypeAndScope(gitCommit git.Commit) OptionFn {
 		c.Scope = strings.ToLower(headerSubmatches[2])
 		c.Scope = strings.TrimLeft(c.Scope, "(")
 		c.Scope = strings.TrimRight(c.Scope, ")")
+
+		return nil
+	}
+}
+
+func AddAuthorDate(gitCommit git.Commit) OptionFn {
+	return func(c *Commit) error {
+		year, month, day := gitCommit.Author.When.Date()
+		c.RawHeader = fmt.Sprintf("%s (%d-%d-%d)", c.RawHeader, year, month, day)
 
 		return nil
 	}

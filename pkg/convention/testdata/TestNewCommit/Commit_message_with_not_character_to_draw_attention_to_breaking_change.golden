@@ -1,5 +1,5 @@
 {
-  "RawHeader": "refactor!: drop support for Node 6",
+  "RawHeader": "refactor!: drop support for Node 6 (1-1-1)",
   "Type": "refactor",
   "Scope": ""
 }

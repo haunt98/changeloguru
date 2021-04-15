@@ -23,6 +23,7 @@ func NewCommit(c git.Commit) (Commit, error) {
 	return NewCommitWithOptions(
 		GetRawHeader(c),
 		GetTypeAndScope(c),
+		AddAuthorDate(c),
 	)
 }
 
