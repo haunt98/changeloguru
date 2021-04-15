@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.9.1 (2021-04-15)
+
+### Fixed
+
+- fix: correct time layout (#13) (2021-04-15)
+
+### Others
+
+- chore(changelog): generate v1.9.0 (2021-04-15)
+
 ## v1.9.0 (2021-4-15)
 
 ### Added
