@@ -52,7 +52,7 @@ func GetTypeAndScope(gitCommit git.Commit) OptionFn {
 
 func AddAuthorDate(gitCommit git.Commit) OptionFn {
 	return func(c *Commit) error {
-		c.RawHeader = fmt.Sprintf("%s %s", c.RawHeader, clock.FormatDate(gitCommit.Author.When))
+		c.RawHeader = fmt.Sprintf("%s (%s)", c.RawHeader, clock.FormatDate(gitCommit.Author.When))
 
 		return nil
 	}

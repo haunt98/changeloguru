@@ -71,7 +71,7 @@ func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, v
 	}
 
 	// Adding title, version to nodes
-	versionHeader := fmt.Sprintf("%s %s", version, clock.FormatDate(when))
+	versionHeader := fmt.Sprintf("%s (%s)", version, clock.FormatDate(when))
 	nodes = append([]markdown.Node{
 		markdown.NewHeader(firstLevel, title),
 		markdown.NewHeader(secondLevel, versionHeader),
