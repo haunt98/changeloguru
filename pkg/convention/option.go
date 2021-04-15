@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/haunt98/changeloguru/pkg/git"
+	"github.com/haunt98/clock"
 )
 
 var (
@@ -51,8 +52,7 @@ func GetTypeAndScope(gitCommit git.Commit) OptionFn {
 
 func AddAuthorDate(gitCommit git.Commit) OptionFn {
 	return func(c *Commit) error {
-		year, month, day := gitCommit.Author.When.Date()
-		c.RawHeader = fmt.Sprintf("%s (%d-%d-%d)", c.RawHeader, year, month, day)
+		c.RawHeader = fmt.Sprintf("%s %s", c.RawHeader, clock.FormatDate(gitCommit.Author.When))
 
 		return nil
 	}

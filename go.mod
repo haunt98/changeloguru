@@ -7,6 +7,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/go-git/go-git/v5 v5.3.0
 	github.com/google/go-cmp v0.5.5 // indirect
+	github.com/haunt98/clock v0.1.0
 	github.com/haunt98/color v0.1.0
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e

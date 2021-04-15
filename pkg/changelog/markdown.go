@@ -7,6 +7,7 @@ import (
 
 	"github.com/haunt98/changeloguru/pkg/convention"
 	"github.com/haunt98/changeloguru/pkg/markdown"
+	"github.com/haunt98/clock"
 )
 
 const (
@@ -70,9 +71,10 @@ func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, v
 	}
 
 	// Adding title, version to nodes
+	versionHeader := fmt.Sprintf("%s %s", version, clock.FormatDate(when))
 	nodes = append([]markdown.Node{
 		markdown.NewHeader(firstLevel, title),
-		markdown.NewHeader(secondLevel, getVersionHeader(version, when)),
+		markdown.NewHeader(secondLevel, versionHeader),
 	}, nodes...)
 
 	return nodes
@@ -88,9 +90,4 @@ func ParseMarkdown(data string) []markdown.Node {
 	}
 
 	return nodes
-}
-
-func getVersionHeader(version string, when time.Time) string {
-	year, month, day := when.Date()
-	return fmt.Sprintf("%s (%d-%d-%d)", version, year, month, day)
 }
