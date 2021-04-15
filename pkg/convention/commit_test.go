@@ -2,6 +2,7 @@ package convention
 
 import (
 	"testing"
+	"time"
 
 	"github.com/haunt98/changeloguru/pkg/git"
 	"github.com/sebdah/goldie/v2"
@@ -48,6 +49,15 @@ func TestNewCommit(t *testing.T) {
 			name: "Misc",
 			c: git.Commit{
 				Message: "random git message",
+			},
+		},
+		{
+			name: "Misc with author date",
+			c: git.Commit{
+				Message: "random git message",
+				Author: git.Author{
+					When: time.Date(2020, 4, 1, 0, 0, 0, 0, time.Local),
+				},
 			},
 		},
 	}
