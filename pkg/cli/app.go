@@ -60,19 +60,17 @@ func NewApp() *App {
 	cliApp := &cli.App{
 		Name:  appName,
 		Usage: appUsage,
-		Flags: []cli.Flag{
-			&cli.BoolFlag{
-				Name:    verboseFlag,
-				Aliases: verboseAliases,
-				Usage:   verboseUsage,
-			},
-		},
 		Commands: []*cli.Command{
 			{
 				Name:    generateCommand,
 				Aliases: generateAliases,
 				Usage:   generateUsage,
 				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:    verboseFlag,
+						Aliases: verboseAliases,
+						Usage:   verboseUsage,
+					},
 					&cli.StringFlag{
 						Name:  fromFlag,
 						Usage: fromUsage,
