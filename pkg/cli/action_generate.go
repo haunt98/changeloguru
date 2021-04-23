@@ -115,7 +115,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	// Generate markdown from commits
 	newNodes := changelog.GenerateMarkdown(commits, a.flags.scopes, version, time.Now())
 
-	// Final changelog
+	// Final changelog with new commits above old commits
 	nodes := append(newNodes, oldNodes...)
 	changelogText := markdown.GenerateText(nodes)
 
