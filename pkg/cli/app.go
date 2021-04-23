@@ -1,11 +1,18 @@
 package cli
 
-import "github.com/urfave/cli/v2"
+import (
+	"os"
+
+	"github.com/haunt98/color"
+	"github.com/urfave/cli/v2"
+)
 
 const (
-	AppName = "changeloguru"
+	appName  = "changeloguru"
+	appUsage = "generate changelog from conventional commits"
 
 	// flags
+	verboseFlag    = "verbose"
 	fromFlag       = "from"
 	toFlag         = "to"
 	versionFlag    = "version"
@@ -15,77 +22,94 @@ const (
 	filenameFlag   = "filename"
 	filetypeFlag   = "filetype"
 	dryRunFlag     = "dry-run"
-	verboseFlag    = "verbose"
 
 	// commands
 	generateCommand = "generate"
+
+	// flag usage
+	verboseUsage    = "show what is going on"
+	fromUsage       = "generate from `COMMIT`"
+	toUsage         = "generate to `COMMIT`"
+	versionUsage    = "`VERSION` to generate, follow Semantic Versioning"
+	scopeUsage      = "scope to generate"
+	repositoryUsage = "`REPOSITORY` directory path"
+	outputUsage     = "`OUTPUT` directory path"
+	filenameUsage   = "output `FILENAME`"
+	filetypeUsage   = "output `FILETYPE`"
+	dryRunUsage     = "demo run without actually changing anything"
+
+	// command usage
+	generateUsage = "generate changelog"
 )
 
 var (
-	// flags
+	// flag aliases
 	verboseAliases = []string{"v"}
 
-	// commands
+	// command aliases
 	generateAliases = []string{"gen"}
 )
 
-func NewApp() *cli.App {
+type App struct {
+	cliApp *cli.App
+}
+
+func NewApp() *App {
 	a := &action{}
 
-	app := &cli.App{
-		Name:  AppName,
-		Usage: "generate changelog from conventional commits",
-		Flags: []cli.Flag{
-			&cli.BoolFlag{
-				Name:    verboseFlag,
-				Aliases: verboseAliases,
-				Usage:   "show what is going on",
-			},
-		},
+	cliApp := &cli.App{
+		Name:  appName,
+		Usage: appUsage,
 		Commands: []*cli.Command{
 			{
 				Name:    generateCommand,
 				Aliases: generateAliases,
+				Usage:   generateUsage,
 				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:    verboseFlag,
+						Aliases: verboseAliases,
+						Usage:   verboseUsage,
+					},
 					&cli.StringFlag{
 						Name:  fromFlag,
-						Usage: "generate from `COMMIT`",
+						Usage: fromUsage,
 					},
 					&cli.StringFlag{
 						Name:  toFlag,
-						Usage: "generate to `COMMIT`",
+						Usage: toUsage,
 					},
 					&cli.StringFlag{
 						Name:  versionFlag,
-						Usage: "`VERSION` to generate, follow Semantic Versioning",
+						Usage: versionUsage,
 					},
 					&cli.StringSliceFlag{
 						Name:  scopeFlag,
-						Usage: "scope to generate",
+						Usage: scopeUsage,
 					},
 					&cli.StringFlag{
 						Name:        repositoryFlag,
-						Usage:       "`REPOSITORY` directory path",
+						Usage:       repositoryUsage,
 						DefaultText: defaultRepository,
 					},
 					&cli.StringFlag{
 						Name:        outputFlag,
-						Usage:       "`OUTPUT` directory path",
+						Usage:       outputUsage,
 						DefaultText: defaultOutput,
 					},
 					&cli.StringFlag{
 						Name:        filenameFlag,
-						Usage:       "output `FILENAME`",
+						Usage:       filenameUsage,
 						DefaultText: defaultFilename,
 					},
 					&cli.StringFlag{
 						Name:        filetypeFlag,
-						Usage:       "output `FILETYPE`",
+						Usage:       filetypeUsage,
 						DefaultText: defaultFiletype,
 					},
 					&cli.BoolFlag{
 						Name:  dryRunFlag,
-						Usage: "demo run without actually changing anything",
+						Usage: dryRunUsage,
 					},
 				},
 				Action: a.RunGenerate,
@@ -94,5 +118,13 @@ func NewApp() *cli.App {
 		Action: a.RunHelp,
 	}
 
-	return app
+	return &App{
+		cliApp: cliApp,
+	}
+}
+
+func (a *App) Run() {
+	if err := a.cliApp.Run(os.Args); err != nil {
+		color.PrintAppError(appName, err.Error())
+	}
 }
