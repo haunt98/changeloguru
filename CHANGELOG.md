@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v1.10.0 (2021-04-23)
+
+### Added
+
+- feat: add color to dry run (#14) (2021-04-23)
+
+### Others
+
+- refactor(cli): move all cli related to cli pkg (#15) (2021-04-23)
+
+- chore(changelog): generate v1.9.1 (2021-04-15)
+
 ## v1.9.1 (2021-04-15)
 
 ### Fixed
