@@ -1,6 +1,11 @@
 package cli
 
-import "github.com/urfave/cli/v2"
+import (
+	"os"
+
+	"github.com/haunt98/color"
+	"github.com/urfave/cli/v2"
+)
 
 const (
 	AppName = "changeloguru"
@@ -29,10 +34,14 @@ var (
 	generateAliases = []string{"gen"}
 )
 
-func NewApp() *cli.App {
+type App struct {
+	cliApp *cli.App
+}
+
+func NewApp() *App {
 	a := &action{}
 
-	app := &cli.App{
+	cliApp := &cli.App{
 		Name:  AppName,
 		Usage: "generate changelog from conventional commits",
 		Flags: []cli.Flag{
@@ -94,5 +103,13 @@ func NewApp() *cli.App {
 		Action: a.RunHelp,
 	}
 
-	return app
+	return &App{
+		cliApp: cliApp,
+	}
+}
+
+func (a *App) Run() {
+	if err := a.cliApp.Run(os.Args); err != nil {
+		color.PrintAppError(AppName, err.Error())
+	}
 }
