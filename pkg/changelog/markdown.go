@@ -84,7 +84,7 @@ func ParseMarkdown(data string) []markdown.Node {
 	lines := strings.Split(data, string(markdown.NewlineToken))
 	nodes := markdown.Parse(lines)
 
-	// remove title
+	// Remove title
 	if len(nodes) > 0 && markdown.Equal(nodes[0], markdown.NewHeader(firstLevel, title)) {
 		nodes = nodes[1:]
 	}
