@@ -112,7 +112,7 @@ func TestGenerateMarkdown(t *testing.T) {
 				},
 			},
 			scopes: map[string]struct{}{
-				"a": struct{}{},
+				"a": {},
 			},
 			version: "v1.0.0",
 			when:    time.Date(2020, 3, 22, 0, 0, 0, 0, time.Local),

@@ -5,7 +5,7 @@ const (
 	FeatType     = "feat"
 	BuildType    = "build"
 	ChoreType    = "chore"
-	CiType       = "ci"
+	CIType       = "ci"
 	DocsType     = "docs"
 	StyleType    = "style"
 	RefactorType = "refactor"
