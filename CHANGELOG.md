@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.11.0 (2021-05-05)
+
+### Added
+
+- feat: use markdown-go (#19) (2021-05-05)
+
+### Others
+
+- refactor: move main to cmd (#18) (2021-05-05)
+
+- refactor: use internal instead pkg (#17) (2021-05-05)
+
+- chore: improve wording, typo (#16) (2021-04-26)
+
+- chore(changelog): generate v1.10.0 (2021-04-23)
+
 ## v1.10.0 (2021-04-23)
 
 ### Added
