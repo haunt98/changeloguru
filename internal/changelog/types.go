@@ -1,6 +1,6 @@
 package changelog
 
-import "github.com/haunt98/changeloguru/pkg/convention"
+import "github.com/haunt98/changeloguru/internal/convention"
 
 const (
 	addedType  = "Added"

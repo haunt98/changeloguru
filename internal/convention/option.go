@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/haunt98/changeloguru/pkg/git"
+	"github.com/haunt98/changeloguru/internal/git"
 	"github.com/haunt98/clock"
 )
 

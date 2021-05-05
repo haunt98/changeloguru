@@ -1,7 +1,7 @@
 package convention
 
 import (
-	"github.com/haunt98/changeloguru/pkg/git"
+	"github.com/haunt98/changeloguru/internal/git"
 )
 
 // https://www.conventionalcommits.org/en/v1.0.0/
