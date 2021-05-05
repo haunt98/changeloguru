@@ -10,7 +10,7 @@ import (
 	"github.com/haunt98/changeloguru/internal/changelog"
 	"github.com/haunt98/changeloguru/internal/convention"
 	"github.com/haunt98/changeloguru/internal/git"
-	"github.com/haunt98/changeloguru/internal/markdown"
+	"github.com/haunt98/markdown-go"
 	"github.com/pkg/diff"
 	"github.com/pkg/diff/write"
 	"github.com/urfave/cli/v2"

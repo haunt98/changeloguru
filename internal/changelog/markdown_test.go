@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/haunt98/changeloguru/internal/convention"
-	"github.com/haunt98/changeloguru/internal/markdown"
+	"github.com/haunt98/markdown-go"
 	"github.com/sebdah/goldie/v2"
 )
 
