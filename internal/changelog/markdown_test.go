@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/haunt98/changeloguru/pkg/convention"
-	"github.com/haunt98/changeloguru/pkg/markdown"
+	"github.com/haunt98/changeloguru/internal/convention"
+	"github.com/haunt98/changeloguru/internal/markdown"
 	"github.com/sebdah/goldie/v2"
 )
 
