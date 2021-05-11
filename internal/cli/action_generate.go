@@ -54,6 +54,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 		conventionalCommit, err := convention.NewCommit(commit)
 		if err != nil {
 			a.log("failed to new conventional commits %+v: %s", commit, err)
+			// Skip bad commit and move on
 			continue
 		}
 
