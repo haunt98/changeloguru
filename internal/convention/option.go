@@ -1,6 +1,7 @@
 package convention
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 	"strings"
@@ -9,19 +10,21 @@ import (
 	"github.com/haunt98/clock"
 )
 
-var headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
+var (
+	ErrEmptyCommit = errors.New("empty commit")
+
+	headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
+)
 
 type OptionFn func(*Commit) error
 
 func GetRawHeader(gitCommit git.Commit) OptionFn {
 	return func(c *Commit) error {
-		// Skip empty commit
-		if gitCommit.Message == "" {
-			return nil
-		}
-
 		message := strings.TrimSpace(gitCommit.Message)
 		messages := strings.Split(message, "\n")
+		if len(messages) == 0 {
+			return ErrEmptyCommit
+		}
 
 		c.RawHeader = messages[0]
 
