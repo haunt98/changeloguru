@@ -10,6 +10,11 @@ import (
 	"github.com/haunt98/clock"
 )
 
+const (
+	leftScope  = "("
+	rightScope = ")"
+)
+
 var (
 	ErrEmptyCommit = errors.New("empty commit")
 
@@ -44,8 +49,8 @@ func GetTypeAndScope(gitCommit git.Commit) OptionFn {
 		headerSubmatches := headerRegex.FindStringSubmatch(c.RawHeader)
 		c.Type = strings.ToLower(headerSubmatches[1])
 		c.Scope = strings.ToLower(headerSubmatches[2])
-		c.Scope = strings.TrimLeft(c.Scope, "(")
-		c.Scope = strings.TrimRight(c.Scope, ")")
+		c.Scope = strings.TrimLeft(c.Scope, leftScope)
+		c.Scope = strings.TrimRight(c.Scope, rightScope)
 
 		return nil
 	}
