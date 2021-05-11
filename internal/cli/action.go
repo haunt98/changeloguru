@@ -52,9 +52,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
 	a.flags.dryRun = c.Bool(dryRunFlag)
 
-	if a.flags.verbose {
-		a.log("flags %+v", a.flags)
-	}
+	a.log("flags %+v", a.flags)
 }
 
 func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {

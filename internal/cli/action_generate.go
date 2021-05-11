@@ -83,6 +83,8 @@ func (a *action) getRealOutput() string {
 	nameWithExt := a.flags.filename + "." + a.flags.filetype
 	realOutput := filepath.Join(a.flags.output, nameWithExt)
 
+	a.log("real output %s", realOutput)
+
 	return realOutput
 }
 
