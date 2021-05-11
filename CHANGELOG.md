@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v1.12.0 (2021-05-11)
+
+### Added
+
+- feat: return error when commit is empty (2021-05-11)
+
+- Revert "feat: skip empty commit" (2021-05-11)
+
+- feat: skip empty commit (2021-05-11)
+
+### Others
+
+- refactor: move left, rightScope char to const (2021-05-11)
+
+- docs: explain why skip error commit (2021-05-11)
+
+- chore: no need to check flag when use a.log() (2021-05-11)
+
+- build: update go.mod (2021-05-10)
+
+- chore: remove Dockerfile (2021-05-10)
+
+- build: update go.mod (2021-05-07)
+
+- build: update go.mod (2021-05-05)
+
+- chore(changelog): generate v1.11.0 (2021-05-05)
+
 ## v1.11.0 (2021-05-05)
 
 ### Added
