@@ -60,6 +60,10 @@ func TestNewCommit(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:    "Empty commit",
+			wantErr: ErrEmptyCommit,
+		},
 	}
 
 	for _, tc := range tests {

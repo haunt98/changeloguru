@@ -20,11 +20,12 @@ type OptionFn func(*Commit) error
 
 func GetRawHeader(gitCommit git.Commit) OptionFn {
 	return func(c *Commit) error {
-		message := strings.TrimSpace(gitCommit.Message)
-		messages := strings.Split(message, "\n")
-		if len(messages) == 0 {
+		if gitCommit.Message == "" {
 			return ErrEmptyCommit
 		}
+
+		message := strings.TrimSpace(gitCommit.Message)
+		messages := strings.Split(message, "\n")
 
 		c.RawHeader = messages[0]
 
