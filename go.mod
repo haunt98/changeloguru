@@ -4,9 +4,10 @@ go 1.16
 
 require (
 	github.com/Microsoft/go-winio v0.5.0 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20210512092938-c05353c2d58c // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
-	github.com/go-git/go-billy/v5 v5.3.1 // indirect
-	github.com/go-git/go-git/v5 v5.3.0
+	github.com/fatih/color v1.11.0 // indirect
+	github.com/go-git/go-git/v5 v5.4.0
 	github.com/google/go-cmp v0.5.5 // indirect
 	github.com/haunt98/clock v0.2.0
 	github.com/haunt98/color v0.1.0
@@ -18,10 +19,10 @@ require (
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
-	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf // indirect
+	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a // indirect
 	golang.org/x/mod v0.4.2
-	golang.org/x/net v0.0.0-20210508051633-16afe75a6701 // indirect
-	golang.org/x/sys v0.0.0-20210507161434-a76c4d0a0096 // indirect
+	golang.org/x/net v0.0.0-20210521195947-fe42d452be8f // indirect
+	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
