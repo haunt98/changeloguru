@@ -81,7 +81,7 @@ func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, v
 }
 
 func ParseMarkdown(data string) []markdown.Node {
-	lines := strings.Split(data, "\n")
+	lines := strings.Split(data, "\n\n")
 	nodes := markdown.Parse(lines)
 
 	// Remove title
