@@ -10,7 +10,7 @@ require (
 	github.com/google/go-cmp v0.5.5 // indirect
 	github.com/haunt98/clock v0.2.0
 	github.com/haunt98/color v0.2.0
-	github.com/haunt98/markdown-go v0.2.0
+	github.com/haunt98/markdown-go v0.4.0
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
@@ -21,6 +21,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a // indirect
 	golang.org/x/mod v0.4.2
 	golang.org/x/net v0.0.0-20210525063256-abc453219eb5 // indirect
+	golang.org/x/sys v0.0.0-20210601080250-7ecdf8ef093b // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
