@@ -11,10 +11,6 @@ import (
 )
 
 const (
-	title = "CHANGELOG"
-
-	defaultNodesLen = 10
-
 	firstLevel  = 1
 	secondLevel = 2
 	thirdLevel  = 3

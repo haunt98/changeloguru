@@ -1,0 +1,31 @@
+=========
+CHANGELOG
+=========
+
+v1.0.0 (2020-01-18)
+===================
+
+Added
+-----
+
+- feat: new feature
+
+- feat: support new client
+
+Fixed
+-----
+
+- fix: new fix
+
+- fix: wrong color
+
+Others
+------
+
+- chore: new build
+
+- chore(github): release on github
+
+- chore(gitlab): release on gitlab
+
+- unleash the dragon
