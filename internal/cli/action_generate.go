@@ -11,6 +11,7 @@ import (
 	"github.com/haunt98/changeloguru/internal/convention"
 	"github.com/haunt98/changeloguru/internal/git"
 	"github.com/haunt98/markdown-go"
+	"github.com/haunt98/rst-go"
 	"github.com/pkg/diff"
 	"github.com/pkg/diff/write"
 	"github.com/urfave/cli/v2"
@@ -75,6 +76,8 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 	switch a.flags.filetype {
 	case markdownFiletype:
 		return a.generateMarkdownChangelog(realOutput, version, commits)
+	case rstFiletype:
+		return a.generateRSTChangelog(realOutput, version, commits)
 	default:
 		return fmt.Errorf("unknown filetype %s", a.flags.filetype)
 	}
@@ -121,6 +124,38 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	// Final changelog with new commits above old commits
 	nodes := append(newNodes, oldNodes...)
 	changelogText := markdown.GenerateText(nodes)
+
+	// Demo run
+	if a.flags.dryRun {
+		if err := diff.Text("old", "new", string(bytes), changelogText, os.Stdout, write.TerminalColor()); err != nil {
+			return fmt.Errorf("failed to diff old and new changelog: %w", err)
+		}
+
+		return nil
+	}
+
+	// Actually writing to changelog file
+	if err := os.WriteFile(output, []byte(changelogText), 0644); err != nil {
+		return fmt.Errorf("failed to write file %s: %w", output, err)
+	}
+
+	return nil
+}
+
+func (a *action) generateRSTChangelog(output, version string, commits []convention.Commit) error {
+	// If changelog file already exist, parse markdown from exist file
+	var oldNodes []rst.Node
+	bytes, err := os.ReadFile(output)
+	if err == nil {
+		oldNodes = changelog.ParseRST(string(bytes))
+	}
+
+	// Generate markdown from commits
+	newNodes := changelog.GenerateRST(commits, a.flags.scopes, version, time.Now())
+
+	// Final changelog with new commits above old commits
+	nodes := append(newNodes, oldNodes...)
+	changelogText := rst.GenerateText(nodes)
 
 	// Demo run
 	if a.flags.dryRun {

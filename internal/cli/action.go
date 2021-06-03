@@ -9,6 +9,7 @@ import (
 const (
 	currentDir       = "."
 	markdownFiletype = "md"
+	rstFiletype      = "rst"
 
 	defaultRepository = currentDir
 	defaultOutput     = currentDir
