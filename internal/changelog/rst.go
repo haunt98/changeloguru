@@ -2,6 +2,7 @@ package changelog
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/haunt98/changeloguru/internal/convention"
@@ -65,6 +66,18 @@ func GenerateRST(commits []convention.Commit, scopes map[string]struct{}, versio
 		rst.NewTitle(title),
 		rst.NewSection(versionHeader),
 	}, nodes...)
+
+	return nodes
+}
+
+func ParseRST(data string) []rst.Node {
+	lines := strings.Split(data, "\n\n")
+	nodes := rst.Parse(lines)
+
+	// Remove title
+	if len(nodes) > 0 && rst.Equal(nodes[0], rst.NewTitle(title)) {
+		nodes = nodes[1:]
+	}
 
 	return nodes
 }
