@@ -1,67 +1,42 @@
 package changelog
 
 import (
-	"fmt"
 	"strings"
 	"time"
 
 	"github.com/haunt98/changeloguru/internal/convention"
-	"github.com/haunt98/clock"
 	"github.com/haunt98/rst-go"
 )
 
+// GenerateRST base on GenerateMarkdown
 func GenerateRST(commits []convention.Commit, scopes map[string]struct{}, version string, when time.Time) []rst.Node {
-	if len(commits) == 0 {
+	filteredCommits := filter(commits, scopes)
+	if filteredCommits == nil {
 		return nil
 	}
 
-	commitBases := make(map[string][]rst.Node)
-	commitBases[addedType] = make([]rst.Node, 0, defaultNodesLen)
-	commitBases[fixedType] = make([]rst.Node, 0, defaultNodesLen)
-	commitBases[othersType] = make([]rst.Node, 0, defaultNodesLen)
+	addedNodes := convertToListRSTNodes(filteredCommits[addedType])
+	fixedNodes := convertToListRSTNodes(filteredCommits[fixedType])
+	othersNodes := convertToListRSTNodes(filteredCommits[othersType])
 
-	for _, commit := range commits {
-		// If scopes is empty or commit scope is empty, pass all commits
-		if len(scopes) != 0 && commit.Scope != "" {
-			// Skip commit outside scopes
-			if _, ok := scopes[commit.Scope]; !ok {
-				continue
-			}
-		}
+	nodes := make([]rst.Node, 0, len(addedNodes)+len(fixedNodes)+len(othersNodes)+4)
 
-		t := getType(commit.Type)
-		switch t {
-		case addedType:
-			commitBases[addedType] = append(commitBases[addedType], rst.NewListItem(commit.String()))
-		case fixedType:
-			commitBases[fixedType] = append(commitBases[fixedType], rst.NewListItem(commit.String()))
-		case othersType:
-			commitBases[othersType] = append(commitBases[othersType], rst.NewListItem(commit.String()))
-		default:
-			continue
-		}
-	}
-
-	// Adding each type and header to nodes
-	nodes := make([]rst.Node, 0, len(commitBases[addedType])+len(commitBases[fixedType])+len(commitBases[othersType]))
-
-	if len(commitBases[addedType]) != 0 {
+	if len(addedNodes) != 0 {
 		nodes = append(nodes, rst.NewSubSection(addedType))
-		nodes = append(nodes, commitBases[addedType]...)
+		nodes = append(nodes, addedNodes...)
 	}
 
-	if len(commitBases[fixedType]) != 0 {
+	if len(fixedNodes) != 0 {
 		nodes = append(nodes, rst.NewSubSection(fixedType))
-		nodes = append(nodes, commitBases[fixedType]...)
+		nodes = append(nodes, fixedNodes...)
 	}
 
-	if len(commitBases[othersType]) != 0 {
+	if len(othersNodes) != 0 {
 		nodes = append(nodes, rst.NewSubSection(othersType))
-		nodes = append(nodes, commitBases[othersType]...)
+		nodes = append(nodes, othersNodes...)
 	}
 
-	// Adding title, version to nodes
-	versionHeader := fmt.Sprintf("%s (%s)", version, clock.FormatDate(when))
+	versionHeader := generateVersionHeaderValue(version, when)
 	nodes = append([]rst.Node{
 		rst.NewTitle(title),
 		rst.NewSection(versionHeader),
@@ -80,4 +55,14 @@ func ParseRST(data string) []rst.Node {
 	}
 
 	return nodes
+}
+
+func convertToListRSTNodes(commits []convention.Commit) []rst.Node {
+	result := make([]rst.Node, 0, len(commits))
+
+	for _, commit := range commits {
+		result = append(result, rst.NewListItem(commit.String()))
+	}
+
+	return result
 }

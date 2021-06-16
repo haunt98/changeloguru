@@ -1,12 +1,10 @@
 package changelog
 
 import (
-	"fmt"
 	"strings"
 	"time"
 
 	"github.com/haunt98/changeloguru/internal/convention"
-	"github.com/haunt98/clock"
 	"github.com/haunt98/markdown-go"
 )
 
@@ -17,57 +15,37 @@ const (
 )
 
 func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, version string, when time.Time) []markdown.Node {
-	if len(commits) == 0 {
+	filteredCommits := filter(commits, scopes)
+	if filteredCommits == nil {
 		return nil
 	}
 
-	commitBases := make(map[string][]markdown.Node)
-	commitBases[addedType] = make([]markdown.Node, 0, defaultNodesLen)
-	commitBases[fixedType] = make([]markdown.Node, 0, defaultNodesLen)
-	commitBases[othersType] = make([]markdown.Node, 0, defaultNodesLen)
+	addedNodes := convertToListMarkdownNodes(filteredCommits[addedType])
+	fixedNodes := convertToListMarkdownNodes(filteredCommits[fixedType])
+	othersNodes := convertToListMarkdownNodes(filteredCommits[othersType])
 
-	for _, commit := range commits {
-		// If scopes is empty or commit scope is empty, pass all commits
-		if len(scopes) != 0 && commit.Scope != "" {
-			// Skip commit outside scopes
-			if _, ok := scopes[commit.Scope]; !ok {
-				continue
-			}
-		}
+	// 4 = 3 type header + 1 version header
+	nodes := make([]markdown.Node, 0, len(addedNodes)+len(fixedNodes)+len(othersNodes)+4)
 
-		t := getType(commit.Type)
-		switch t {
-		case addedType:
-			commitBases[addedType] = append(commitBases[addedType], markdown.NewListItem(commit.String()))
-		case fixedType:
-			commitBases[fixedType] = append(commitBases[fixedType], markdown.NewListItem(commit.String()))
-		case othersType:
-			commitBases[othersType] = append(commitBases[othersType], markdown.NewListItem(commit.String()))
-		default:
-			continue
-		}
-	}
+	// Adding each type
 
-	// Adding each type and header to nodes
-	nodes := make([]markdown.Node, 0, len(commitBases[addedType])+len(commitBases[fixedType])+len(commitBases[othersType]))
-
-	if len(commitBases[addedType]) != 0 {
+	if len(addedNodes) != 0 {
 		nodes = append(nodes, markdown.NewHeader(thirdLevel, addedType))
-		nodes = append(nodes, commitBases[addedType]...)
+		nodes = append(nodes, addedNodes...)
 	}
 
-	if len(commitBases[fixedType]) != 0 {
+	if len(fixedNodes) != 0 {
 		nodes = append(nodes, markdown.NewHeader(thirdLevel, fixedType))
-		nodes = append(nodes, commitBases[fixedType]...)
+		nodes = append(nodes, fixedNodes...)
 	}
 
-	if len(commitBases[othersType]) != 0 {
+	if len(othersNodes) != 0 {
 		nodes = append(nodes, markdown.NewHeader(thirdLevel, othersType))
-		nodes = append(nodes, commitBases[othersType]...)
+		nodes = append(nodes, othersNodes...)
 	}
 
-	// Adding title, version to nodes
-	versionHeader := fmt.Sprintf("%s (%s)", version, clock.FormatDate(when))
+	// Adding title
+	versionHeader := generateVersionHeaderValue(version, when)
 	nodes = append([]markdown.Node{
 		markdown.NewHeader(firstLevel, title),
 		markdown.NewHeader(secondLevel, versionHeader),
@@ -86,4 +64,14 @@ func ParseMarkdown(data string) []markdown.Node {
 	}
 
 	return nodes
+}
+
+func convertToListMarkdownNodes(commits []convention.Commit) []markdown.Node {
+	result := make([]markdown.Node, 0, len(commits))
+
+	for _, commit := range commits {
+		result = append(result, markdown.NewListItem(commit.String()))
+	}
+
+	return result
 }
