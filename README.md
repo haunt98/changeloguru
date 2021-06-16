@@ -3,7 +3,7 @@
 [![Go](https://github.com/haunt98/changeloguru/workflows/Go/badge.svg?branch=main)](https://github.com/actions/setup-go)
 [![Go Reference](https://pkg.go.dev/badge/github.com/haunt98/changeloguru.svg)](https://pkg.go.dev/github.com/haunt98/changeloguru)
 
-Tool to generate `CHANGELOG.md` from [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## Install
 
