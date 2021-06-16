@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## v1.13.0 (2021-06-16)
+
+### Added
+
+- feat: support generate changelog with type rst (#20) (2021-06-03)
+
+- feat: split double newline for markdown (2021-05-31)
+
+- feat: remove markdown.NewLine (2021-05-31)
+
+### Others
+
+- test: unit test for filter commits with scope (2021-06-16)
+
+- chore(readme): add rst filetype (2021-06-16)
+
+- refactor: split filter outside generate markdown and rst (2021-06-16)
+
+- build: update go.mod (2021-06-16)
+
+- build: update go.mod (2021-06-03)
+
+- build: update go.mod (2021-06-01)
+
+- build: update go.mod (2021-05-30)
+
+- build: update go.mod (2021-05-24)
+
+- chore(readme): correct link how to install (2021-05-11)
+
+- chore(changelog): generate v1.12.0 (2021-05-11)
+
 ## v1.12.0 (2021-05-11)
 
 ### Added
