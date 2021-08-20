@@ -61,7 +61,7 @@ func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 	return r.logWithStopFn(fromHash, nil, stopAtHash(toHash))
 }
 
-func (r *repo) logWithStopFn(fromHash *plumbing.Hash, beginStopFn, endStopFn stopFn) ([]Commit, error) {
+func (r *repo) logWithStopFn(fromHash *plumbing.Hash, beginFn, endFn stopFn) ([]Commit, error) {
 	cIter, err := r.r.Log(&git.LogOptions{
 		From: *fromHash,
 	})
@@ -71,24 +71,7 @@ func (r *repo) logWithStopFn(fromHash *plumbing.Hash, beginStopFn, endStopFn sto
 
 	commits := make([]Commit, 0, defaultCommitCount)
 
-	if err := cIter.ForEach(func(c *object.Commit) error {
-		if beginStopFn != nil {
-			if err := beginStopFn(c); err != nil {
-				return err
-			}
-		}
-
-		commit := newCommit(c)
-		commits = append(commits, commit)
-
-		if endStopFn != nil {
-			if err := endStopFn(c); err != nil {
-				return err
-			}
-		}
-
-		return nil
-	}); err != nil {
+	if err := cIter.ForEach(newIterFn(&commits, beginFn, endFn)); err != nil {
 		return nil, fmt.Errorf("failed to iterate each git log: %w", err)
 	}
 
@@ -99,6 +82,58 @@ func stopAtHash(hash *plumbing.Hash) stopFn {
 	return func(c *object.Commit) error {
 		if c.Hash == *hash {
 			return storer.ErrStop
+		}
+
+		return nil
+	}
+}
+
+func newIterFn(commits *[]Commit, beginFn, endFn stopFn) func(c *object.Commit) error {
+	if beginFn == nil && endFn == nil {
+		return func(c *object.Commit) error {
+			commit := newCommit(c)
+			*commits = append(*commits, commit)
+
+			return nil
+		}
+	}
+
+	if beginFn == nil {
+		return func(c *object.Commit) error {
+			commit := newCommit(c)
+			*commits = append(*commits, commit)
+
+			if err := endFn(c); err != nil {
+				return err
+			}
+
+			return nil
+		}
+	}
+
+	if endFn == nil {
+		return func(c *object.Commit) error {
+			if err := beginFn(c); err != nil {
+				return err
+			}
+
+			commit := newCommit(c)
+			*commits = append(*commits, commit)
+
+			return nil
+		}
+	}
+
+	return func(c *object.Commit) error {
+		if err := beginFn(c); err != nil {
+			return err
+		}
+
+		commit := newCommit(c)
+		*commits = append(*commits, commit)
+
+		if err := endFn(c); err != nil {
+			return err
 		}
 
 		return nil
