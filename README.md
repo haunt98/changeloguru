@@ -3,6 +3,7 @@
 [![Go](https://github.com/haunt98/changeloguru/workflows/Go/badge.svg?branch=main)](https://github.com/actions/setup-go)
 [![Go Reference](https://pkg.go.dev/badge/github.com/haunt98/changeloguru.svg)](https://pkg.go.dev/github.com/haunt98/changeloguru)
 [![codecov](https://codecov.io/gh/haunt98/changeloguru/branch/main/graph/badge.svg?token=ZBG353F0CN)](https://codecov.io/gh/haunt98/changeloguru)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=haunt98_changeloguru&metric=alert_status)](https://sonarcloud.io/dashboard?id=haunt98_changeloguru)
 
 Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
