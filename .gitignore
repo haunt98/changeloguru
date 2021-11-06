@@ -10,7 +10,5 @@
 # VSCode
 .vscode/
 
-# Node
-node_modules/
-package.json
-package-lock.json
+# Go
+coverage.out
