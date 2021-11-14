@@ -1,5 +1,51 @@
 # CHANGELOG
 
+## v1.13.1 (2021-11-14)
+
+### Others
+
+- chore: add goreleaser (2021-11-14)
+
+- chore: run go mod tidy with go v1.17 (2021-11-11)
+
+- test: update git repository unit test (2021-11-06)
+
+- chore: ignore main.go in sonar checking (2021-11-06)
+
+- chore(sonar): missing sonar.organization (2021-11-06)
+
+- chore: adding sonar properties (2021-11-06)
+
+- chore: add more rules to semgrep (2021-11-06)
+
+- chore: add semgrep rules (2021-11-06)
+
+- chore: split golangci-lint from go github action (2021-11-06)
+
+- chore: bump go.mod (2021-11-06)
+
+- chore(readme): add sonar badge (2021-08-21)
+
+- Reduce complex logWithStopFn (#22) (2021-08-21)
+
+- chore(readme): add codecov badge (2021-08-21)
+
+- chore: add codecov (2021-08-21)
+
+- build: update go.mod (2021-08-19)
+
+- chore: bump go 1.17 in github action (2021-08-19)
+
+- build: update go.mod (2021-08-04)
+
+- build: update go.mod (2021-07-09)
+
+- build: update go.mod (2021-06-23)
+
+- chore: add NodeJS to gitignore (2021-06-16)
+
+- chore(changelog): generate v1.13.0 (2021-06-16)
+
 ## v1.13.0 (2021-06-16)
 
 ### Added
