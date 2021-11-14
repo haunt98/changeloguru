@@ -12,3 +12,6 @@
 
 # Go
 coverage.out
+
+# GoReleaser
+dist/
