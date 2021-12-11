@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.13.2 (2021-12-11)
+
+### Others
+
+- chore: bump rst-go (2021-12-11)
+
+- chore: bump markdown-go (2021-12-11)
+
+- chore: bump color-go (2021-12-11)
+
+- chore: bump clock-go v0.3.0 (2021-12-11)
+
+- chore: update README badge (2021-12-02)
+
+- chore(changelog): generate v1.13.1 (2021-11-14)
+
 ## v1.13.1 (2021-11-14)
 
 ### Others

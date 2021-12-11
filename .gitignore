@@ -5,13 +5,13 @@
 *.exe
 
 # IntelliJ
-.idea/
+.idea
 
 # VSCode
-.vscode/
+.vscode
 
 # Go
 coverage.out
 
 # GoReleaser
-dist/
+dist
