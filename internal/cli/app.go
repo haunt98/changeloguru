@@ -3,7 +3,7 @@ package cli
 import (
 	"os"
 
-	"github.com/haunt98/color"
+	"github.com/make-go-great/color-go"
 	"github.com/urfave/cli/v2"
 )
 
