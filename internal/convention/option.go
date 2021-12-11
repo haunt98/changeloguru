@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/haunt98/changeloguru/internal/git"
-	"github.com/haunt98/clock"
+	"github.com/haunt98/clock-go"
 )
 
 const (

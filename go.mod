@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/haunt98/clock v0.2.0
+	github.com/haunt98/clock-go v0.3.0
 	github.com/haunt98/color v0.2.0
 	github.com/haunt98/markdown-go v0.4.0
 	github.com/haunt98/rst-go v0.2.0

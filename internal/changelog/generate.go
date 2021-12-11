@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/haunt98/clock"
+	"github.com/haunt98/clock-go"
 )
 
 func generateVersionHeaderValue(version string, when time.Time) string {
