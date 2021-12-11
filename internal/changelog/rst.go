@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/haunt98/changeloguru/internal/convention"
-	"github.com/haunt98/rst-go"
+	"github.com/make-go-great/rst-go"
 )
 
 // GenerateRST base on GenerateMarkdown

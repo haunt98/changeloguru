@@ -41,8 +41,6 @@ github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/haunt98/clock-go v0.3.0 h1:3Kb7Tyg4DEx9xdQzpWXj0mJPyvJIT8uTpjh/nqVeGAg=
 github.com/haunt98/clock-go v0.3.0/go.mod h1:kSgtEYoM+zncE4P0Ujm7LmJP5nnWb4Rx7IGqVtKeqEI=
-github.com/haunt98/rst-go v0.2.0 h1:9hGgw7MtDMLoTx4+NEOJ/0aZXUHIb0nesJ4sqUmMA/U=
-github.com/haunt98/rst-go v0.2.0/go.mod h1:Bj9IO8ktaGBdOBjEZw9CTYCmOUv/2GIXPhV/rfXEJN0=
 github.com/imdario/mergo v0.3.12 h1:b6R2BslTbIEToALKP7LxUvijTsNI9TAe80pLWN2g/HU=
 github.com/imdario/mergo v0.3.12/go.mod h1:jmQim1M+e3UYxmgPu/WyfjB3N3VflVyUjjjwH0dnCYA=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 h1:BQSFePA1RWJOlocH6Fxy8MmwDt+yVQYULKfN0RoTN8A=
@@ -63,6 +61,8 @@ github.com/make-go-great/color-go v0.3.0 h1:ZVtVk/wVVsZZwSJG7PZpsY5zwIyGao5VoN48
 github.com/make-go-great/color-go v0.3.0/go.mod h1:G5G8IJ3PUo+vSQ+UvnfaswF8O/piVIhFJKv1mQjBGpI=
 github.com/make-go-great/markdown-go v0.5.0 h1:Tt/0i3/X02x4EW1mhSvTaqd0K+ElmfuscLTfEfpAWF4=
 github.com/make-go-great/markdown-go v0.5.0/go.mod h1:0vY248a4ZvnC90Tjj8/hI1hWYZc5K0fGi4f1z/VEEOg=
+github.com/make-go-great/rst-go v0.3.0 h1:by5GL6++R9DHs+nM7k+DQirrL6o/cNr96MHAskvsn5c=
+github.com/make-go-great/rst-go v0.3.0/go.mod h1:gjuDrveyVKVvgiNJwFLj/pUBjGNZGCYmN0W7vs66CcM=
 github.com/matryer/is v1.2.0 h1:92UTHpy8CDwaJ08GqLDzhhuixiBUUD1p3AU6PHddz4A=
 github.com/matryer/is v1.2.0/go.mod h1:2fLPjFQM9rhQ15aVEtbuwhJinnOqrmgXPNdZsdwlWXA=
 github.com/mattn/go-colorable v0.1.9/go.mod h1:u6P/XSegPjTcexA+o6vUJrdnUu04hMope9wVRipJSqc=
