@@ -7,6 +7,12 @@
 
 Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## Roadmap
+
+- [ ] Support `CHANGELOG.txt`
+- [ ] Interactive mode
+- [ ] Unit test
+
 ## Install
 
 With Go version `>= 1.16`:
