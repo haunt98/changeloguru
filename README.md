@@ -41,13 +41,13 @@ changeloguru --help
 changeloguru generate --version v1.0.0
 
 # Generate changelog v2.0.0 from HEAD to tag v1.0.0
-changeloguru generate --to v1.0.0 --version v2.0.0
+changeloguru generate --version v2.0.0 --to v1.0.0
 
 # Generate changelog in dry run mode (without changing anything)
-changeloguru generate --to v1.0.0 --version v2.0.0 --dry-run
+changeloguru generate --version v2.0.0 --to v1.0.0 --dry-run
 
 # Generate changelog only for scope
-changeloguru generate --to v1.0.0 --version v2.0.0 --scope projectA --scope projectB
+changeloguru generate --version v2.0.0 --to v1.0.0 --scope projectA --scope projectB
 ```
 
 ## Thanks

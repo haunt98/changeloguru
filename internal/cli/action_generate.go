@@ -19,12 +19,16 @@ import (
 )
 
 func (a *action) RunGenerate(c *cli.Context) error {
-	// Show help if there is nothing
-	if c.NumFlags() == 0 {
-		return cli.ShowAppHelp(c)
-	}
-
 	a.getFlags(c)
+
+	if !a.flags.interactive {
+		// Show help if there is nothing and not in interactive mode
+		if c.NumFlags() == 0 {
+			return cli.ShowAppHelp(c)
+		}
+	} else {
+		// TODO: add interactive mode
+	}
 
 	commits, err := a.getCommits()
 	if err != nil {

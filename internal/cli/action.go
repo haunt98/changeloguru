@@ -39,9 +39,9 @@ func (a *action) RunHelp(c *cli.Context) error {
 
 func (a *action) getFlags(c *cli.Context) {
 	a.flags.verbose = c.Bool(flagVerbose)
+	a.flags.version = c.String(flagVersion)
 	a.flags.from = c.String(flagFrom)
 	a.flags.to = c.String(flagTo)
-	a.flags.version = c.String(flagVersion)
 
 	a.flags.scopes = make(map[string]struct{})
 	for _, scope := range c.StringSlice(flagScope) {

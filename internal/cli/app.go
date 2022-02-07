@@ -12,9 +12,9 @@ const (
 	usage = "generate changelog from conventional commits"
 
 	flagVerbose     = "verbose"
+	flagVersion     = "version"
 	flagFrom        = "from"
 	flagTo          = "to"
-	flagVersion     = "version"
 	flagScope       = "scope"
 	flagRepository  = "repository"
 	flagOutput      = "output"
@@ -27,9 +27,9 @@ const (
 
 	usageGenerate    = "generate changelog"
 	usageVerbose     = "show what is going on"
-	usageFrom        = "from `COMMIT`, which is kinda new commit"
-	usageTo          = "to `COMMIT`, which is kinda old commit"
 	usageVersion     = "`VERSION` to generate, follow Semantic Versioning"
+	usageFrom        = "from `COMMIT`, which is kinda new commit, default is latest commit"
+	usageTo          = "to `COMMIT`, which is kinda old commit, default is oldest commit"
 	usageScope       = "scope to generate"
 	usageRepository  = "`REPOSITORY` directory path"
 	usageOutput      = "`OUTPUT` directory path"
@@ -67,16 +67,16 @@ func NewApp() *App {
 						Usage:   usageVerbose,
 					},
 					&cli.StringFlag{
+						Name:  flagVersion,
+						Usage: usageVersion,
+					},
+					&cli.StringFlag{
 						Name:  flagFrom,
 						Usage: usageFrom,
 					},
 					&cli.StringFlag{
 						Name:  flagTo,
 						Usage: usageTo,
-					},
-					&cli.StringFlag{
-						Name:  flagVersion,
-						Usage: usageVersion,
 					},
 					&cli.StringSliceFlag{
 						Name:  flagScope,
