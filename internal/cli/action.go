@@ -19,16 +19,17 @@ const (
 
 type action struct {
 	flags struct {
-		verbose    bool
-		from       string
-		to         string
-		version    string
-		scopes     map[string]struct{}
-		repository string
-		output     string
-		filename   string
-		filetype   string
-		dryRun     bool
+		verbose     bool
+		from        string
+		to          string
+		version     string
+		scopes      map[string]struct{}
+		repository  string
+		output      string
+		filename    string
+		filetype    string
+		dryRun      bool
+		interactive bool
 	}
 }
 
@@ -47,22 +48,14 @@ func (a *action) getFlags(c *cli.Context) {
 		a.flags.scopes[scope] = struct{}{}
 	}
 
-	a.flags.repository = a.getFlagValue(c, flagRepository, defaultRepository)
-	a.flags.output = a.getFlagValue(c, flagOutput, defaultOutput)
-	a.flags.filename = a.getFlagValue(c, flagFilename, defaultFilename)
-	a.flags.filetype = a.getFlagValue(c, flagFiletype, defaultFiletype)
+	a.flags.repository = c.String(flagRepository)
+	a.flags.output = c.String(flagOutput)
+	a.flags.filename = c.String(flagFilename)
+	a.flags.filetype = c.String(flagFiletype)
 	a.flags.dryRun = c.Bool(flagDryRun)
+	a.flags.interactive = c.Bool(flagInteractive)
 
 	a.log("flags %+v", a.flags)
-}
-
-func (a *action) getFlagValue(c *cli.Context, flag, fallback string) string {
-	value := c.String(flag)
-	if value == "" {
-		value = fallback
-	}
-
-	return value
 }
 
 func (a *action) log(format string, v ...interface{}) {
