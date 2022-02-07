@@ -29,6 +29,10 @@ GO111module=on go get github.com/haunt98/changeloguru/cmd/changeloguru
 
 ## Usage
 
+`--from` is commit in the future.
+
+`-to` is commit in the past.
+
 ```sh
 # Help
 changeloguru --help
