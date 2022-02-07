@@ -10,6 +10,7 @@ import (
 	"github.com/haunt98/changeloguru/internal/changelog"
 	"github.com/haunt98/changeloguru/internal/convention"
 	"github.com/haunt98/changeloguru/internal/git"
+	"github.com/make-go-great/ioe-go"
 	"github.com/make-go-great/markdown-go"
 	"github.com/make-go-great/rst-go"
 	"github.com/pkg/diff"
@@ -27,7 +28,16 @@ func (a *action) RunGenerate(c *cli.Context) error {
 			return cli.ShowAppHelp(c)
 		}
 	} else {
-		// TODO: add interactive mode
+		fmt.Printf("Input version (%s):\n", usageVersion)
+		a.flags.version = ioe.ReadInput()
+
+		fmt.Printf("Input from (%s):\n", usageFrom)
+		a.flags.from = ioe.ReadInputEmpty()
+
+		fmt.Printf("Input to (%s):\n", usageTo)
+		a.flags.to = ioe.ReadInputEmpty()
+
+		// TODO: support more flags
 	}
 
 	commits, err := a.getCommits()
