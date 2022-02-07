@@ -8,38 +8,33 @@ import (
 )
 
 const (
-	appName  = "changeloguru"
-	appUsage = "generate changelog from conventional commits"
+	name  = "changeloguru"
+	usage = "generate changelog from conventional commits"
 
-	// flags
-	verboseFlag    = "verbose"
-	fromFlag       = "from"
-	toFlag         = "to"
-	versionFlag    = "version"
-	scopeFlag      = "scope"
-	repositoryFlag = "repository"
-	outputFlag     = "output"
-	filenameFlag   = "filename"
-	filetypeFlag   = "filetype"
-	dryRunFlag     = "dry-run"
+	flagVerbose    = "verbose"
+	flagFrom       = "from"
+	flagTo         = "to"
+	flagVersion    = "version"
+	flagScope      = "scope"
+	flagRepository = "repository"
+	flagOutput     = "output"
+	flagFilename   = "filename"
+	flagFiletype   = "filetype"
+	flagDryRun     = "dry-run"
 
-	// commands
-	generateCommand = "generate"
+	commandGenerate = "generate"
 
-	// flag usage
-	verboseUsage    = "show what is going on"
-	fromUsage       = "generate from `COMMIT`"
-	toUsage         = "generate to `COMMIT`"
-	versionUsage    = "`VERSION` to generate, follow Semantic Versioning"
-	scopeUsage      = "scope to generate"
-	repositoryUsage = "`REPOSITORY` directory path"
-	outputUsage     = "`OUTPUT` directory path"
-	filenameUsage   = "output `FILENAME`"
-	filetypeUsage   = "output `FILETYPE`"
-	dryRunUsage     = "demo run without actually changing anything"
-
-	// command usage
-	generateUsage = "generate changelog"
+	usageGenerate   = "generate changelog"
+	usageVerbose    = "show what is going on"
+	usageFrom       = "from `COMMIT`, which is kinda new commit"
+	usageTo         = "to `COMMIT`, which is kinda old commit"
+	usageVersion    = "`VERSION` to generate, follow Semantic Versioning"
+	usageScope      = "scope to generate"
+	usageRepository = "`REPOSITORY` directory path"
+	usageOutput     = "`OUTPUT` directory path"
+	usageFilename   = "output `FILENAME`"
+	usageFiletype   = "output `FILETYPE`"
+	usageDryRun     = "demo run without actually changing anything"
 )
 
 var (
@@ -58,58 +53,58 @@ func NewApp() *App {
 	a := &action{}
 
 	cliApp := &cli.App{
-		Name:  appName,
-		Usage: appUsage,
+		Name:  name,
+		Usage: usage,
 		Commands: []*cli.Command{
 			{
-				Name:    generateCommand,
+				Name:    commandGenerate,
 				Aliases: generateAliases,
-				Usage:   generateUsage,
+				Usage:   usageGenerate,
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
-						Name:    verboseFlag,
+						Name:    flagVerbose,
 						Aliases: verboseAliases,
-						Usage:   verboseUsage,
+						Usage:   usageVerbose,
 					},
 					&cli.StringFlag{
-						Name:  fromFlag,
-						Usage: fromUsage,
+						Name:  flagFrom,
+						Usage: usageFrom,
 					},
 					&cli.StringFlag{
-						Name:  toFlag,
-						Usage: toUsage,
+						Name:  flagTo,
+						Usage: usageTo,
 					},
 					&cli.StringFlag{
-						Name:  versionFlag,
-						Usage: versionUsage,
+						Name:  flagVersion,
+						Usage: usageVersion,
 					},
 					&cli.StringSliceFlag{
-						Name:  scopeFlag,
-						Usage: scopeUsage,
+						Name:  flagScope,
+						Usage: usageScope,
 					},
 					&cli.StringFlag{
-						Name:        repositoryFlag,
-						Usage:       repositoryUsage,
+						Name:        flagRepository,
+						Usage:       usageRepository,
 						DefaultText: defaultRepository,
 					},
 					&cli.StringFlag{
-						Name:        outputFlag,
-						Usage:       outputUsage,
+						Name:        flagOutput,
+						Usage:       usageOutput,
 						DefaultText: defaultOutput,
 					},
 					&cli.StringFlag{
-						Name:        filenameFlag,
-						Usage:       filenameUsage,
+						Name:        flagFilename,
+						Usage:       usageFilename,
 						DefaultText: defaultFilename,
 					},
 					&cli.StringFlag{
-						Name:        filetypeFlag,
-						Usage:       filetypeUsage,
+						Name:        flagFiletype,
+						Usage:       usageFiletype,
 						DefaultText: defaultFiletype,
 					},
 					&cli.BoolFlag{
-						Name:  dryRunFlag,
-						Usage: dryRunUsage,
+						Name:  flagDryRun,
+						Usage: usageDryRun,
 					},
 				},
 				Action: a.RunGenerate,
@@ -125,6 +120,6 @@ func NewApp() *App {
 
 func (a *App) Run() {
 	if err := a.cliApp.Run(os.Args); err != nil {
-		color.PrintAppError(appName, err.Error())
+		color.PrintAppError(name, err.Error())
 	}
 }

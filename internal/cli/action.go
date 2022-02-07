@@ -37,21 +37,21 @@ func (a *action) RunHelp(c *cli.Context) error {
 }
 
 func (a *action) getFlags(c *cli.Context) {
-	a.flags.verbose = c.Bool(verboseFlag)
-	a.flags.from = c.String(fromFlag)
-	a.flags.to = c.String(toFlag)
-	a.flags.version = c.String(versionFlag)
+	a.flags.verbose = c.Bool(flagVerbose)
+	a.flags.from = c.String(flagFrom)
+	a.flags.to = c.String(flagTo)
+	a.flags.version = c.String(flagVersion)
 
 	a.flags.scopes = make(map[string]struct{})
-	for _, scope := range c.StringSlice(scopeFlag) {
+	for _, scope := range c.StringSlice(flagScope) {
 		a.flags.scopes[scope] = struct{}{}
 	}
 
-	a.flags.repository = a.getFlagValue(c, repositoryFlag, defaultRepository)
-	a.flags.output = a.getFlagValue(c, outputFlag, defaultOutput)
-	a.flags.filename = a.getFlagValue(c, filenameFlag, defaultFilename)
-	a.flags.filetype = a.getFlagValue(c, filetypeFlag, defaultFiletype)
-	a.flags.dryRun = c.Bool(dryRunFlag)
+	a.flags.repository = a.getFlagValue(c, flagRepository, defaultRepository)
+	a.flags.output = a.getFlagValue(c, flagOutput, defaultOutput)
+	a.flags.filename = a.getFlagValue(c, flagFilename, defaultFilename)
+	a.flags.filetype = a.getFlagValue(c, flagFiletype, defaultFiletype)
+	a.flags.dryRun = c.Bool(flagDryRun)
 
 	a.log("flags %+v", a.flags)
 }
