@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v1.14.0 (2022-02-07)
+
+### Added
+
+- feat: init interactive mode (2022-02-07)
+
+### Others
+
+- chore: put version before from, to (2022-02-07)
+
+- chore: use cli default (2022-02-07)
+
+- chore: sonar ignore cli internal (2022-02-07)
+
+- chore: bump year license (2022-02-07)
+
+- chore: better naming (2022-02-07)
+
+- chore: refactor naming, with purpose prefix (2022-02-07)
+
+- chore: explain --from, --to (2022-02-07)
+
+- build: run go get -u ./... (2022-02-03)
+
+- chore: update roadmap (2022-02-03)
+
+- chore(changelog): generate v1.13.2 (2021-12-11)
+
 ## v1.13.2 (2021-12-11)
 
 ### Others
