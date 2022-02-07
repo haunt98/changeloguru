@@ -38,11 +38,8 @@ const (
 )
 
 var (
-	// flag aliases
-	verboseAliases = []string{"v"}
-
-	// command aliases
-	generateAliases = []string{"gen"}
+	aliasGenerate = []string{"gen"}
+	aliasVerbose  = []string{"v"}
 )
 
 type App struct {
@@ -58,12 +55,12 @@ func NewApp() *App {
 		Commands: []*cli.Command{
 			{
 				Name:    commandGenerate,
-				Aliases: generateAliases,
+				Aliases: aliasGenerate,
 				Usage:   usageGenerate,
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
 						Name:    flagVerbose,
-						Aliases: verboseAliases,
+						Aliases: aliasVerbose,
 						Usage:   usageVerbose,
 					},
 					&cli.StringFlag{
