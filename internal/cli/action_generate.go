@@ -36,8 +36,6 @@ func (a *action) RunGenerate(c *cli.Context) error {
 
 		fmt.Printf("Input to (%s):\n", usageTo)
 		a.flags.to = ioe.ReadInputEmpty()
-
-		// TODO: support more flags
 	}
 
 	commits, err := a.getCommits()
@@ -149,7 +147,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	// Actually writing to changelog file
-	if err := os.WriteFile(output, []byte(changelogText), 0644); err != nil {
+	if err := os.WriteFile(output, []byte(changelogText), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
@@ -181,7 +179,7 @@ func (a *action) generateRSTChangelog(output, version string, commits []conventi
 	}
 
 	// Actually writing to changelog file
-	if err := os.WriteFile(output, []byte(changelogText), 0644); err != nil {
+	if err := os.WriteFile(output, []byte(changelogText), 0o644); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 

@@ -10,7 +10,7 @@ Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from [Conventional Commits](htt
 ## Roadmap
 
 - [ ] Support `CHANGELOG.txt`
-- [ ] Interactive mode
+- [x] Interactive mode
 - [ ] Unit test
 
 ## Install

@@ -36,7 +36,7 @@ const (
 	usageFilename    = "output `FILENAME`"
 	usageFiletype    = "output `FILETYPE`"
 	usageDryRun      = "demo run without actually changing anything"
-	usageInteractive = "interactive mode"
+	usageInteractive = "interactive mode, default is true"
 )
 
 var (
@@ -110,6 +110,7 @@ func NewApp() *App {
 						Name:    flagInteractive,
 						Usage:   usageInteractive,
 						Aliases: aliasInteractive,
+						Value:   true,
 					},
 				},
 				Action: a.RunGenerate,
