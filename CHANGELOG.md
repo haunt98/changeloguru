@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v1.14.1 (2022-05-27)
+
+### Added
+
+- feat: make interactive default true (2022-04-23)
+
+### Others
+
+- build: bump github.com/urfave/cli/v2 v2.8.1 (2022-05-27)
+
+- build: bump github.com/urfave/cli/v2 v2.8.0 (2022-05-23)
+
+- build: bump github.com/urfave/cli/v2 v2.6.0 (2022-05-06)
+
+- build: update go.mod (2022-04-23)
+
+- build: bump go 1.18 (2022-03-16)
+
+- chore(changelog): generate v1.14.0 (2022-02-07)
+
 ## v1.14.0 (2022-02-07)
 
 ### Added
