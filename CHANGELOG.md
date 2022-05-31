@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v1.15.0 (2022-05-31)
+
+### Added
+
+- feat: add command version (2022-05-31)
+
+### Others
+
+- chore: update roadmap (2022-05-31)
+
+- chore: update roadmap (2022-05-31)
+
+- chore(changelog): generate v1.14.1 (2022-05-27)
+
 ## v1.14.1 (2022-05-27)
 
 ### Added
