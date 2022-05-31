@@ -24,23 +24,25 @@ const (
 	flagInteractive = "interactive"
 
 	commandGenerate = "generate"
+	commandVersion  = "version"
 
-	usageGenerate    = "generate changelog"
-	usageVerbose     = "show what is going on"
-	usageVersion     = "`VERSION` to generate, follow Semantic Versioning"
-	usageFrom        = "from `COMMIT`, which is kinda new commit, default is latest commit"
-	usageTo          = "to `COMMIT`, which is kinda old commit, default is oldest commit"
-	usageScope       = "scope to generate"
-	usageRepository  = "`REPOSITORY` directory path"
-	usageOutput      = "`OUTPUT` directory path"
-	usageFilename    = "output `FILENAME`"
-	usageFiletype    = "output `FILETYPE`"
-	usageDryRun      = "demo run without actually changing anything"
-	usageInteractive = "interactive mode, default is true"
+	usageGenerate       = "generate changelog"
+	usageCommandVersion = "version of changeloguru"
+	usageVerbose        = "show what is going on"
+	usageFlagVersion    = "`VERSION` to generate, follow Semantic Versioning"
+	usageFrom           = "from `COMMIT`, which is kinda new commit, default is latest commit"
+	usageTo             = "to `COMMIT`, which is kinda old commit, default is oldest commit"
+	usageScope          = "scope to generate"
+	usageRepository     = "`REPOSITORY` directory path"
+	usageOutput         = "`OUTPUT` directory path"
+	usageFilename       = "output `FILENAME`"
+	usageFiletype       = "output `FILETYPE`"
+	usageDryRun         = "demo run without actually changing anything"
+	usageInteractive    = "interactive mode, default is true"
 )
 
 var (
-	aliasGenerate    = []string{"gen"}
+	aliasGenerate    = []string{"g, gen"}
 	aliasVerbose     = []string{"v"}
 	aliasInteractive = []string{"i"}
 )
@@ -68,7 +70,7 @@ func NewApp() *App {
 					},
 					&cli.StringFlag{
 						Name:  flagVersion,
-						Usage: usageVersion,
+						Usage: usageFlagVersion,
 					},
 					&cli.StringFlag{
 						Name:  flagFrom,
@@ -114,6 +116,11 @@ func NewApp() *App {
 					},
 				},
 				Action: a.RunGenerate,
+			},
+			{
+				Name:   commandVersion,
+				Usage:  usageCommandVersion,
+				Action: a.RunVersion,
 			},
 		},
 		Action: a.RunHelp,

@@ -13,7 +13,7 @@ Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from [Conventional Commits](htt
 - [x] Interactive mode
 - [ ] Unit test
 - [ ] Auto generate commit after gen CHANGELOG
-- [ ] Add version command
+- [x] Add version command
 
 ## Install
 

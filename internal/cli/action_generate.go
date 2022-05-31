@@ -28,7 +28,7 @@ func (a *action) RunGenerate(c *cli.Context) error {
 			return cli.ShowAppHelp(c)
 		}
 	} else {
-		fmt.Printf("Input version (%s):\n", usageVersion)
+		fmt.Printf("Input version (%s):\n", usageFlagVersion)
 		a.flags.version = ioe.ReadInput()
 
 		fmt.Printf("Input from (%s):\n", usageFrom)
