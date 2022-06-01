@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.15.2 (2022-06-01)
+
+### Added
+
+- feat: add main module version (2022-06-01)
+
+### Others
+
+- chore(changelog): generate v1.15.1 (2022-06-01)
+
 ## v1.15.1 (2022-06-01)
 
 ### Fixed
