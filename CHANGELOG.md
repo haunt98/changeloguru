@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.15.3 (2022-06-01)
+
+### Others
+
+- refactor: hide git commit if empty (2022-06-01)
+
+- chore(changelog): generate v1.15.2 (2022-06-01)
+
 ## v1.15.2 (2022-06-01)
 
 ### Added
