@@ -41,7 +41,12 @@ func (a *action) RunVersion(c *cli.Context) error {
 		return nil
 	}
 
-	fmt.Printf("%s-%s\n", info.MainModuleVersion, info.GitCommit)
+	if info.GitCommit != "" {
+		fmt.Printf("%s-%s\n", info.MainModuleVersion, info.GitCommit)
+	} else {
+		fmt.Println(info.MainModuleVersion)
+	}
+
 	return nil
 }
 
