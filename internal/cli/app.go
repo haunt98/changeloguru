@@ -27,7 +27,7 @@ const (
 	commandVersion  = "version"
 
 	usageGenerate       = "generate changelog"
-	usageCommandVersion = "version of changeloguru"
+	usageCommandVersion = "git commit when build changeloguru"
 	usageVerbose        = "show what is going on"
 	usageFlagVersion    = "`VERSION` to generate, follow Semantic Versioning"
 	usageFrom           = "from `COMMIT`, which is kinda new commit, default is latest commit"
