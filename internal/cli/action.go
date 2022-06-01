@@ -42,9 +42,6 @@ func (a *action) RunVersion(c *cli.Context) error {
 	}
 
 	version := info.GitCommit
-	if info.GitTag != "" {
-		version = info.GitTag
-	}
 
 	fmt.Println(version)
 	return nil
