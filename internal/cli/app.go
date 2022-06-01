@@ -42,7 +42,7 @@ const (
 )
 
 var (
-	aliasGenerate    = []string{"g, gen"}
+	aliasGenerate    = []string{"g", "gen"}
 	aliasVerbose     = []string{"v"}
 	aliasInteractive = []string{"i"}
 )
