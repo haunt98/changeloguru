@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.15.1 (2022-06-01)
+
+### Fixed
+
+- fix: wrong alias generate (2022-06-01)
+
+### Others
+
+- chore: correct command version (2022-06-01)
+
+- build: bump github.com/make-go-great/buildinfo-go v0.0.2 (2022-06-01)
+
+- chore: bump actions/checkout v3 (2022-06-01)
+
+- chore(changelog): generate v1.15.0 (2022-05-31)
+
 ## v1.15.0 (2022-05-31)
 
 ### Added
