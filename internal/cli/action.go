@@ -1,10 +1,8 @@
 package cli
 
 import (
-	"fmt"
 	"log"
 
-	"github.com/make-go-great/buildinfo-go"
 	"github.com/urfave/cli/v2"
 )
 
@@ -33,21 +31,6 @@ type action struct {
 		dryRun      bool
 		interactive bool
 	}
-}
-
-func (a *action) RunVersion(c *cli.Context) error {
-	info, ok := buildinfo.Read()
-	if !ok {
-		return nil
-	}
-
-	if info.GitCommit != "" {
-		fmt.Printf("%s-%s\n", info.MainModuleVersion, info.GitCommit)
-	} else {
-		fmt.Println(info.MainModuleVersion)
-	}
-
-	return nil
 }
 
 func (a *action) RunHelp(c *cli.Context) error {
