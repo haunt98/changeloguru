@@ -1,4 +1,6 @@
-.PHONY: test coverage-cli coverate-html lint
+.PHONY: all test coverage-cli coverate-html lint
+
+all: test lint
 
 test:
 	go test -race -coverprofile=coverage.out ./...
@@ -11,4 +13,3 @@ coverage-html: test
 
 lint:
 	golangci-lint run ./...
-	semgrep --config auto
