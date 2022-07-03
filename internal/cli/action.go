@@ -19,15 +19,15 @@ const (
 
 type action struct {
 	flags struct {
-		verbose     bool
+		scopes      map[string]struct{}
+		output      string
 		from        string
 		to          string
 		version     string
-		scopes      map[string]struct{}
 		repository  string
-		output      string
 		filename    string
 		filetype    string
+		verbose     bool
 		dryRun      bool
 		interactive bool
 	}
