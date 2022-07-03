@@ -22,27 +22,29 @@ const (
 	flagFiletype    = "filetype"
 	flagDryRun      = "dry-run"
 	flagInteractive = "interactive"
+	flagAutoCommit  = "auto-commit"
 
 	commandGenerate = "generate"
 
-	usageGenerate    = "generate changelog"
-	usageVerbose     = "show what is going on"
-	usageFlagVersion = "`VERSION` to generate, follow Semantic Versioning"
-	usageFrom        = "from `COMMIT`, which is kinda new commit, default is latest commit"
-	usageTo          = "to `COMMIT`, which is kinda old commit, default is oldest commit"
-	usageScope       = "scope to generate"
-	usageRepository  = "`REPOSITORY` directory path"
-	usageOutput      = "`OUTPUT` directory path"
-	usageFilename    = "output `FILENAME`"
-	usageFiletype    = "output `FILETYPE`"
-	usageDryRun      = "demo run without actually changing anything"
-	usageInteractive = "interactive mode, default is true"
+	usageCommandGenerate = "generate changelog"
+	usageFlagVerbose     = "show what is going on"
+	usageFlagVersion     = "`VERSION` to generate, follow Semantic Versioning"
+	usageFlagFrom        = "from `COMMIT`, which is kinda new commit, default is latest commit"
+	usageFlagTo          = "to `COMMIT`, which is kinda old commit, default is oldest commit"
+	usageFlagScope       = "scope to generate"
+	usageFlagRepository  = "`REPOSITORY` directory path"
+	usageFlagOutput      = "`OUTPUT` directory path"
+	usageFlagFilename    = "output `FILENAME`"
+	usageFlagFiletype    = "output `FILETYPE`"
+	usageFlagDryRun      = "demo run without actually changing anything"
+	usageFlagInteractive = "interactive mode"
+	usageFlagAutoCommit  = "enable auto commit after generating changelog"
 )
 
 var (
-	aliasGenerate    = []string{"g", "gen"}
-	aliasVerbose     = []string{"v"}
-	aliasInteractive = []string{"i"}
+	aliasCommandGenerate = []string{"g", "gen"}
+	aliasFlagVerbose     = []string{"v"}
+	aliasFlagInteractive = []string{"i"}
 )
 
 type App struct {
@@ -58,13 +60,13 @@ func NewApp() *App {
 		Commands: []*cli.Command{
 			{
 				Name:    commandGenerate,
-				Aliases: aliasGenerate,
-				Usage:   usageGenerate,
+				Aliases: aliasCommandGenerate,
+				Usage:   usageCommandGenerate,
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
 						Name:    flagVerbose,
-						Aliases: aliasVerbose,
-						Usage:   usageVerbose,
+						Aliases: aliasFlagVerbose,
+						Usage:   usageFlagVerbose,
 					},
 					&cli.StringFlag{
 						Name:  flagVersion,
@@ -72,45 +74,50 @@ func NewApp() *App {
 					},
 					&cli.StringFlag{
 						Name:  flagFrom,
-						Usage: usageFrom,
+						Usage: usageFlagFrom,
 					},
 					&cli.StringFlag{
 						Name:  flagTo,
-						Usage: usageTo,
+						Usage: usageFlagTo,
 					},
 					&cli.StringSliceFlag{
 						Name:  flagScope,
-						Usage: usageScope,
+						Usage: usageFlagScope,
 					},
 					&cli.StringFlag{
 						Name:  flagRepository,
-						Usage: usageRepository,
+						Usage: usageFlagRepository,
 						Value: defaultRepository,
 					},
 					&cli.StringFlag{
 						Name:  flagOutput,
-						Usage: usageOutput,
+						Usage: usageFlagOutput,
 						Value: defaultOutput,
 					},
 					&cli.StringFlag{
 						Name:  flagFilename,
-						Usage: usageFilename,
+						Usage: usageFlagFilename,
 						Value: defaultFilename,
 					},
 					&cli.StringFlag{
 						Name:  flagFiletype,
-						Usage: usageFiletype,
+						Usage: usageFlagFiletype,
 						Value: defaultFiletype,
 					},
 					&cli.BoolFlag{
 						Name:  flagDryRun,
-						Usage: usageDryRun,
+						Usage: usageFlagDryRun,
 					},
 					&cli.BoolFlag{
 						Name:    flagInteractive,
-						Usage:   usageInteractive,
-						Aliases: aliasInteractive,
+						Usage:   usageFlagInteractive,
+						Aliases: aliasFlagInteractive,
 						Value:   true,
+					},
+					&cli.BoolFlag{
+						Name:  flagAutoCommit,
+						Usage: usageFlagAutoCommit,
+						Value: true,
 					},
 				},
 				Action: a.RunGenerate,

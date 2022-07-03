@@ -30,6 +30,7 @@ type action struct {
 		verbose     bool
 		dryRun      bool
 		interactive bool
+		autoCommit  bool
 	}
 }
 
@@ -54,6 +55,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.filetype = c.String(flagFiletype)
 	a.flags.dryRun = c.Bool(flagDryRun)
 	a.flags.interactive = c.Bool(flagInteractive)
+	a.flags.autoCommit = c.Bool(flagAutoCommit)
 
 	a.log("flags %+v", a.flags)
 }

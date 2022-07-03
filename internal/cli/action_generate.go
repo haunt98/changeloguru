@@ -20,6 +20,8 @@ import (
 	"golang.org/x/mod/semver"
 )
 
+const autoCommitMessageTemplate = "chore(changelog): generate version %s"
+
 var (
 	ErrUnknownFiletype = errors.New("unknown filetype")
 	ErrInvalidVersion  = errors.New("invalid version")
@@ -37,34 +39,45 @@ func (a *action) RunGenerate(c *cli.Context) error {
 		fmt.Printf("Input version (%s):\n", usageFlagVersion)
 		a.flags.version = ioe.ReadInput()
 
-		fmt.Printf("Input from (%s):\n", usageFrom)
+		fmt.Printf("Input from (%s):\n", usageFlagFrom)
 		a.flags.from = ioe.ReadInputEmpty()
 
-		fmt.Printf("Input to (%s):\n", usageTo)
+		fmt.Printf("Input to (%s):\n", usageFlagTo)
 		a.flags.to = ioe.ReadInputEmpty()
 	}
 
-	commits, err := a.getCommits()
+	repo, err := git.NewRepository(a.flags.repository)
+	if err != nil {
+		return err
+	}
+
+	commits, err := repo.Log(a.flags.from, a.flags.to)
 	if err != nil {
 		return err
 	}
 
 	conventionalCommits := a.getConventionalCommits(commits)
 
-	if err := a.generateChangelog(conventionalCommits); err != nil {
+	finalOutput := a.getFinalOutput()
+
+	version, err := a.getVersion()
+	if err != nil {
 		return err
 	}
 
-	return nil
-}
-
-func (a *action) getCommits() ([]git.Commit, error) {
-	r, err := git.NewRepository(a.flags.repository)
-	if err != nil {
-		return nil, err
+	if err := a.generateChangelog(conventionalCommits, finalOutput, version); err != nil {
+		return err
 	}
 
-	return r.Log(a.flags.from, a.flags.to)
+	if a.flags.autoCommit {
+		commitMsg := fmt.Sprintf(autoCommitMessageTemplate, version)
+
+		if err := repo.Commit(commitMsg, a.flags.filename, finalOutput); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commit {
@@ -81,24 +94,6 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 	}
 
 	return conventionalCommits
-}
-
-func (a *action) generateChangelog(commits []convention.Commit) error {
-	finalOutput := a.getFinalOutput()
-
-	version, err := a.getVersion()
-	if err != nil {
-		return err
-	}
-
-	switch a.flags.filetype {
-	case markdownFiletype:
-		return a.generateMarkdownChangelog(finalOutput, version, commits)
-	case rstFiletype:
-		return a.generateRSTChangelog(finalOutput, version, commits)
-	default:
-		return fmt.Errorf("unknown filetype %s: %w", a.flags.filetype, ErrUnknownFiletype)
-	}
 }
 
 func (a *action) getFinalOutput() string {
@@ -126,6 +121,17 @@ func (a *action) getVersion() (string, error) {
 	a.log("version %s", a.flags.version)
 
 	return a.flags.version, nil
+}
+
+func (a *action) generateChangelog(commits []convention.Commit, finalOutput, version string) error {
+	switch a.flags.filetype {
+	case markdownFiletype:
+		return a.generateMarkdownChangelog(finalOutput, version, commits)
+	case rstFiletype:
+		return a.generateRSTChangelog(finalOutput, version, commits)
+	default:
+		return fmt.Errorf("unknown filetype %s: %w", a.flags.filetype, ErrUnknownFiletype)
+	}
 }
 
 func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
