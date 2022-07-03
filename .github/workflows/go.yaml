@@ -47,14 +47,3 @@ jobs:
       - uses: golangci/golangci-lint-action@v2
         with:
           version: latest
-  semgrep:
-    name: semgrep
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/security-audit
-            p/secrets
-            p/golang
