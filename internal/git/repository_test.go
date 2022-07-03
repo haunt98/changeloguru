@@ -24,7 +24,7 @@ func (s *RepositorySuite) SetupTest() {
 	s.NoError(err)
 
 	s.repo = &repo{
-		r: s.r,
+		gitRepo: s.r,
 	}
 }
 

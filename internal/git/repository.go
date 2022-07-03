@@ -18,23 +18,24 @@ const (
 // Repository is an abstraction for git-repository
 type Repository interface {
 	Log(fromRev, toRev string) ([]Commit, error)
+	Commit(commitMessage string, paths ...string) error
 }
 
 type repo struct {
-	r *git.Repository
+	gitRepo *git.Repository
 }
 
 type stopFn func(*object.Commit) error
 
 // NewRepository return Repository from path
 func NewRepository(path string) (Repository, error) {
-	r, err := git.PlainOpen(path)
+	gitRepo, err := git.PlainOpen(path)
 	if err != nil {
 		return nil, err
 	}
 
 	return &repo{
-		r: r,
+		gitRepo: gitRepo,
 	}, nil
 }
 
@@ -44,7 +45,7 @@ func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 		fromRev = head
 	}
 
-	fromHash, err := r.r.ResolveRevision(plumbing.Revision(fromRev))
+	fromHash, err := r.gitRepo.ResolveRevision(plumbing.Revision(fromRev))
 	if err != nil {
 		return nil, fmt.Errorf("failed to resolve %s: %w", fromRev, err)
 	}
@@ -53,7 +54,7 @@ func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 		return r.logWithStopFn(fromHash, nil, nil)
 	}
 
-	toHash, err := r.r.ResolveRevision(plumbing.Revision(toRev))
+	toHash, err := r.gitRepo.ResolveRevision(plumbing.Revision(toRev))
 	if err != nil {
 		return nil, fmt.Errorf("failed to resolve %s: %w", toRev, err)
 	}
@@ -61,8 +62,27 @@ func (r *repo) Log(fromRev, toRev string) ([]Commit, error) {
 	return r.logWithStopFn(fromHash, nil, stopAtHash(toHash))
 }
 
+func (r *repo) Commit(commitMessage string, paths ...string) error {
+	gitWorktree, err := r.gitRepo.Worktree()
+	if err != nil {
+		return fmt.Errorf("failed to get git worktree: %w", err)
+	}
+
+	for _, path := range paths {
+		if _, err := gitWorktree.Add(path); err != nil {
+			return fmt.Errorf("failed to git add %s: %w", path, err)
+		}
+	}
+
+	if _, err := gitWorktree.Commit(commitMessage, &git.CommitOptions{}); err != nil {
+		return fmt.Errorf("failed to git commit: %w", err)
+	}
+
+	return nil
+}
+
 func (r *repo) logWithStopFn(fromHash *plumbing.Hash, beginFn, endFn stopFn) ([]Commit, error) {
-	cIter, err := r.r.Log(&git.LogOptions{
+	cIter, err := r.gitRepo.Log(&git.LogOptions{
 		From: *fromHash,
 	})
 	if err != nil {
