@@ -78,7 +78,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 }
 
 func (a *action) generateChangelog(commits []convention.Commit) error {
-	realOutput := a.getRealOutput()
+	finalOutput := a.getFinalOutput()
 
 	version, err := a.getVersion()
 	if err != nil {
@@ -87,21 +87,21 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 
 	switch a.flags.filetype {
 	case markdownFiletype:
-		return a.generateMarkdownChangelog(realOutput, version, commits)
+		return a.generateMarkdownChangelog(finalOutput, version, commits)
 	case rstFiletype:
-		return a.generateRSTChangelog(realOutput, version, commits)
+		return a.generateRSTChangelog(finalOutput, version, commits)
 	default:
 		return fmt.Errorf("unknown filetype %s", a.flags.filetype)
 	}
 }
 
-func (a *action) getRealOutput() string {
+func (a *action) getFinalOutput() string {
 	nameWithExt := a.flags.filename + "." + a.flags.filetype
-	realOutput := filepath.Join(a.flags.output, nameWithExt)
+	finalOutput := filepath.Join(a.flags.output, nameWithExt)
 
-	a.log("real output %s", realOutput)
+	a.log("final output %s", finalOutput)
 
-	return realOutput
+	return finalOutput
 }
 
 func (a *action) getVersion() (string, error) {
