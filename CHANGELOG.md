@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## v1.16.0 (2022-07-04)
+
+### Added
+
+- feat: auto commit after generating changelog (2022-07-03)
+
+- feat: remove command version (2022-06-25)
+
+### Fixed
+
+- fix: use exec cmd instead of go-git (2022-07-04)
+
+- fix: correct path when commit (2022-07-03)
+
+### Others
+
+- chore: remove sonar (2022-07-03)
+
+- chore: fix lint with error (2022-07-03)
+
+- chore: G306: Expect WriteFile permissions to be 0600 or less (gosec) (2022-07-03)
+
+- chore: fix lint using fieldalignment (2022-07-03)
+
+- refactor: realOutput -> finalOutput (2022-07-03)
+
+- chore: remove semgrep, only need golangci-lint (2022-07-03)
+
+- chore: add golangci config (2022-07-03)
+
+- chore: remove roadmap (2022-07-03)
+
+- build: bump github.com/urfave/cli/v2 v2.10.3 (2022-06-25)
+
+- build: bump github.com/urfave/cli/v2 v2.10.0 (2022-06-18)
+
+- chore(changelog): generate v1.15.3 (2022-06-01)
+
 ## v1.15.3 (2022-06-01)
 
 ### Others
