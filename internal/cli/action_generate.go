@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -20,7 +21,7 @@ import (
 	"golang.org/x/mod/semver"
 )
 
-const autoCommitMessageTemplate = "chore(changelog): generate version %s"
+const autoCommitMessageTemplate = "chore(changelog): generate %s"
 
 var (
 	ErrUnknownFiletype = errors.New("unknown filetype")
@@ -72,9 +73,21 @@ func (a *action) RunGenerate(c *cli.Context) error {
 	if a.flags.autoCommit {
 		commitMsg := fmt.Sprintf(autoCommitMessageTemplate, version)
 
-		if err := repo.Commit(commitMsg, finalOutput); err != nil {
+		// TODO: disable until https://github.com/go-git/go-git/issues/180 is fixed
+		// if err := repo.Commit(commitMsg, finalOutput); err != nil {
+		// 	return err
+		// }
+		cmdOutput, err := exec.CommandContext(c.Context, "git", "add", finalOutput).CombinedOutput()
+		if err != nil {
 			return err
 		}
+		a.log("git add output:\n%s", cmdOutput)
+
+		cmdOutput, err = exec.CommandContext(c.Context, "git", "commit", "-m", commitMsg).CombinedOutput()
+		if err != nil {
+			return err
+		}
+		a.log("git commit output:\n%s", cmdOutput)
 	}
 
 	return nil
