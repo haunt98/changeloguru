@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -17,6 +18,11 @@ import (
 	"github.com/pkg/diff/write"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/mod/semver"
+)
+
+var (
+	ErrUnknownFiletype = errors.New("unknown filetype")
+	ErrInvalidVersion  = errors.New("invalid version")
 )
 
 func (a *action) RunGenerate(c *cli.Context) error {
@@ -91,7 +97,7 @@ func (a *action) generateChangelog(commits []convention.Commit) error {
 	case rstFiletype:
 		return a.generateRSTChangelog(finalOutput, version, commits)
 	default:
-		return fmt.Errorf("unknown filetype %s", a.flags.filetype)
+		return fmt.Errorf("unknown filetype %s: %w", a.flags.filetype, ErrUnknownFiletype)
 	}
 }
 
@@ -106,7 +112,7 @@ func (a *action) getFinalOutput() string {
 
 func (a *action) getVersion() (string, error) {
 	if a.flags.version == "" {
-		return "", fmt.Errorf("empty version")
+		return "", fmt.Errorf("empty version: %w", ErrInvalidVersion)
 	}
 
 	if !strings.HasPrefix(a.flags.version, "v") {
@@ -114,7 +120,7 @@ func (a *action) getVersion() (string, error) {
 	}
 
 	if !semver.IsValid(a.flags.version) {
-		return "", fmt.Errorf("invalid semver %s", a.flags.version)
+		return "", fmt.Errorf("invalid semver %s: %w", a.flags.version, ErrInvalidVersion)
 	}
 
 	a.log("version %s", a.flags.version)
