@@ -33,7 +33,7 @@ const (
 	usageFlagTo          = "to `COMMIT`, which is kinda old commit, default is oldest commit"
 	usageFlagScope       = "scope to generate"
 	usageFlagRepository  = "`REPOSITORY` directory path"
-	usageFlagOutput      = "`OUTPUT` directory path"
+	usageFlagOutput      = "`OUTPUT` directory path, relative to `REPOSITORY` path"
 	usageFlagFilename    = "output `FILENAME`"
 	usageFlagFiletype    = "output `FILETYPE`"
 	usageFlagDryRun      = "demo run without actually changing anything"

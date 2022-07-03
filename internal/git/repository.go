@@ -69,7 +69,9 @@ func (r *repo) Commit(commitMessage string, paths ...string) error {
 	}
 
 	for _, path := range paths {
-		if _, err := gitWorktree.Add(path); err != nil {
+		if err := gitWorktree.AddWithOptions(&git.AddOptions{
+			Path: path,
+		}); err != nil {
 			return fmt.Errorf("failed to git add %s: %w", path, err)
 		}
 	}
