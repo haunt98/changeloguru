@@ -1,0 +1,74 @@
+run:
+  tests: false
+  skip-dirs:
+    - ".*test.*"
+    - ".*mock.*"
+    - ".*generated.*"
+    - ".*example.*"
+  skip-files:
+    - ".*Mock.*"
+    - ".*_mock.*"
+    - ".*_generated.*"
+  go: "1.18"
+
+output:
+  sort-results: true
+
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - gosimple
+    - govet
+    - staticcheck
+    - typecheck
+    - unused
+    - varcheck
+    - errname
+    - errorlint
+    - execinquery
+    - goerr113
+    - gofumpt
+    - gosec
+    - ifshort
+    - importas
+    - makezero
+    - nilnil
+    - prealloc
+    - unconvert
+  fast: true
+
+linters-settings:
+  gosec:
+    excludes:
+      - G402
+      - G501
+      - G505
+    exclude-generated: true
+  govet:
+    check-shadowing: false
+    disable-all: true
+    enable:
+      - assign
+      - atomic
+      - bools
+      - buildtag
+      - composites
+      - copylocks
+      - fieldalignment
+      - httpresponse
+      - loopclosure
+      - lostcancel
+      - nilfunc
+      - printf
+      - unmarshal
+      - unreachable
+      - unusedresult
+  staticcheck:
+    go: "1.18"
+    checks: ["all", "-SA1019"]
+
+issues:
+  new: true
+  fix: true
