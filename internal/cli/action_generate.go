@@ -72,7 +72,7 @@ func (a *action) RunGenerate(c *cli.Context) error {
 	if a.flags.autoCommit {
 		commitMsg := fmt.Sprintf(autoCommitMessageTemplate, version)
 
-		if err := repo.Commit(commitMsg, a.flags.filename, finalOutput); err != nil {
+		if err := repo.Commit(commitMsg, finalOutput); err != nil {
 			return err
 		}
 	}
@@ -98,7 +98,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 
 func (a *action) getFinalOutput() string {
 	nameWithExt := a.flags.filename + "." + a.flags.filetype
-	finalOutput := filepath.Join(a.flags.output, nameWithExt)
+	finalOutput := filepath.Join(a.flags.repository, a.flags.output, nameWithExt)
 
 	a.log("final output %s", finalOutput)
 
