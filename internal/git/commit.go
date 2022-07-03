@@ -6,8 +6,8 @@ import (
 
 // Commit stores all git-commit information
 type Commit struct {
-	Message string
 	Author  Author
+	Message string
 }
 
 // Convert from git-commit
