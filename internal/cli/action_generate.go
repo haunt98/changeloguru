@@ -147,7 +147,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	// Actually writing to changelog file
-	if err := os.WriteFile(output, []byte(changelogText), 0o644); err != nil {
+	if err := os.WriteFile(output, []byte(changelogText), 0o600); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
@@ -179,7 +179,7 @@ func (a *action) generateRSTChangelog(output, version string, commits []conventi
 	}
 
 	// Actually writing to changelog file
-	if err := os.WriteFile(output, []byte(changelogText), 0o644); err != nil {
+	if err := os.WriteFile(output, []byte(changelogText), 0o600); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
 	}
 
