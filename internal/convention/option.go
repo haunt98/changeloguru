@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/haunt98/changeloguru/internal/git"
-	"github.com/haunt98/clock-go"
+	"github.com/make-go-great/date-go"
 )
 
 const (
@@ -58,7 +59,7 @@ func GetTypeAndScope(gitCommit git.Commit) OptionFn {
 
 func AddAuthorDate(gitCommit git.Commit) OptionFn {
 	return func(c *Commit) error {
-		c.RawHeader = fmt.Sprintf("%s (%s)", c.RawHeader, clock.FormatDate(gitCommit.Author.When))
+		c.RawHeader = fmt.Sprintf("%s (%s)", c.RawHeader, date.FormatDateByDefault(gitCommit.Author.When, time.Local))
 
 		return nil
 	}
