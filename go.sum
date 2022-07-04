@@ -37,8 +37,6 @@ github.com/go-git/go-git/v5 v5.4.2 h1:BXyZu9t0VkbiHtqrsvdq39UDhGJTl1h55VW6CSC4aY
 github.com/go-git/go-git/v5 v5.4.2/go.mod h1:gQ1kArt6d+n+BGd+/B/I74HwRTLhth2+zti4ihgckDc=
 github.com/google/go-cmp v0.3.0 h1:crn/baboCvb5fXaQ0IJ1SGTsTVrWpDsCWC8EGETZijY=
 github.com/google/go-cmp v0.3.0/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
-github.com/haunt98/clock-go v0.3.0 h1:3Kb7Tyg4DEx9xdQzpWXj0mJPyvJIT8uTpjh/nqVeGAg=
-github.com/haunt98/clock-go v0.3.0/go.mod h1:kSgtEYoM+zncE4P0Ujm7LmJP5nnWb4Rx7IGqVtKeqEI=
 github.com/imdario/mergo v0.3.12/go.mod h1:jmQim1M+e3UYxmgPu/WyfjB3N3VflVyUjjjwH0dnCYA=
 github.com/imdario/mergo v0.3.13 h1:lFzP57bqS/wsqKssCGmtLAb8A0wKjLGrve2q3PPVcBk=
 github.com/imdario/mergo v0.3.13/go.mod h1:4lJ1jqUDcsbIECGy0RUJAXNIhg+6ocWgb1ALK2O4oXg=
@@ -58,6 +56,8 @@ github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
 github.com/kr/text v0.2.0/go.mod h1:eLer722TekiGuMkidMxC/pM04lWEeraHUUmBw8l2grE=
 github.com/make-go-great/color-go v0.3.0 h1:ZVtVk/wVVsZZwSJG7PZpsY5zwIyGao5VoN48yKfSzYA=
 github.com/make-go-great/color-go v0.3.0/go.mod h1:G5G8IJ3PUo+vSQ+UvnfaswF8O/piVIhFJKv1mQjBGpI=
+github.com/make-go-great/date-go v0.4.0 h1:bH1jyb9BBlig+R+jJMRIIcKXI9pRTdJetS0tHkJSv1s=
+github.com/make-go-great/date-go v0.4.0/go.mod h1:8EPEcTTWt69iOO41+Bb8EbggAwJ7/l7ml11BJLc9w/o=
 github.com/make-go-great/ioe-go v0.4.0 h1:abRH8J01am7A9VsinEG0WnXDiT1CWk7Cd0auRvWuNyQ=
 github.com/make-go-great/ioe-go v0.4.0/go.mod h1:RMXnZIKVXk52+H7EJZoBpZ3SSuxUPk9UFqpHFZ9uOUk=
 github.com/make-go-great/markdown-go v0.5.0 h1:Tt/0i3/X02x4EW1mhSvTaqd0K+ElmfuscLTfEfpAWF4=
