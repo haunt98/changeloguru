@@ -12,7 +12,7 @@ require (
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/sebdah/goldie/v2 v2.5.3
 	github.com/stretchr/testify v1.8.0
-	github.com/urfave/cli/v2 v2.10.3
+	github.com/urfave/cli/v2 v2.11.0
 	golang.org/x/mod v0.5.1
 )
 
