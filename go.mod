@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/make-go-great/color-go v0.3.0
+	github.com/make-go-great/color-go v0.4.1
 	github.com/make-go-great/date-go v0.4.0
 	github.com/make-go-great/ioe-go v0.4.0
 	github.com/make-go-great/markdown-go v0.5.0
