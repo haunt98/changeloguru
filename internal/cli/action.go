@@ -39,25 +39,45 @@ func (a *action) RunHelp(c *cli.Context) error {
 }
 
 func (a *action) getFlags(c *cli.Context) {
-	a.flags.verbose = c.Bool(flagVerbose)
-	a.flags.version = c.String(flagVersion)
-	a.flags.from = c.String(flagFrom)
-	a.flags.to = c.String(flagTo)
+	a.flags.verbose = c.Bool(flagVerboseName)
+	a.flags.version = c.String(flagVersionName)
+	a.flags.from = c.String(flagFromName)
+	a.flags.to = c.String(flagToName)
 
 	a.flags.scopes = make(map[string]struct{})
-	for _, scope := range c.StringSlice(flagScope) {
+	for _, scope := range c.StringSlice(flagScopeName) {
 		a.flags.scopes[scope] = struct{}{}
 	}
 
-	a.flags.repository = c.String(flagRepository)
-	a.flags.output = c.String(flagOutput)
-	a.flags.filename = c.String(flagFilename)
-	a.flags.filetype = c.String(flagFiletype)
-	a.flags.dryRun = c.Bool(flagDryRun)
-	a.flags.interactive = c.Bool(flagInteractive)
-	a.flags.autoCommit = c.Bool(flagAutoCommit)
+	a.flags.repository = c.String(flagRepositoryName)
+	if a.flags.repository == "" {
+		a.log("Fallback to default repository [%s]", defaultRepository)
+		a.flags.repository = defaultRepository
+	}
 
-	a.log("flags %+v", a.flags)
+	a.flags.output = c.String(flagOutputName)
+	if a.flags.output == "" {
+		a.log("Fallback to default output [%s]\n", defaultOutput)
+		a.flags.output = defaultOutput
+	}
+
+	a.flags.filename = c.String(flagFilenameName)
+	if a.flags.filename == "" {
+		a.log("Fallback to default filename [%s]\n", defaultFilename)
+		a.flags.filename = defaultFilename
+	}
+
+	a.flags.filetype = c.String(flagFiletypeName)
+	if a.flags.filetype == "" {
+		a.log("Fallback to default filetype [%s]\n", defaultFiletype)
+		a.flags.filetype = defaultFiletype
+	}
+
+	a.flags.dryRun = c.Bool(flagDryRunName)
+	a.flags.interactive = c.Bool(flagInteractiveName)
+	a.flags.autoCommit = c.Bool(flagAutoCommitName)
+
+	a.log("flags %+v\n", a.flags)
 }
 
 func (a *action) log(format string, v ...interface{}) {
