@@ -31,12 +31,12 @@ var (
 func (a *action) RunGenerate(c *cli.Context) error {
 	a.getFlags(c)
 
-	if !a.flags.interactive {
-		// Show help if there is nothing and not in interactive mode
-		if c.NumFlags() == 0 {
-			return cli.ShowAppHelp(c)
-		}
-	} else {
+	// Show help if there is no flags
+	if c.NumFlags() == 0 {
+		return cli.ShowCommandHelp(c, commandGenerateName)
+	}
+
+	if a.flags.interactive {
 		fmt.Printf("Input version (%s):\n", flagVersionUsage)
 		a.flags.version = ioe.ReadInput()
 
