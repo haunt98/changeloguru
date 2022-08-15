@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## v1.17.0 (2022-08-16)
+
+### Added
+
+- feat: show command generate help if no input flags (2022-08-16)
+
+- feat: remove all default value (2022-08-16)
+
+### Others
+
+- chore: use github changelog for goreleaser (2022-08-16)
+
+- chore: update github action (2022-08-16)
+
+- chore: capitalized log (2022-08-16)
+
+- chore: use my own go-test-color (2022-08-16)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.11.1 to 2.11.2 (2022-08-15)
+
+- build(deps): bump github.com/make-go-great/color-go from 0.3.0 to 0.4.1 (2022-07-22)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.11.0 to 2.11.1 (2022-07-21)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.10.3 to 2.11.0 (2022-07-11)
+
+- chore: use make-go-great/date-go (2022-07-04)
+
+- build(deps): bump github.com/stretchr/testify from 1.7.0 to 1.8.0 (2022-07-04)
+
+- chore: correct directory for dependabot (2022-07-04)
+
+- chore: bump workflows v2 to v3 (2022-07-04)
+
+- chore: add dependabot (2022-07-04)
+
+- chore(changelog): generate v1.16.0 (2022-07-04)
+
 ## v1.16.0 (2022-07-04)
 
 ### Added
