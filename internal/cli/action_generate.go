@@ -81,13 +81,13 @@ func (a *action) RunGenerate(c *cli.Context) error {
 		if err != nil {
 			return err
 		}
-		a.log("git add output:\n%s", cmdOutput)
+		a.log("Git add output:\n%s", cmdOutput)
 
 		cmdOutput, err = exec.CommandContext(c.Context, "git", "commit", "-m", commitMsg).CombinedOutput()
 		if err != nil {
 			return err
 		}
-		a.log("git commit output:\n%s", cmdOutput)
+		a.log("Git commit output:\n%s", cmdOutput)
 	}
 
 	return nil
@@ -98,7 +98,7 @@ func (a *action) getConventionalCommits(commits []git.Commit) []convention.Commi
 	for _, commit := range commits {
 		conventionalCommit, err := convention.NewCommit(commit)
 		if err != nil {
-			a.log("failed to new conventional commits %+v: %s", commit, err)
+			a.log("Failed to new conventional commits %+v: %s", commit, err)
 			// Skip bad commit and move on
 			continue
 		}
@@ -113,7 +113,7 @@ func (a *action) getFinalOutput() string {
 	nameWithExt := a.flags.filename + "." + a.flags.filetype
 	finalOutput := filepath.Join(a.flags.repository, a.flags.output, nameWithExt)
 
-	a.log("final output %s", finalOutput)
+	a.log("Final output %s", finalOutput)
 
 	return finalOutput
 }
@@ -131,7 +131,7 @@ func (a *action) getVersion() (string, error) {
 		return "", fmt.Errorf("invalid semver %s: %w", a.flags.version, ErrInvalidVersion)
 	}
 
-	a.log("version %s", a.flags.version)
+	a.log("Version %s", a.flags.version)
 
 	return a.flags.version, nil
 }

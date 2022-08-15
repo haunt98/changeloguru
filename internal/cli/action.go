@@ -77,7 +77,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.interactive = c.Bool(flagInteractiveName)
 	a.flags.autoCommit = c.Bool(flagAutoCommitName)
 
-	a.log("flags %+v\n", a.flags)
+	a.log("Flags %+v\n", a.flags)
 }
 
 func (a *action) log(format string, v ...interface{}) {
