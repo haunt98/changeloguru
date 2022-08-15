@@ -11,40 +11,50 @@ const (
 	name  = "changeloguru"
 	usage = "generate changelog from conventional commits"
 
-	flagVerbose     = "verbose"
-	flagVersion     = "version"
-	flagFrom        = "from"
-	flagTo          = "to"
-	flagScope       = "scope"
-	flagRepository  = "repository"
-	flagOutput      = "output"
-	flagFilename    = "filename"
-	flagFiletype    = "filetype"
-	flagDryRun      = "dry-run"
-	flagInteractive = "interactive"
-	flagAutoCommit  = "auto-commit"
+	commandGenerateName  = "generate"
+	commandGenerateUsage = "generate changelog"
 
-	commandGenerate = "generate"
+	flagVerboseName  = "verbose"
+	flagVerboseUsage = "show what is going on"
 
-	usageCommandGenerate = "generate changelog"
-	usageFlagVerbose     = "show what is going on"
-	usageFlagVersion     = "`VERSION` to generate, follow Semantic Versioning"
-	usageFlagFrom        = "from `COMMIT`, which is kinda new commit, default is latest commit"
-	usageFlagTo          = "to `COMMIT`, which is kinda old commit, default is oldest commit"
-	usageFlagScope       = "scope to generate"
-	usageFlagRepository  = "`REPOSITORY` directory path"
-	usageFlagOutput      = "`OUTPUT` directory path, relative to `REPOSITORY` path"
-	usageFlagFilename    = "output `FILENAME`"
-	usageFlagFiletype    = "output `FILETYPE`"
-	usageFlagDryRun      = "demo run without actually changing anything"
-	usageFlagInteractive = "interactive mode"
-	usageFlagAutoCommit  = "enable auto commit after generating changelog"
+	flagVersionName  = "version"
+	flagVersionUsage = "`VERSION` to generate, follow Semantic Versioning"
+
+	flagFromName  = "from"
+	flagFromUsage = "from `COMMIT`, which is kinda new commit, default is latest commit"
+
+	flagToName  = "to"
+	flagToUsage = "to `COMMIT`, which is kinda old commit, default is oldest commit"
+
+	flagScopeName  = "scope"
+	flagScopeUsage = "scope to generate"
+
+	flagRepositoryName  = "repository"
+	flagRepositoryUsage = "`REPOSITORY` directory path"
+
+	flagOutputName  = "output"
+	flagOutputUsage = "`OUTPUT` directory path, relative to `REPOSITORY` path"
+
+	flagFilenameName  = "filename"
+	flagFilenameUsage = "output `FILENAME`"
+
+	flagFiletypeName  = "filetype"
+	flagFiletypeUsage = "output `FILETYPE`"
+
+	flagDryRunName  = "dry-run"
+	flagDryRunUsage = "demo run without actually changing anything"
+
+	flagInteractiveName  = "interactive"
+	flagInteractiveUsage = "interactive mode"
+
+	flagAutoCommitName  = "auto-commit"
+	flagAutoCommitUsage = "enable auto commit after generating changelog"
 )
 
 var (
-	aliasCommandGenerate = []string{"g", "gen"}
-	aliasFlagVerbose     = []string{"v"}
-	aliasFlagInteractive = []string{"i"}
+	commandGenerateAliases = []string{"g", "gen"}
+	flagVerboseAliases     = []string{"v"}
+	flagInteractiveAliases = []string{"i"}
 )
 
 type App struct {
@@ -59,65 +69,59 @@ func NewApp() *App {
 		Usage: usage,
 		Commands: []*cli.Command{
 			{
-				Name:    commandGenerate,
-				Aliases: aliasCommandGenerate,
-				Usage:   usageCommandGenerate,
+				Name:    commandGenerateName,
+				Aliases: commandGenerateAliases,
+				Usage:   commandGenerateUsage,
 				Flags: []cli.Flag{
 					&cli.BoolFlag{
-						Name:    flagVerbose,
-						Aliases: aliasFlagVerbose,
-						Usage:   usageFlagVerbose,
+						Name:    flagVerboseName,
+						Aliases: flagVerboseAliases,
+						Usage:   flagVerboseUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagVersion,
-						Usage: usageFlagVersion,
+						Name:  flagVersionName,
+						Usage: flagVersionUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagFrom,
-						Usage: usageFlagFrom,
+						Name:  flagFromName,
+						Usage: flagFromUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagTo,
-						Usage: usageFlagTo,
+						Name:  flagToName,
+						Usage: flagToUsage,
 					},
 					&cli.StringSliceFlag{
-						Name:  flagScope,
-						Usage: usageFlagScope,
+						Name:  flagScopeName,
+						Usage: flagScopeUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagRepository,
-						Usage: usageFlagRepository,
-						Value: defaultRepository,
+						Name:  flagRepositoryName,
+						Usage: flagRepositoryUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagOutput,
-						Usage: usageFlagOutput,
-						Value: defaultOutput,
+						Name:  flagOutputName,
+						Usage: flagOutputUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagFilename,
-						Usage: usageFlagFilename,
-						Value: defaultFilename,
+						Name:  flagFilenameName,
+						Usage: flagFilenameUsage,
 					},
 					&cli.StringFlag{
-						Name:  flagFiletype,
-						Usage: usageFlagFiletype,
-						Value: defaultFiletype,
+						Name:  flagFiletypeName,
+						Usage: flagFiletypeUsage,
 					},
 					&cli.BoolFlag{
-						Name:  flagDryRun,
-						Usage: usageFlagDryRun,
+						Name:  flagDryRunName,
+						Usage: flagDryRunUsage,
 					},
 					&cli.BoolFlag{
-						Name:    flagInteractive,
-						Usage:   usageFlagInteractive,
-						Aliases: aliasFlagInteractive,
-						Value:   true,
+						Name:    flagInteractiveName,
+						Usage:   flagInteractiveUsage,
+						Aliases: flagInteractiveAliases,
 					},
 					&cli.BoolFlag{
-						Name:  flagAutoCommit,
-						Usage: usageFlagAutoCommit,
-						Value: true,
+						Name:  flagAutoCommitName,
+						Usage: flagAutoCommitUsage,
 					},
 				},
 				Action: a.RunGenerate,
