@@ -17,4 +17,5 @@ archives:
       - goos: windows
         format: zip
 changelog:
-  skip: true
+  skip: false
+  use: github
