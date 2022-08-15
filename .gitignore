@@ -12,6 +12,7 @@
 
 # Go
 coverage.out
+vendor
 
 # GoReleaser
 dist
