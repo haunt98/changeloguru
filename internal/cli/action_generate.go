@@ -219,7 +219,7 @@ func (a *action) doGit(finalOutput, version string) error {
 	a.log("Git commit output:\n%s", cmdOutput)
 
 	if a.flags.autoGitTag {
-		cmdOutput, err = exec.Command("git", "tag", version).CombinedOutput()
+		cmdOutput, err = exec.Command("git", "tag", version, "-m", commitMsg).CombinedOutput()
 		if err != nil {
 			return err
 		}
