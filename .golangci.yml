@@ -9,7 +9,6 @@ run:
     - ".*Mock.*"
     - ".*_mock.*"
     - ".*_generated.*"
-  go: "1.18"
 
 output:
   sort-results: true
@@ -17,21 +16,18 @@ output:
 linters:
   disable-all: true
   enable:
-    - deadcode
     - errcheck
     - gosimple
     - govet
     - staticcheck
     - typecheck
     - unused
-    - varcheck
     - errname
     - errorlint
     - execinquery
     - goerr113
     - gofumpt
     - gosec
-    - ifshort
     - importas
     - makezero
     - nilnil
@@ -66,9 +62,4 @@ linters-settings:
       - unreachable
       - unusedresult
   staticcheck:
-    go: "1.18"
     checks: ["all", "-SA1019"]
-
-issues:
-  new: true
-  fix: true

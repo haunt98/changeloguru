@@ -47,8 +47,14 @@ const (
 	flagInteractiveName  = "interactive"
 	flagInteractiveUsage = "interactive mode"
 
-	flagAutoCommitName  = "auto-commit"
-	flagAutoCommitUsage = "enable auto commit after generating changelog"
+	flagAutoGitCommitName  = "auto-commit"
+	flagAutoGitCommitUsage = "enable auto git commit after generating changelog"
+
+	flagAutoGitTagName  = "auto-tag"
+	flagAutoGitTagUsage = "enable auto git tag after generating changelog, only works if auto-commit is enabled"
+
+	flagAutoGitPushName  = "auto-push"
+	flagAutoGitPushUsage = "enable auto git push after generating changelog, only works if auto-commit is enabled, if auto-tag is enabled will auto git push tag too"
 )
 
 var (
@@ -120,8 +126,8 @@ func NewApp() *App {
 						Aliases: flagInteractiveAliases,
 					},
 					&cli.BoolFlag{
-						Name:  flagAutoCommitName,
-						Usage: flagAutoCommitUsage,
+						Name:  flagAutoGitCommitName,
+						Usage: flagAutoGitCommitUsage,
 					},
 				},
 				Action: a.RunGenerate,

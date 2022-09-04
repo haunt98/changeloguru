@@ -19,18 +19,20 @@ const (
 
 type action struct {
 	flags struct {
-		scopes      map[string]struct{}
-		output      string
-		from        string
-		to          string
-		version     string
-		repository  string
-		filename    string
-		filetype    string
-		verbose     bool
-		dryRun      bool
-		interactive bool
-		autoCommit  bool
+		scopes        map[string]struct{}
+		output        string
+		from          string
+		to            string
+		version       string
+		repository    string
+		filename      string
+		filetype      string
+		verbose       bool
+		dryRun        bool
+		interactive   bool
+		autoGitCommit bool
+		autoGitTag    bool
+		autoGitPush   bool
 	}
 }
 
@@ -75,7 +77,9 @@ func (a *action) getFlags(c *cli.Context) {
 
 	a.flags.dryRun = c.Bool(flagDryRunName)
 	a.flags.interactive = c.Bool(flagInteractiveName)
-	a.flags.autoCommit = c.Bool(flagAutoCommitName)
+	a.flags.autoGitCommit = c.Bool(flagAutoGitCommitName)
+	a.flags.autoGitTag = c.Bool(flagAutoGitTagName)
+	a.flags.autoGitPush = c.Bool(flagAutoGitPushName)
 
 	a.log("Flags %+v\n", a.flags)
 }

@@ -70,24 +70,8 @@ func (a *action) RunGenerate(c *cli.Context) error {
 		return err
 	}
 
-	if a.flags.autoCommit {
-		commitMsg := fmt.Sprintf(autoCommitMessageTemplate, version)
-
-		// TODO: disable until https://github.com/go-git/go-git/issues/180 is fixed
-		// if err := repo.Commit(commitMsg, finalOutput); err != nil {
-		// 	return err
-		// }
-		cmdOutput, err := exec.CommandContext(c.Context, "git", "add", finalOutput).CombinedOutput()
-		if err != nil {
-			return err
-		}
-		a.log("Git add output:\n%s", cmdOutput)
-
-		cmdOutput, err = exec.CommandContext(c.Context, "git", "commit", "-m", commitMsg).CombinedOutput()
-		if err != nil {
-			return err
-		}
-		a.log("Git commit output:\n%s", cmdOutput)
+	if err := a.doGit(finalOutput, version); err != nil {
+		return err
 	}
 
 	return nil
@@ -206,6 +190,56 @@ func (a *action) generateRSTChangelog(output, version string, commits []conventi
 	// Actually writing to changelog file
 	if err := os.WriteFile(output, []byte(changelogText), 0o600); err != nil {
 		return fmt.Errorf("failed to write file %s: %w", output, err)
+	}
+
+	return nil
+}
+
+func (a *action) doGit(finalOutput, version string) error {
+	if !a.flags.autoGitCommit {
+		return nil
+	}
+
+	// TODO: disable until https://github.com/go-git/go-git/issues/180 is fixed
+	// if err := repo.Commit(commitMsg, finalOutput); err != nil {
+	// 	return err
+	// }
+	cmdOutput, err := exec.Command("git", "add", finalOutput).CombinedOutput()
+	if err != nil {
+		return err
+	}
+	a.log("Git add output:\n%s", cmdOutput)
+
+	commitMsg := fmt.Sprintf(autoCommitMessageTemplate, version)
+
+	cmdOutput, err = exec.Command("git", "commit", "-m", commitMsg).CombinedOutput()
+	if err != nil {
+		return err
+	}
+	a.log("Git commit output:\n%s", cmdOutput)
+
+	if a.flags.autoGitTag {
+		cmdOutput, err = exec.Command("git", "tag", version).CombinedOutput()
+		if err != nil {
+			return err
+		}
+		a.log("Git tag output:\n%s", cmdOutput)
+	}
+
+	if a.flags.autoGitPush {
+		cmdOutput, err = exec.Command("git", "push").CombinedOutput()
+		if err != nil {
+			return err
+		}
+		a.log("Git push output:\n%s", cmdOutput)
+
+		if a.flags.autoGitTag {
+			cmdOutput, err = exec.Command("git", "push", "origin", version).CombinedOutput()
+			if err != nil {
+				return err
+			}
+			a.log("Git push tag output:\n%s", cmdOutput)
+		}
 	}
 
 	return nil
