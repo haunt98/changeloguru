@@ -1,4 +1,4 @@
-.PHONY: all test test-color coverage coverage-cli coverate-html lint
+.PHONY: all test test-color coverage coverage-cli coverate-html lint build
 
 all: test-color lint
 	go mod tidy
@@ -21,3 +21,6 @@ coverage-html: coverage
 
 lint:
 	golangci-lint run ./...
+
+build:
+	go build -o changeloguru-dev ./cmd/changeloguru

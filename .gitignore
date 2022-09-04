@@ -16,3 +16,6 @@ vendor
 
 # GoReleaser
 dist
+
+# Binary
+changeloguru-dev

@@ -129,6 +129,14 @@ func NewApp() *App {
 						Name:  flagAutoGitCommitName,
 						Usage: flagAutoGitCommitUsage,
 					},
+					&cli.BoolFlag{
+						Name:  flagAutoGitTagName,
+						Usage: flagAutoGitTagUsage,
+					},
+					&cli.BoolFlag{
+						Name:  flagAutoGitPushName,
+						Usage: flagAutoGitPushUsage,
+					},
 				},
 				Action: a.RunGenerate,
 			},
