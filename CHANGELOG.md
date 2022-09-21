@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v1.18.0 (2022-09-22)
+
+### Added
+
+- feat: auto tag and git push (2022-09-04)
+
+### Fixed
+
+- fix: git tag need message (2022-09-04)
+
+- fix: missing flag (2022-09-04)
+
+### Others
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.16.2 to 2.16.3 (2022-09-13)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.14.1 to 2.16.2 (2022-09-12)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.14.0 to 2.14.1 (2022-09-06)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.11.2 to 2.14.0 (2022-09-02)
+
+- chore: update github action (2022-08-16)
+
+- chore: update license (2022-08-16)
+
+- chore(changelog): generate v1.17.0 (2022-08-16)
+
 ## v1.17.0 (2022-08-16)
 
 ### Added
