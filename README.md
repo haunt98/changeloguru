@@ -41,6 +41,9 @@ changeloguru generate --version v2.0.0 --to v1.0.0 --dry-run
 
 # Generate changelog only for scope
 changeloguru generate --version v2.0.0 --to v1.0.0 --scope projectA --scope projectB
+
+# Generate changelog in interactive mode (with instruction) and auto push commit, tag
+changeloguru generate -i --auto-commit --auto-tag --auto-push
 ```
 
 ## Thanks
