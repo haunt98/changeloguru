@@ -13,7 +13,7 @@ require (
 	github.com/sebdah/goldie/v2 v2.5.3
 	github.com/stretchr/testify v1.8.1
 	github.com/urfave/cli/v2 v2.23.5
-	golang.org/x/mod v0.6.0
+	golang.org/x/mod v0.7.0
 )
 
 require (
