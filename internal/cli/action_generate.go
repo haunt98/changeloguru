@@ -140,10 +140,10 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	// Generate markdown from commits
-	newNodes := changelog.GenerateMarkdown(commits, a.flags.scopes, version, time.Now())
+	nodes := changelog.GenerateMarkdown(commits, a.flags.scopes, version, time.Now())
 
 	// Final changelog with new commits above old commits
-	nodes := append(newNodes, oldNodes...)
+	nodes = append(nodes, oldNodes...)
 	changelogText := markdown.GenerateText(nodes)
 
 	// Demo run
@@ -172,10 +172,10 @@ func (a *action) generateRSTChangelog(output, version string, commits []conventi
 	}
 
 	// Generate markdown from commits
-	newNodes := changelog.GenerateRST(commits, a.flags.scopes, version, time.Now())
+	nodes := changelog.GenerateRST(commits, a.flags.scopes, version, time.Now())
 
 	// Final changelog with new commits above old commits
-	nodes := append(newNodes, oldNodes...)
+	nodes = append(nodes, oldNodes...)
 	changelogText := rst.GenerateText(nodes)
 
 	// Demo run

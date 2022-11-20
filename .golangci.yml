@@ -27,6 +27,7 @@ linters:
     - errname
     - errorlint
     - execinquery
+    - gocritic
     - goerr113
     - gofumpt
     - gosec
@@ -68,3 +69,7 @@ linters-settings:
       - unusedresult
   staticcheck:
     checks: ["all", "-SA1019"]
+  gocritic:
+    enabled-tags:
+      - style
+      - performance
