@@ -19,9 +19,11 @@ linters:
     - errcheck
     - gosimple
     - govet
+    - ineffassign
     - staticcheck
     - typecheck
     - unused
+    - errchkjson
     - errname
     - errorlint
     - execinquery
@@ -38,7 +40,10 @@ linters:
 linters-settings:
   gosec:
     excludes:
+      - G101
+      - G112
       - G402
+      - G404
       - G501
       - G505
     exclude-generated: true
