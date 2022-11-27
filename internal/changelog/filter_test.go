@@ -3,8 +3,9 @@ package changelog
 import (
 	"testing"
 
-	"github.com/haunt98/changeloguru/internal/convention"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/haunt98/changeloguru/internal/convention"
 )
 
 func TestFilter(t *testing.T) {

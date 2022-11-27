@@ -4,8 +4,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/haunt98/changeloguru/internal/convention"
 	"github.com/make-go-great/rst-go"
+
+	"github.com/haunt98/changeloguru/internal/convention"
 )
 
 // GenerateRST base on GenerateMarkdown

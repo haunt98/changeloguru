@@ -9,16 +9,18 @@ import (
 	"strings"
 	"time"
 
-	"github.com/haunt98/changeloguru/internal/changelog"
-	"github.com/haunt98/changeloguru/internal/convention"
-	"github.com/haunt98/changeloguru/internal/git"
-	"github.com/make-go-great/ioe-go"
-	"github.com/make-go-great/markdown-go"
-	"github.com/make-go-great/rst-go"
 	"github.com/pkg/diff"
 	"github.com/pkg/diff/write"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/mod/semver"
+
+	"github.com/make-go-great/ioe-go"
+	"github.com/make-go-great/markdown-go"
+	"github.com/make-go-great/rst-go"
+
+	"github.com/haunt98/changeloguru/internal/changelog"
+	"github.com/haunt98/changeloguru/internal/convention"
+	"github.com/haunt98/changeloguru/internal/git"
 )
 
 const autoCommitMessageTemplate = "chore(changelog): generate %s"

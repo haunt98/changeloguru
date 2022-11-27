@@ -4,9 +4,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/haunt98/changeloguru/internal/convention"
-	"github.com/make-go-great/markdown-go"
 	"github.com/sebdah/goldie/v2"
+
+	"github.com/make-go-great/markdown-go"
+
+	"github.com/haunt98/changeloguru/internal/convention"
 )
 
 func TestGenerateMarkdown(t *testing.T) {

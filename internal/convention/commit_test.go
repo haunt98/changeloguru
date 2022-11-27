@@ -4,9 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/haunt98/changeloguru/internal/git"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/haunt98/changeloguru/internal/git"
 )
 
 func TestNewCommit(t *testing.T) {

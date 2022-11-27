@@ -7,8 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/haunt98/changeloguru/internal/git"
 	"github.com/make-go-great/date-go"
+
+	"github.com/haunt98/changeloguru/internal/git"
 )
 
 const (

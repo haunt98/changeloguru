@@ -1,6 +1,6 @@
-.PHONY: all test test-color coverage coverage-cli coverate-html lint build
+.PHONY: all test test-color coverage coverage-cli coverate-html lint format build
 
-all: test-color lint
+all: test-color lint format
 	go mod tidy
 
 test:
@@ -21,6 +21,12 @@ coverage-html: coverage
 
 lint:
 	golangci-lint run ./...
+
+format:
+	go install github.com/haunt98/gofimports/cmd/gofimports@latest
+	go install mvdan.cc/gofumpt@latest
+	gofimports -w -company github.com/make-go-great .
+	gofumpt -w -extra .
 
 build:
 	go build -o changeloguru-dev ./cmd/changeloguru
