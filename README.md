@@ -56,6 +56,6 @@ changeloguru generate -i --auto-commit --auto-tag --auto-push
 - [stretchr/testify](https://github.com/stretchr/testify)
 - [urfave/cli](https://github.com/urfave/cli)
 
-![GoLand logo](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand_icon.png)
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand_icon.png" alt="GoLand logo." width="32">
 
 Made with [GoLand](https://www.jetbrains.com/go/). Thanks for supporting open source projects!
