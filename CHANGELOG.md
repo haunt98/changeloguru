@@ -1,5 +1,59 @@
 # CHANGELOG
 
+## v1.18.1 (2022-12-19)
+
+### Others
+
+- build(deps): bump github.com/make-go-great/date-go from 0.4.0 to 0.5.0 (2022-12-19)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.23.6 to 2.23.7 (2022-12-12)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.5.0 to 5.5.1 (2022-12-12)
+
+- chore: resize GoLand logo (2022-12-08)
+
+- chore: thank you GoLand (2022-12-08)
+
+- chore: set go in codeql (2022-12-08)
+
+- chore: add codeql github action (2022-12-08)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.4.2 to 5.5.0 (2022-12-06)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.23.5 to 2.23.6 (2022-12-06)
+
+- chore: format using gofimports (2022-11-28)
+
+- chore: add linters gocritic (2022-11-20)
+
+- chore: add more linters (2022-11-20)
+
+- build(deps): bump golang.org/x/mod from 0.6.0 to 0.7.0 (2022-11-10)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.23.4 to 2.23.5 (2022-11-09)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.23.2 to 2.23.4 (2022-11-08)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.23.0 to 2.23.2 (2022-11-04)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.20.3 to 2.23.0 (2022-10-31)
+
+- build(deps): bump github.com/stretchr/testify from 1.8.0 to 1.8.1 (2022-10-24)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.20.2 to 2.20.3 (2022-10-24)
+
+- build(deps): bump golang.org/x/mod from 0.5.1 to 0.6.0 (2022-10-20)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.19.2 to 2.20.2 (2022-10-17)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.17.1 to 2.19.2 (2022-10-10)
+
+- chore: add interactive mode in how to (2022-10-10)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.16.3 to 2.17.1 (2022-09-30)
+
+- chore(changelog): generate v1.18.0 (2022-09-22)
+
 ## v1.18.0 (2022-09-22)
 
 ### Added
