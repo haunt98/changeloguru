@@ -25,7 +25,7 @@ lint:
 format:
 	go install github.com/haunt98/gofimports/cmd/gofimports@latest
 	go install mvdan.cc/gofumpt@latest
-	gofimports -w -company github.com/make-go-great .
+	gofimports -w --company github.com/make-go-great .
 	gofumpt -w -extra .
 
 build:
