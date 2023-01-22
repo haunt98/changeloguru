@@ -1,7 +1,10 @@
 .PHONY: all test test-color coverage coverage-cli coverate-html lint format build
 
-all: test-color lint format
+all:
 	go mod tidy
+	$(MAKE) test-color
+	$(MAKE) lint
+	$(MAKE) format
 
 test:
 	go test -race -failfast ./...
@@ -13,10 +16,12 @@ test-color:
 coverage:
 	go test -coverprofile=coverage.out ./...
 
-coverage-cli: coverage
+coverage-cli:
+	$(MAKE) coverage
 	go tool cover -func=coverage.out
 
-coverage-html: coverage
+coverage-html:
+	$(MAKE) coverage
 	go tool cover -html=coverage.out
 
 lint:
