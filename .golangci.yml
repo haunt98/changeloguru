@@ -40,7 +40,6 @@ linters:
     - importas
     - makezero
     - nilnil
-    - noctx
     - prealloc
     - reassign
     # - rowserrcheck
