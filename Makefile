@@ -1,10 +1,12 @@
-.PHONY: all test test-color coverage coverage-cli coverate-html lint format build
+.PHONY: all test test-color coverage coverage-cli coverate-html lint format build clean
 
 all:
 	go mod tidy
 	$(MAKE) test-color
 	$(MAKE) lint
 	$(MAKE) format
+	$(MAKE) build
+	$(MAKE) clean
 
 test:
 	go test -race -failfast ./...
@@ -30,8 +32,12 @@ lint:
 format:
 	go install github.com/haunt98/gofimports/cmd/gofimports@latest
 	go install mvdan.cc/gofumpt@latest
-	gofimports -w --company github.com/make-go-great .
+	gofimports -w --company github.com/make-go-great,github.com/haunt98 .
 	gofumpt -w -extra .
 
 build:
-	go build -o changeloguru-dev ./cmd/changeloguru
+	$(MAKE) clean
+	go build ./cmd/changeloguru
+
+clean:
+	rm -rf changeloguru
