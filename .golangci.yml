@@ -1,10 +1,12 @@
 run:
+  timeout: 2m
   tests: false
   skip-dirs:
     - ".*test.*"
     - ".*mock.*"
     - ".*generated.*"
     - ".*example.*"
+    - ".*utils.*"
   skip-files:
     - ".*Mock.*"
     - ".*_mock.*"
@@ -16,6 +18,7 @@ output:
 linters:
   disable-all: true
   enable:
+    # Default
     - errcheck
     - gosimple
     - govet
@@ -23,31 +26,31 @@ linters:
     - staticcheck
     - typecheck
     - unused
+    # Custom
     - errchkjson
     - errname
     - errorlint
     - execinquery
+    - forcetypeassert
     - gocritic
     - goerr113
     - gofumpt
+    - gomodguard
     - gosec
     - importas
     - makezero
     - nilnil
+    - noctx
     - prealloc
+    - reassign
+    # - rowserrcheck
+    - sqlclosecheck
     - unconvert
+    # - wastedassign
   fast: true
 
 linters-settings:
-  gosec:
-    excludes:
-      - G101
-      - G112
-      - G402
-      - G404
-      - G501
-      - G505
-    exclude-generated: true
+  # Default
   govet:
     check-shadowing: false
     disable-all: true
@@ -67,9 +70,17 @@ linters-settings:
       - unmarshal
       - unreachable
       - unusedresult
-  staticcheck:
-    checks: ["all", "-SA1019"]
+  # Custom
   gocritic:
+    disabled-checks:
+      - ifElseChain
+      - singleCaseSwitch
     enabled-tags:
+      - diagnostic
       - style
       - performance
+  gosec:
+    exclude-generated: true
+  reassign:
+    patterns:
+      - ".*"
