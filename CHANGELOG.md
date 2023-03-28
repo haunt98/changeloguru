@@ -1,5 +1,61 @@
 # CHANGELOG
 
+## v1.18.2 (2023-03-29)
+
+### Others
+
+- chore: github action stable (2023-03-29)
+
+- chore: improve from (2023-03-29)
+
+- chore: github action go stable (2023-03-29)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.0 to 2.25.1 (2023-03-27)
+
+- build(deps): bump goreleaser/goreleaser-action from 3 to 4 (2023-03-22)
+
+- build(deps): bump actions/setup-go from 3 to 4 (2023-03-22)
+
+- chore: github action (2023-03-22)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.6.0 to 5.6.1 (2023-03-17)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.24.4 to 2.25.0 (2023-03-06)
+
+- build(deps): bump golang.org/x/mod from 0.8.0 to 0.9.0 (2023-03-06)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.5.2 to 5.6.0 (2023-03-01)
+
+- build(deps): bump github.com/stretchr/testify from 1.8.1 to 1.8.2 (2023-02-27)
+
+- chore: update make (2023-02-26)
+
+- chore: remove noctx lint (2023-02-25)
+
+- chore: better golangci-lint config (2023-02-25)
+
+- build(deps): bump golang.org/x/net from 0.2.0 to 0.7.0 (2023-02-18)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.24.3 to 2.24.4 (2023-02-17)
+
+- build(deps): bump golang.org/x/mod from 0.7.0 to 0.8.0 (2023-02-09)
+
+- chore: bump go1.20 (2023-02-08)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.24.2 to 2.24.3 (2023-02-03)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.24.1 to 2.24.2 (2023-01-30)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.23.7 to 2.24.1 (2023-01-23)
+
+- chore: improve Makefile (2023-01-22)
+
+- chore: -company -> --company (2023-01-17)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.5.1 to 5.5.2 (2023-01-06)
+
+- chore(changelog): generate v1.18.1 (2022-12-19)
+
 ## v1.18.1 (2022-12-19)
 
 ### Others
