@@ -11,7 +11,7 @@ require (
 	github.com/make-go-great/rst-go v0.3.0
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/sebdah/goldie/v2 v2.5.3
-	github.com/stretchr/testify v1.8.3
+	github.com/stretchr/testify v1.8.4
 	github.com/urfave/cli/v2 v2.25.5
 	golang.org/x/mod v0.10.0
 )
