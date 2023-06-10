@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## v1.18.3 (2023-06-10)
+
+### Others
+
+- build(deps): bump github.com/stretchr/testify from 1.8.3 to 1.8.4 (2023-05-31)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.4 to 2.25.5 (2023-05-30)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.3 to 2.25.4 (2023-05-29)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.6.1 to 5.7.0 (2023-05-24)
+
+- build(deps): bump github.com/stretchr/testify from 1.8.2 to 1.8.3 (2023-05-19)
+
+- chore: Thanks Jetbrains (2023-05-18)
+
+- build(deps): bump github.com/cloudflare/circl from 1.1.0 to 1.3.3 (2023-05-12)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.2 to 2.25.3 (2023-05-02)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.1 to 2.25.2 (2023-05-01)
+
+- build(deps): bump golang.org/x/mod from 0.9.0 to 0.10.0 (2023-04-05)
+
+- chore(changelog): generate v1.18.2 (2023-03-29)
+
 ## v1.18.2 (2023-03-29)
 
 ### Others
