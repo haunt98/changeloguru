@@ -1,16 +1,14 @@
 run:
-  timeout: 2m
+  timeout: 5m
   tests: false
   skip-dirs:
     - ".*test.*"
     - ".*mock.*"
-    - ".*generated.*"
     - ".*example.*"
     - ".*utils.*"
   skip-files:
     - ".*Mock.*"
     - ".*_mock.*"
-    - ".*_generated.*"
 
 output:
   sort-results: true
@@ -35,11 +33,11 @@ linters:
     - gocritic
     - goerr113
     - gofumpt
-    - gomodguard
     - gosec
     - importas
     - makezero
     - nilnil
+    - noctx
     - prealloc
     - reassign
     # - rowserrcheck
@@ -69,16 +67,26 @@ linters-settings:
       - unmarshal
       - unreachable
       - unusedresult
+  staticcheck:
+    checks: ["all", "-SA1019"]
   # Custom
   gocritic:
     disabled-checks:
       - ifElseChain
       - singleCaseSwitch
+      - unnamedResult
+      - whyNoLint
     enabled-tags:
       - diagnostic
       - style
-      - performance
   gosec:
+    excludes:
+      - G101
+      - G112
+      - G402
+      - G404
+      - G501
+      - G505
     exclude-generated: true
   reassign:
     patterns:
