@@ -42,9 +42,6 @@ func (a *action) RunGenerate(c *cli.Context) error {
 		fmt.Printf("Input version (%s):\n", flagVersionUsage)
 		a.flags.version = ioe.ReadInput()
 
-		fmt.Printf("Input from (%s):\n", flagFromUsage)
-		a.flags.from = ioe.ReadInputEmpty()
-
 		fmt.Printf("Input to (%s):\n", flagToUsage)
 		a.flags.to = ioe.ReadInputEmpty()
 	}
