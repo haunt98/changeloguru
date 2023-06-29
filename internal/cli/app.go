@@ -48,6 +48,9 @@ const (
 	flagInteractiveName  = "interactive"
 	flagInteractiveUsage = "interactive mode"
 
+	flagInteractiveFromName  = "interactive-from"
+	flagInteractiveFromUsage = "enable ask from in interactive mode"
+
 	flagAutoGitCommitName  = "auto-commit"
 	flagAutoGitCommitUsage = "enable auto git commit after generating changelog"
 
@@ -125,6 +128,10 @@ func NewApp() *App {
 						Name:    flagInteractiveName,
 						Usage:   flagInteractiveUsage,
 						Aliases: flagInteractiveAliases,
+					},
+					&cli.BoolFlag{
+						Name:  flagInteractiveFromName,
+						Usage: flagInteractiveFromUsage,
 					},
 					&cli.BoolFlag{
 						Name:  flagAutoGitCommitName,
