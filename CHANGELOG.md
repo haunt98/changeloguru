@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## v1.19.0 (2023-06-29)
+
+### Added
+
+- feat: hide interactive from when ask (2023-06-29)
+
+- feat: interactive ignore from (2023-06-29)
+
+### Others
+
+- chore: only use link, remove image (2023-06-29)
+
+- chore: bump year (2023-06-29)
+
+- chore: improve golangci-lint (2023-06-29)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.6 to 2.25.7 (2023-06-19)
+
+- build(deps): bump golang.org/x/mod from 0.10.0 to 0.11.0 (2023-06-15)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.5 to 2.25.6 (2023-06-13)
+
+- chore(changelog): generate v1.18.3 (2023-06-10)
+
 ## v1.18.3 (2023-06-10)
 
 ### Others
