@@ -2,7 +2,9 @@ package git
 
 import (
 	"fmt"
+	"sort"
 
+	"github.com/Masterminds/semver/v3"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -12,13 +14,15 @@ import (
 const (
 	head = "HEAD"
 
-	defaultCommitCount = 10
+	defaultCommitCount = 128
+	defaultTagCount    = 32
 )
 
 // Repository is an abstraction for git-repository
 type Repository interface {
 	Log(fromRev, toRev string) ([]Commit, error)
 	Commit(commitMessage string, paths ...string) error
+	SemVerTags() ([]SemVerTag, error)
 }
 
 type repo struct {
@@ -160,4 +164,39 @@ func newIterFn(commits *[]Commit, beginFn, endFn stopFn) func(c *object.Commit) 
 
 		return nil
 	}
+}
+
+// Return SemVer tags from earliest to latest
+func (r *repo) SemVerTags() ([]SemVerTag, error) {
+	iter, err := r.gitRepo.Tags()
+	if err != nil {
+		return nil, err
+	}
+
+	versions := make([]*semver.Version, 0, defaultTagCount)
+
+	if err := iter.ForEach(func(r *plumbing.Reference) error {
+		version, err := semver.NewVersion(r.Name().Short())
+		if err != nil {
+			// Ignore bad tag
+			return nil
+		}
+
+		versions = append(versions, version)
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	sort.Sort(semver.Collection(versions))
+
+	tags := make([]SemVerTag, 0, len(versions))
+	for _, version := range versions {
+		tags = append(tags, SemVerTag{
+			Version: version,
+		})
+	}
+
+	return tags, nil
 }

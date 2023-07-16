@@ -1,0 +1,28 @@
+package git
+
+import (
+	"github.com/Masterminds/semver/v3"
+	"github.com/go-git/go-git/v5/plumbing/object"
+)
+
+// Commit stores all git-commit information
+type Commit struct {
+	Author  Author
+	Message string
+}
+
+// Convert from go-git
+func newCommit(c *object.Commit) Commit {
+	return Commit{
+		Message: c.Message,
+		Author: Author{
+			Name:  c.Author.Name,
+			Email: c.Author.Email,
+			When:  c.Author.When,
+		},
+	}
+}
+
+type SemVerTag struct {
+	Version *semver.Version
+}
