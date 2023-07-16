@@ -22,10 +22,10 @@ const (
 	flagVersionUsage = "`VERSION` to generate, follow Semantic Versioning"
 
 	flagFromName  = "from"
-	flagFromUsage = "from `COMMIT`, which is kinda new commit, default is latest commit"
+	flagFromUsage = "`FROM COMMIT`, which is kinda new commit, default is latest commit"
 
 	flagToName  = "to"
-	flagToUsage = "to `COMMIT`, which is kinda old commit, default is oldest commit"
+	flagToUsage = "`TO COMMIT`, which is kinda old commit, default is oldest commit"
 
 	flagScopeName  = "scope"
 	flagScopeUsage = "scope to generate"
@@ -49,7 +49,10 @@ const (
 	flagInteractiveUsage = "interactive mode"
 
 	flagInteractiveFromName  = "interactive-from"
-	flagInteractiveFromUsage = "enable ask from in interactive mode"
+	flagInteractiveFromUsage = "enable ask `FROM COMMIT` in interactive mode"
+
+	flagInteractiveToName  = "interactive-to"
+	flagInteractiveToUsage = "enable ask `TO COMMIT` in interactive mode, otherwise use latest SemVer tag"
 
 	flagAutoGitCommitName  = "auto-commit"
 	flagAutoGitCommitUsage = "enable auto git commit after generating changelog"
@@ -132,6 +135,10 @@ func NewApp() *App {
 					&cli.BoolFlag{
 						Name:  flagInteractiveFromName,
 						Usage: flagInteractiveFromUsage,
+					},
+					&cli.BoolFlag{
+						Name:  flagInteractiveToName,
+						Usage: flagInteractiveToUsage,
 					},
 					&cli.BoolFlag{
 						Name:  flagAutoGitCommitName,

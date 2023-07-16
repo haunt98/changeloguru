@@ -38,6 +38,7 @@ func (a *action) RunGenerate(c *cli.Context) error {
 		return cli.ShowCommandHelp(c, commandGenerateName)
 	}
 
+	useLatestTag := false
 	if a.flags.interactive {
 		fmt.Printf("Input version (%s):\n", flagVersionUsage)
 		a.flags.version = ioe.ReadInput()
@@ -47,13 +48,24 @@ func (a *action) RunGenerate(c *cli.Context) error {
 			a.flags.from = ioe.ReadInputEmpty()
 		}
 
-		fmt.Printf("Input to (%s):\n", flagToUsage)
-		a.flags.to = ioe.ReadInputEmpty()
+		if a.flags.interactiveTo {
+			fmt.Printf("Input to (%s):\n", flagToUsage)
+			a.flags.to = ioe.ReadInputEmpty()
+		} else {
+			useLatestTag = true
+		}
 	}
 
 	repo, err := git.NewRepository(a.flags.repository)
 	if err != nil {
 		return err
+	}
+
+	if useLatestTag {
+		tags, err := repo.SemVerTags()
+		if err == nil {
+			a.flags.to = tags[len(tags)-1].Version.Original()
+		}
 	}
 
 	commits, err := repo.Log(a.flags.from, a.flags.to)

@@ -31,6 +31,7 @@ type action struct {
 		dryRun          bool
 		interactive     bool
 		interactiveFrom bool
+		interactiveTo   bool
 		autoGitCommit   bool
 		autoGitTag      bool
 		autoGitPush     bool
@@ -79,6 +80,7 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.dryRun = c.Bool(flagDryRunName)
 	a.flags.interactive = c.Bool(flagInteractiveName)
 	a.flags.interactiveFrom = c.Bool(flagInteractiveFromName)
+	a.flags.interactiveTo = c.Bool(flagInteractiveToName)
 	a.flags.autoGitCommit = c.Bool(flagAutoGitCommitName)
 	a.flags.autoGitTag = c.Bool(flagAutoGitTagName)
 	a.flags.autoGitPush = c.Bool(flagAutoGitPushName)
