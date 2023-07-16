@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v1.20.0 (2023-07-16)
+
+### Added
+
+- feat: log from to (2023-07-16)
+
+- feat: auto get latest tags in interactive mode (2023-07-16)
+
+- feat: list semver tags (2023-07-16)
+
+### Others
+
+- build(deps): bump golang.org/x/mod from 0.11.0 to 0.12.0 (2023-07-05)
+
+- chore: generic gitignore (2023-06-29)
+
+- chore(changelog): generate v1.19.0 (2023-06-29)
+
 ## v1.19.0 (2023-06-29)
 
 ### Added
