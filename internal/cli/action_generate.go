@@ -14,6 +14,7 @@ import (
 	"github.com/urfave/cli/v2"
 	"golang.org/x/mod/semver"
 
+	"github.com/make-go-great/color-go"
 	"github.com/make-go-great/ioe-go"
 	"github.com/make-go-great/markdown-go"
 	"github.com/make-go-great/rst-go"
@@ -67,6 +68,18 @@ func (a *action) RunGenerate(c *cli.Context) error {
 			a.flags.to = tags[len(tags)-1].Version.Original()
 		}
 	}
+
+	aliasFrom := a.flags.from
+	if aliasFrom == "" {
+		aliasFrom = "latest"
+	}
+
+	aliasTo := a.flags.to
+	if aliasTo == "" {
+		aliasTo = "earliest"
+	}
+
+	color.PrintAppOK(name, fmt.Sprintf("Generate changelog from [%s] to [%s]", aliasFrom, aliasTo))
 
 	commits, err := repo.Log(a.flags.from, a.flags.to)
 	if err != nil {
