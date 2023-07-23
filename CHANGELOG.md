@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v1.20.1 (2023-07-23)
+
+### Fixed
+
+- fix: panic if empty tags in auto mode (2023-07-23)
+
+### Others
+
+- build(deps): bump github.com/make-go-great/color-go from 0.4.1 to 0.5.0 (2023-07-17)
+
+- chore(changelog): generate v1.20.0 (2023-07-16)
+
 ## v1.20.0 (2023-07-16)
 
 ### Added
