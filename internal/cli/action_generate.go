@@ -64,7 +64,7 @@ func (a *action) RunGenerate(c *cli.Context) error {
 
 	if useLatestTag {
 		tags, err := repo.SemVerTags()
-		if err == nil {
+		if err == nil && len(tags) > 0 {
 			a.flags.to = tags[len(tags)-1].Version.Original()
 		}
 	}
