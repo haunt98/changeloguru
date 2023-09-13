@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v1.20.2 (2023-09-13)
+
+### Others
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.8.1 to 5.9.0 (2023-09-13)
+
+- build(deps): bump actions/checkout from 3 to 4 (2023-09-05)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.8.0 to 5.8.1 (2023-07-27)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.7.0 to 5.8.0 (2023-07-24)
+
+- chore(changelog): generate v1.20.1 (2023-07-23)
+
 ## v1.20.1 (2023-07-23)
 
 ### Fixed
