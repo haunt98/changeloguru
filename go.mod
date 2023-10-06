@@ -14,7 +14,7 @@ require (
 	github.com/sebdah/goldie/v2 v2.5.3
 	github.com/stretchr/testify v1.8.4
 	github.com/urfave/cli/v2 v2.25.7
-	golang.org/x/mod v0.12.0
+	golang.org/x/mod v0.13.0
 )
 
 require (
