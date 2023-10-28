@@ -2,9 +2,9 @@
 
 all:
 	go mod tidy
+	$(MAKE) format
 	$(MAKE) test-color
 	$(MAKE) lint
-	$(MAKE) format
 	$(MAKE) build
 	$(MAKE) clean
 
