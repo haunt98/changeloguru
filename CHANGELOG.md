@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v1.20.3 (2023-10-29)
+
+### Others
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.9.0 to 5.10.0 (2023-10-26)
+
+- build(deps): bump golang.org/x/mod from 0.12.0 to 0.13.0 (2023-10-06)
+
+- chore add badges (2023-09-23)
+
+- build(deps): bump goreleaser/goreleaser-action from 4 to 5 (2023-09-12)
+
+- chore(changelog): generate v1.20.2 (2023-09-13)
+
 ## v1.20.2 (2023-09-13)
 
 ### Others
