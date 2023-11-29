@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v1.20.4 (2023-11-29)
+
+### Others
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.10.0 to 5.10.1 (2023-11-28)
+
+- build(deps): bump golang.org/x/mod from 0.13.0 to 0.14.0 (2023-11-06)
+
+- chore: format first (2023-10-29)
+
+- chore(changelog): generate v1.20.3 (2023-10-29)
+
 ## v1.20.3 (2023-10-29)
 
 ### Others
