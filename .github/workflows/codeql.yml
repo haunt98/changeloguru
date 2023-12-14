@@ -17,9 +17,9 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v2
+      - uses: github/codeql-action/init@v3
         with:
           languages: go
       - run: |
           make build
-      - uses: github/codeql-action/analyze@v2
+      - uses: github/codeql-action/analyze@v3
