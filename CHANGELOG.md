@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v1.20.5 (2023-12-21)
+
+### Others
+
+- chore: looks like TODO is dead (2023-12-21)
+
+- build(deps): bump golang.org/x/crypto from 0.16.0 to 0.17.0 (2023-12-19)
+
+- build(deps): bump github/codeql-action from 2 to 3 (2023-12-14)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.10.1 to 5.11.0 (2023-12-11)
+
+- build(deps): bump actions/setup-go from 4 to 5 (2023-12-07)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.25.7 to 2.26.0 (2023-12-04)
+
+- chore(changelog): generate v1.20.4 (2023-11-29)
+
 ## v1.20.4 (2023-11-29)
 
 ### Others
