@@ -229,10 +229,6 @@ func (a *action) doGit(finalOutput, version string) error {
 		return nil
 	}
 
-	// TODO: disable until https://github.com/go-git/go-git/issues/180 is fixed
-	// if err := repo.Commit(commitMsg, finalOutput); err != nil {
-	// 	return err
-	// }
 	cmdOutput, err := exec.Command("git", "add", finalOutput).CombinedOutput()
 	if err != nil {
 		return err
