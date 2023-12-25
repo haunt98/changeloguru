@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v1.21.0 (2023-12-25)
+
+### Added
+
+- feat(convention): allow type, scope has digit (2023-12-25)
+
+### Others
+
+- chore: add go fix (2023-12-21)
+
+- build: bump go 1.20 (2023-12-21)
+
+- chore(changelog): generate v1.20.5 (2023-12-21)
+
 ## v1.20.5 (2023-12-21)
 
 ### Others
