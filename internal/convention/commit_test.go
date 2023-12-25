@@ -35,6 +35,12 @@ func TestNewCommit(t *testing.T) {
 			},
 		},
 		{
+			name: "Commit message with scope",
+			c: git.Commit{
+				Message: "feat(bump00): allow bump minor",
+			},
+		},
+		{
 			name: "Uppercase",
 			c: git.Commit{
 				Message: "REFACTOR!: drop support for Node 6",

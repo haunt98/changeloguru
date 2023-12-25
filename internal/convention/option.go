@@ -20,7 +20,8 @@ const (
 var (
 	ErrEmptyCommit = errors.New("empty commit")
 
-	headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z]+)(?P<scope>\([a-zA-Z]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
+	// Self build
+	headerRegex = regexp.MustCompile(`(?P<type>[a-zA-Z0-9]+)(?P<scope>\([a-zA-Z0-9]+\))?(?P<attention>!)?:\s(?P<description>.+)`)
 )
 
 type OptionFn func(*Commit) error
