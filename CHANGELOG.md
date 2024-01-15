@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.21.1 (2024-01-15)
+
+### Fixed
+
+- fix(cli): show help when run `changeloguru generate` (2024-01-15)
+
+### Others
+
+- build(deps): bump github.com/cloudflare/circl from 1.3.3 to 1.3.7 (#106) (2024-01-09)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.27.0 to 2.27.1 (#105) (2024-01-02)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.26.0 to 2.27.0 (#104) (2023-12-27)
+
+- chore(changelog): generate v1.21.0 (2023-12-25)
+
 ## v1.21.0 (2023-12-25)
 
 ### Added
