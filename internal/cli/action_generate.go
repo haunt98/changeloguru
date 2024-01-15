@@ -36,7 +36,7 @@ func (a *action) RunGenerate(c *cli.Context) error {
 
 	// Show help if there is no flags
 	if c.NumFlags() == 0 {
-		return cli.ShowCommandHelp(c, commandGenerateName)
+		return cli.ShowSubcommandHelp(c)
 	}
 
 	useLatestTag := false
