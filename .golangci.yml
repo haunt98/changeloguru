@@ -1,14 +1,6 @@
 run:
   timeout: 5m
   tests: false
-  skip-dirs:
-    - ".*test.*"
-    - ".*mock.*"
-    - ".*example.*"
-    - ".*utils.*"
-  skip-files:
-    - ".*Mock.*"
-    - ".*_mock.*"
 
 output:
   sort-results: true
@@ -25,13 +17,12 @@ linters:
     - typecheck
     - unused
     # Custom
+    - err113
     - errchkjson
     - errname
     - errorlint
-    - execinquery
     - forcetypeassert
     - gocritic
-    - goerr113
     - gofumpt
     - gosec
     - importas
@@ -91,3 +82,13 @@ linters-settings:
   reassign:
     patterns:
       - ".*"
+
+issues:
+  exclude-dirs:
+    - ".*test.*"
+    - ".*mock.*"
+    - ".*example.*"
+    - ".*utils.*"
+  exclude-files:
+    - ".*Mock.*"
+    - ".*_mock.*"
