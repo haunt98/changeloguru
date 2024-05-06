@@ -31,10 +31,8 @@ linters:
     - noctx
     - prealloc
     - reassign
-    # - rowserrcheck
     - sqlclosecheck
     - unconvert
-    # - wastedassign
   fast: true
 
 linters-settings:
