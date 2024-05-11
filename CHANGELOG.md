@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v1.21.2 (2024-05-11)
+
+### Others
+
+- build(deps): bump golangci/golangci-lint-action from 5 to 6 (#117) (2024-05-07)
+
+- chore: remove unused (2024-05-06)
+
+- chore: update golangci-lint (2024-05-04)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.27.1 to 2.27.2 (#116) (2024-04-29)
+
+- build(deps): bump golangci/golangci-lint-action from 4 to 5 (#115) (2024-04-25)
+
+- build(deps): bump golang.org/x/net from 0.22.0 to 0.23.0 (#114) (2024-04-19)
+
+- build(deps): bump golang.org/x/mod from 0.16.0 to 0.17.0 (#113) (2024-04-05)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.11.0 to 5.12.0 (#112) (2024-04-01)
+
+- build(deps): bump golang.org/x/mod from 0.15.0 to 0.16.0 (#111) (2024-03-05)
+
+- build(deps): bump github.com/stretchr/testify from 1.8.4 to 1.9.0 (#110) (2024-03-04)
+
+- chore: remove go fix (2024-03-01)
+
+- build(deps): bump golangci/golangci-lint-action from 3 to 4 (#109) (2024-02-12)
+
+- Merge branch 'main' of https://github.com/haunt98/changeloguru (2024-02-10)
+
+- chore: disable go install (2024-02-10)
+
+- chore(changelog): generate v1.21.1 (2024-01-15)
+
 ## v1.21.1 (2024-01-15)
 
 ### Fixed
