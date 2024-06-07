@@ -2,7 +2,6 @@
 
 [![Go](https://github.com/haunt98/changeloguru/workflows/Go/badge.svg?branch=main)](https://github.com/haunt98/changeloguru/actions)
 [![Go Reference](https://pkg.go.dev/badge/github.com/haunt98/changeloguru.svg)](https://pkg.go.dev/github.com/haunt98/changeloguru)
-[![codecov](https://codecov.io/gh/haunt98/changeloguru/branch/main/graph/badge.svg?token=ZBG353F0CN)](https://codecov.io/gh/haunt98/changeloguru)
 [![Latest Version](https://img.shields.io/github/v/tag/haunt98/changeloguru)](https://github.com/haunt98/changeloguru/tags)
 
 Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from
