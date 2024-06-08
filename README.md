@@ -1,6 +1,7 @@
 # Changeloguru
 
-[![Go](https://github.com/haunt98/changeloguru/workflows/Go/badge.svg?branch=main)](https://github.com/haunt98/changeloguru/actions)
+[![Go](https://github.com/haunt98/changeloguru/actions/workflows/go.yml/badge.svg)](https://github.com/haunt98/changeloguru/actions/workflows/go.yml)
+[![gitleaks](https://github.com/haunt98/changeloguru/actions/workflows/gitleaks.yml/badge.svg)](https://github.com/haunt98/changeloguru/actions/workflows/gitleaks.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/haunt98/changeloguru.svg)](https://pkg.go.dev/github.com/haunt98/changeloguru)
 [![Latest Version](https://img.shields.io/github/v/tag/haunt98/changeloguru)](https://github.com/haunt98/changeloguru/tags)
 
