@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## v1.21.3 (2024-08-12)
+
+### Others
+
+- build(deps): bump golang.org/x/mod from 0.19.0 to 0.20.0 (#122) (2024-08-06)
+
+- build(deps): bump github.com/sebdah/goldie/v2 from 2.5.3 to 2.5.5 (#123) (2024-08-06)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.27.2 to 2.27.3 (#121) (2024-07-25)
+
+- build(deps): bump golang.org/x/mod from 0.18.0 to 0.19.0 (#120) (2024-07-05)
+
+- chore: remove goreleaser (2024-06-10)
+
+- chore: add badges (2024-06-08)
+
+- chore: add gitleaks (2024-06-07)
+
+- build(deps): bump goreleaser/goreleaser-action from 5 to 6 (#119) (2024-06-05)
+
+- build(deps): bump golang.org/x/mod from 0.17.0 to 0.18.0 (#118) (2024-06-05)
+
+- chore(changelog): generate v1.21.2 (2024-05-11)
+
 ## v1.21.2 (2024-05-11)
 
 ### Others
