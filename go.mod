@@ -1,6 +1,6 @@
 module github.com/haunt98/changeloguru
 
-go 1.20
+go 1.22
 
 require (
 	github.com/Masterminds/semver/v3 v3.3.0
