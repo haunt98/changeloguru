@@ -163,7 +163,7 @@ func (a *action) generateChangelog(commits []convention.Commit, finalOutput, ver
 func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
 	// If changelog file already exist, parse markdown from exist file
 	var oldNodes []markdown.Node
-	bytes, err := os.ReadFile(output)
+	bytes, err := os.ReadFile(filepath.Clean(output))
 	if err == nil {
 		oldNodes = changelog.ParseMarkdown(string(bytes))
 	}
@@ -195,7 +195,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 func (a *action) generateRSTChangelog(output, version string, commits []convention.Commit) error {
 	// If changelog file already exist, parse markdown from exist file
 	var oldNodes []rst.Node
-	bytes, err := os.ReadFile(output)
+	bytes, err := os.ReadFile(filepath.Clean(output))
 	if err == nil {
 		oldNodes = changelog.ParseRST(string(bytes))
 	}
