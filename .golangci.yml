@@ -17,10 +17,12 @@ linters:
     - typecheck
     - unused
     # Custom
+    - bodyclose
     - err113
     - errchkjson
     - errname
     - errorlint
+    - fatcontext
     - forcetypeassert
     - gocritic
     - gofumpt
