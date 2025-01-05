@@ -40,7 +40,6 @@ linters:
 linters-settings:
   # Default
   govet:
-    check-shadowing: false
     disable-all: true
     enable:
       - assign
