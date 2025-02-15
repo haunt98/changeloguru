@@ -1,5 +1,49 @@
 # CHANGELOG
 
+## v1.21.4 (2025-02-15)
+
+### Others
+
+- build(deps): bump golang.org/x/mod from 0.22.0 to 0.23.0 (#135) (2025-02-05)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.13.1 to 5.13.2 (#134) (2025-01-23)
+
+- chore: deprecated check-shadowing in govet linter (2025-01-05)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.13.0 to 5.13.1 (#133) (2025-01-03)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.12.0 to 5.13.0 (#132) (2024-12-30)
+
+- chore: remove GoReleaser (2024-12-22)
+
+- build(deps): bump golang.org/x/crypto from 0.21.0 to 0.31.0 (#131) (2024-12-12)
+
+- build(deps): bump github.com/stretchr/testify from 1.9.0 to 1.10.0 (#130) (2024-11-25)
+
+- build(deps): bump github.com/Masterminds/semver/v3 from 3.3.0 to 3.3.1 (#129) (2024-11-20)
+
+- build(deps): bump golang.org/x/mod from 0.21.0 to 0.22.0 (#128) (2024-11-09)
+
+- chore: sync lint (2024-10-26)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.27.4 to 2.27.5 (#127) (2024-10-14)
+
+- build: bump go.mod (2024-09-05)
+
+- build(deps): bump golang.org/x/mod from 0.20.0 to 0.21.0 (#126) (2024-09-05)
+
+- chore: gosec (2024-09-04)
+
+- build: update go.mod to go 1.22 (2024-08-28)
+
+- build(deps): bump github.com/Masterminds/semver/v3 from 3.2.1 to 3.3.0 (#125) (2024-08-28)
+
+- chore: migrate to justfile (2024-08-22)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.27.3 to 2.27.4 (#124) (2024-08-12)
+
+- chore(changelog): generate v1.21.3 (2024-08-12)
+
 ## v1.21.3 (2024-08-12)
 
 ### Others
