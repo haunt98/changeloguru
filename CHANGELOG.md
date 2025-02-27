@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v1.22.0 (2025-02-28)
+
+### Added
+
+- feat(changelog): add build type (2025-02-28)
+
+### Others
+
+- chore: modernize (2025-02-28)
+
+- chore(changelog): generate v1.21.4 (2025-02-15)
+
 ## v1.21.4 (2025-02-15)
 
 ### Others
