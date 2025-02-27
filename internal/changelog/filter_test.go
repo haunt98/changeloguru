@@ -30,6 +30,10 @@ func TestFilter(t *testing.T) {
 					RawHeader: "build",
 					Type:      convention.BuildType,
 				},
+				{
+					RawHeader: "do something other",
+					Type:      convention.ChoreType,
+				},
 			},
 			want: map[string][]convention.Commit{
 				addedType: {
@@ -45,6 +49,12 @@ func TestFilter(t *testing.T) {
 					},
 				},
 				othersType: {
+					{
+						RawHeader: "do something other",
+						Type:      convention.ChoreType,
+					},
+				},
+				buildType: {
 					{
 						RawHeader: "build",
 						Type:      convention.BuildType,
@@ -69,6 +79,10 @@ func TestFilter(t *testing.T) {
 					RawHeader: "build",
 					Type:      convention.BuildType,
 				},
+				{
+					RawHeader: "do something other",
+					Type:      convention.ChoreType,
+				},
 			},
 			scopes: map[string]struct{}{
 				"A": {},
@@ -83,6 +97,12 @@ func TestFilter(t *testing.T) {
 				},
 				fixedType: {},
 				othersType: {
+					{
+						RawHeader: "do something other",
+						Type:      convention.ChoreType,
+					},
+				},
+				buildType: {
 					{
 						RawHeader: "build",
 						Type:      convention.BuildType,

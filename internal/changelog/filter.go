@@ -13,6 +13,7 @@ func filter(commits []convention.Commit, scopes map[string]struct{}) map[string]
 	filteredCommits[addedType] = make([]convention.Commit, 0, defaultLen)
 	filteredCommits[fixedType] = make([]convention.Commit, 0, defaultLen)
 	filteredCommits[othersType] = make([]convention.Commit, 0, defaultLen)
+	filteredCommits[buildType] = make([]convention.Commit, 0, defaultLen)
 
 	for _, commit := range commits {
 		// If scopes is empty or commit scope is empty, pass all commits
@@ -31,6 +32,8 @@ func filter(commits []convention.Commit, scopes map[string]struct{}) map[string]
 			filteredCommits[fixedType] = append(filteredCommits[fixedType], commit)
 		case othersType:
 			filteredCommits[othersType] = append(filteredCommits[othersType], commit)
+		case buildType:
+			filteredCommits[buildType] = append(filteredCommits[buildType], commit)
 		default:
 			continue
 		}

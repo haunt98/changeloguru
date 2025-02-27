@@ -21,28 +21,23 @@ func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, v
 		return nil
 	}
 
-	addedNodes := convertToListMarkdownNodes(filteredCommits[addedType])
-	fixedNodes := convertToListMarkdownNodes(filteredCommits[fixedType])
-	othersNodes := convertToListMarkdownNodes(filteredCommits[othersType])
+	filteredNodes := make(map[string][]markdown.Node, len(filteredCommits))
+	countNodes := 0
+	for commitType, commits := range filteredCommits {
+		filteredNodes[commitType] = convertToListMarkdownNodes(commits)
+		countNodes += len(commits)
+	}
 
-	// 4 = 3 type header + 1 version header
-	nodes := make([]markdown.Node, 0, len(addedNodes)+len(fixedNodes)+len(othersNodes)+4)
+	// + len(filteredCommits) is changelog type header
+	// + 1 is version header
+	nodes := make([]markdown.Node, 0, countNodes+len(filteredCommits)+1)
 
 	// Adding each type
-
-	if len(addedNodes) != 0 {
-		nodes = append(nodes, markdown.NewHeader(thirdLevel, addedType))
-		nodes = append(nodes, addedNodes...)
-	}
-
-	if len(fixedNodes) != 0 {
-		nodes = append(nodes, markdown.NewHeader(thirdLevel, fixedType))
-		nodes = append(nodes, fixedNodes...)
-	}
-
-	if len(othersNodes) != 0 {
-		nodes = append(nodes, markdown.NewHeader(thirdLevel, othersType))
-		nodes = append(nodes, othersNodes...)
+	for _, commitType := range changelogTypes {
+		if len(filteredNodes[commitType]) != 0 {
+			nodes = append(nodes, markdown.NewHeader(thirdLevel, commitType))
+			nodes = append(nodes, filteredNodes[commitType]...)
+		}
 	}
 
 	// Adding title

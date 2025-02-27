@@ -6,7 +6,16 @@ const (
 	addedType  = "Added"
 	fixedType  = "Fixed"
 	othersType = "Others"
+	buildType  = "Build"
 )
+
+// The order when generate changelog
+var changelogTypes = []string{
+	addedType,
+	fixedType,
+	othersType,
+	buildType,
+}
 
 func getType(conventionType string) string {
 	switch conventionType {
@@ -14,6 +23,8 @@ func getType(conventionType string) string {
 		return addedType
 	case convention.FixType:
 		return fixedType
+	case convention.BuildType, convention.CIType:
+		return buildType
 	default:
 		return othersType
 	}

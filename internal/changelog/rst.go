@@ -16,25 +16,20 @@ func GenerateRST(commits []convention.Commit, scopes map[string]struct{}, versio
 		return nil
 	}
 
-	addedNodes := convertToListRSTNodes(filteredCommits[addedType])
-	fixedNodes := convertToListRSTNodes(filteredCommits[fixedType])
-	othersNodes := convertToListRSTNodes(filteredCommits[othersType])
-
-	nodes := make([]rst.Node, 0, len(addedNodes)+len(fixedNodes)+len(othersNodes)+4)
-
-	if len(addedNodes) != 0 {
-		nodes = append(nodes, rst.NewSubSection(addedType))
-		nodes = append(nodes, addedNodes...)
+	filteredNodes := make(map[string][]rst.Node, len(filteredCommits))
+	countNodes := 0
+	for commitType, commits := range filteredCommits {
+		filteredNodes[commitType] = convertToListRSTNodes(commits)
+		countNodes += len(commits)
 	}
 
-	if len(fixedNodes) != 0 {
-		nodes = append(nodes, rst.NewSubSection(fixedType))
-		nodes = append(nodes, fixedNodes...)
-	}
+	nodes := make([]rst.Node, 0, countNodes+len(filteredCommits)+1)
 
-	if len(othersNodes) != 0 {
-		nodes = append(nodes, rst.NewSubSection(othersType))
-		nodes = append(nodes, othersNodes...)
+	for _, commitType := range changelogTypes {
+		if len(filteredNodes[commitType]) != 0 {
+			nodes = append(nodes, rst.NewSubSection(commitType))
+			nodes = append(nodes, filteredNodes[commitType]...)
+		}
 	}
 
 	versionHeader := generateVersionHeaderValue(version, when)

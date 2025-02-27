@@ -10,6 +10,11 @@ test-color:
     # go install github.com/haunt98/go-test-color@latest
     go-test-color -race -failfast ./...
 
+test-golden:
+    fd "golden" --exec-batch rm
+    go test ./internal/changelog -update
+    go test ./internal/convention -update
+
 coverage:
     go test -coverprofile=coverage.out ./...
 
