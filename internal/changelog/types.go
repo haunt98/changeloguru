@@ -7,6 +7,8 @@ const (
 	fixedType  = "Fixed"
 	othersType = "Others"
 	buildType  = "Build"
+
+	depsScope = "deps"
 )
 
 // The order when generate changelog
@@ -17,14 +19,20 @@ var changelogTypes = []string{
 	buildType,
 }
 
-func getType(conventionType string) string {
-	switch conventionType {
+func getType(conventionCommit convention.Commit) string {
+	switch conventionCommit.Type {
 	case convention.FeatType:
 		return addedType
 	case convention.FixType:
 		return fixedType
 	case convention.BuildType, convention.CIType:
 		return buildType
+	case convention.ChoreType:
+		if conventionCommit.Scope == depsScope {
+			return buildType
+		}
+
+		return othersType
 	default:
 		return othersType
 	}

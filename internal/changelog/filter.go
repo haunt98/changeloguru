@@ -10,10 +10,10 @@ func filter(commits []convention.Commit, scopes map[string]struct{}) map[string]
 	}
 
 	filteredCommits := make(map[string][]convention.Commit)
-	filteredCommits[addedType] = make([]convention.Commit, 0, defaultLen)
-	filteredCommits[fixedType] = make([]convention.Commit, 0, defaultLen)
-	filteredCommits[othersType] = make([]convention.Commit, 0, defaultLen)
-	filteredCommits[buildType] = make([]convention.Commit, 0, defaultLen)
+
+	for _, commitType := range changelogTypes {
+		filteredCommits[commitType] = make([]convention.Commit, 0, defaultLen)
+	}
 
 	for _, commit := range commits {
 		// If scopes is empty or commit scope is empty, pass all commits
@@ -24,19 +24,8 @@ func filter(commits []convention.Commit, scopes map[string]struct{}) map[string]
 			}
 		}
 
-		t := getType(commit.Type)
-		switch t {
-		case addedType:
-			filteredCommits[addedType] = append(filteredCommits[addedType], commit)
-		case fixedType:
-			filteredCommits[fixedType] = append(filteredCommits[fixedType], commit)
-		case othersType:
-			filteredCommits[othersType] = append(filteredCommits[othersType], commit)
-		case buildType:
-			filteredCommits[buildType] = append(filteredCommits[buildType], commit)
-		default:
-			continue
-		}
+		t := getType(commit)
+		filteredCommits[t] = append(filteredCommits[t], commit)
 	}
 
 	return filteredCommits
