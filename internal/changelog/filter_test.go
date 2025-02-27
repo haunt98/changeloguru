@@ -12,11 +12,10 @@ func TestFilter(t *testing.T) {
 	tests := []struct {
 		name    string
 		commits []convention.Commit
-		scopes  map[string]struct{}
 		want    map[string][]convention.Commit
 	}{
 		{
-			name: "without scopes",
+			name: "all types",
 			commits: []convention.Commit{
 				{
 					RawHeader: "feature A",
@@ -62,59 +61,11 @@ func TestFilter(t *testing.T) {
 				},
 			},
 		},
-		{
-			name: "with scopes",
-			commits: []convention.Commit{
-				{
-					RawHeader: "feature A",
-					Type:      convention.FeatType,
-					Scope:     "A",
-				},
-				{
-					RawHeader: "fix B",
-					Type:      convention.FixType,
-					Scope:     "B",
-				},
-				{
-					RawHeader: "build",
-					Type:      convention.BuildType,
-				},
-				{
-					RawHeader: "do something other",
-					Type:      convention.ChoreType,
-				},
-			},
-			scopes: map[string]struct{}{
-				"A": {},
-			},
-			want: map[string][]convention.Commit{
-				addedType: {
-					{
-						RawHeader: "feature A",
-						Type:      convention.FeatType,
-						Scope:     "A",
-					},
-				},
-				fixedType: {},
-				othersType: {
-					{
-						RawHeader: "do something other",
-						Type:      convention.ChoreType,
-					},
-				},
-				buildType: {
-					{
-						RawHeader: "build",
-						Type:      convention.BuildType,
-					},
-				},
-			},
-		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got := filter(tc.commits, tc.scopes)
+			got := filter(tc.commits)
 			assert.Equal(t, tc.want, got)
 		})
 	}

@@ -4,7 +4,7 @@ import (
 	"github.com/haunt98/changeloguru/internal/convention"
 )
 
-func filter(commits []convention.Commit, scopes map[string]struct{}) map[string][]convention.Commit {
+func filter(commits []convention.Commit) map[string][]convention.Commit {
 	if len(commits) == 0 {
 		return nil
 	}
@@ -16,14 +16,6 @@ func filter(commits []convention.Commit, scopes map[string]struct{}) map[string]
 	}
 
 	for _, commit := range commits {
-		// If scopes is empty or commit scope is empty, pass all commits
-		if len(scopes) != 0 && commit.Scope != "" {
-			// Skip commit outside scopes
-			if _, ok := scopes[commit.Scope]; !ok {
-				continue
-			}
-		}
-
 		t := getType(commit)
 		filteredCommits[t] = append(filteredCommits[t], commit)
 	}

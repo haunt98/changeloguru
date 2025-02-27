@@ -27,9 +27,6 @@ const (
 	flagToName  = "to"
 	flagToUsage = "`TO COMMIT`, which is kinda old commit, default is oldest commit"
 
-	flagScopeName  = "scope"
-	flagScopeUsage = "scope to generate"
-
 	flagRepositoryName  = "repository"
 	flagRepositoryUsage = "`REPOSITORY` directory path"
 
@@ -102,10 +99,6 @@ func NewApp() *App {
 					&cli.StringFlag{
 						Name:  flagToName,
 						Usage: flagToUsage,
-					},
-					&cli.StringSliceFlag{
-						Name:  flagScopeName,
-						Usage: flagScopeUsage,
 					},
 					&cli.StringFlag{
 						Name:  flagRepositoryName,

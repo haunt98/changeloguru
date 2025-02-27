@@ -15,8 +15,8 @@ const (
 	thirdLevel  = 3
 )
 
-func GenerateMarkdown(commits []convention.Commit, scopes map[string]struct{}, version string, when time.Time) []markdown.Node {
-	filteredCommits := filter(commits, scopes)
+func GenerateMarkdown(commits []convention.Commit, version string, when time.Time) []markdown.Node {
+	filteredCommits := filter(commits)
 	if filteredCommits == nil {
 		return nil
 	}

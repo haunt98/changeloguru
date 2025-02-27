@@ -19,7 +19,6 @@ const (
 
 type action struct {
 	flags struct {
-		scopes          map[string]struct{}
 		output          string
 		from            string
 		to              string
@@ -47,11 +46,6 @@ func (a *action) getFlags(c *cli.Context) {
 	a.flags.version = c.String(flagVersionName)
 	a.flags.from = c.String(flagFromName)
 	a.flags.to = c.String(flagToName)
-
-	a.flags.scopes = make(map[string]struct{})
-	for _, scope := range c.StringSlice(flagScopeName) {
-		a.flags.scopes[scope] = struct{}{}
-	}
 
 	a.flags.repository = c.String(flagRepositoryName)
 	if a.flags.repository == "" {

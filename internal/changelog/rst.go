@@ -10,8 +10,8 @@ import (
 )
 
 // GenerateRST base on GenerateMarkdown
-func GenerateRST(commits []convention.Commit, scopes map[string]struct{}, version string, when time.Time) []rst.Node {
-	filteredCommits := filter(commits, scopes)
+func GenerateRST(commits []convention.Commit, version string, when time.Time) []rst.Node {
+	filteredCommits := filter(commits)
 	if filteredCommits == nil {
 		return nil
 	}
