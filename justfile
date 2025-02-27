@@ -26,6 +26,7 @@ coverage-html: coverage
 
 lint:
     golangci-lint run ./...
+    modernize -fix -test ./...
 
 format:
     # go install github.com/haunt98/gofimports/cmd/gofimports@latest
