@@ -4,6 +4,18 @@
 
 ### Added
 
+- feat: remove scope (2025-02-28)
+
+- feat(changelog): handle chore(deps) as build type (2025-02-28)
+
+### Others
+
+- chore(changelog): generate v1.22.0 (2025-02-28)
+
+## v1.22.0 (2025-02-28)
+
+### Added
+
 - feat(changelog): add build type (2025-02-28)
 
 ### Others
