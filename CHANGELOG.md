@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.23.1 (2025-02-28)
+
+### Added
+
+- feat: prefer deps when scope is deps (2025-02-28)
+
+### Others
+
+- chore(changelog): generate v1.23.0 (2025-02-28)
+
 ## v1.23.0 (2025-02-28)
 
 ### Added
