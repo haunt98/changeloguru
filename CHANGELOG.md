@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v1.23.2 (2025-02-28)
+
+### Others
+
+- chore(changelog): generate v1.23.1 (2025-02-28)
+
+### Build
+
+- build: bump go 1.24 (2025-02-28)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.13.2 to 5.14.0 (#136) (2025-02-28)
+
 ## v1.23.1 (2025-02-28)
 
 ### Added
