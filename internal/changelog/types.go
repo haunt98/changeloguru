@@ -20,6 +20,10 @@ var changelogTypes = []string{
 }
 
 func getType(conventionCommit convention.Commit) string {
+	if conventionCommit.Scope == depsScope {
+		return buildType
+	}
+
 	switch conventionCommit.Type {
 	case convention.FeatType:
 		return addedType
@@ -27,12 +31,6 @@ func getType(conventionCommit convention.Commit) string {
 		return fixedType
 	case convention.BuildType, convention.CIType:
 		return buildType
-	case convention.ChoreType:
-		if conventionCommit.Scope == depsScope {
-			return buildType
-		}
-
-		return othersType
 	default:
 		return othersType
 	}
