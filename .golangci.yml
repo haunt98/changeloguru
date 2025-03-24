@@ -1,95 +1,105 @@
+version: "2"
 run:
-  timeout: 5m
   tests: false
-
-output:
-  sort-results: true
-
 linters:
-  disable-all: true
+  default: none
   enable:
-    # Default
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - typecheck
-    - unused
-    # Custom
     - bodyclose
     - err113
+    - errcheck
     - errchkjson
     - errname
     - errorlint
     - fatcontext
     - forcetypeassert
     - gocritic
-    - gofumpt
     - gosec
+    - govet
     - importas
+    - ineffassign
     - makezero
     - nilnil
     - noctx
     - prealloc
     - reassign
     - sqlclosecheck
+    - staticcheck
     - unconvert
-  fast: true
-
-linters-settings:
-  # Default
-  govet:
-    disable-all: true
-    enable:
-      - assign
-      - atomic
-      - bools
-      - buildtag
-      - composites
-      - copylocks
-      - fieldalignment
-      - httpresponse
-      - loopclosure
-      - lostcancel
-      - nilfunc
-      - printf
-      - unmarshal
-      - unreachable
-      - unusedresult
-  staticcheck:
-    checks: ["all", "-SA1019"]
-  # Custom
-  gocritic:
-    disabled-checks:
-      - ifElseChain
-      - singleCaseSwitch
-      - unnamedResult
-      - whyNoLint
-    enabled-tags:
-      - diagnostic
-      - style
-  gosec:
-    excludes:
-      - G101
-      - G112
-      - G115
-      - G204
-      - G402
-      - G404
-      - G501
-      - G505
-    exclude-generated: true
-  reassign:
-    patterns:
-      - ".*"
-
-issues:
-  exclude-dirs:
-    - ".*test.*"
-    - ".*mock.*"
-    - ".*example.*"
-    - ".*utils.*"
-  exclude-files:
-    - ".*Mock.*"
-    - ".*_mock.*"
+    - unused
+  settings:
+    gocritic:
+      disabled-checks:
+        - ifElseChain
+        - singleCaseSwitch
+        - unnamedResult
+        - whyNoLint
+      enabled-tags:
+        - diagnostic
+        - style
+    gosec:
+      excludes:
+        - G101
+        - G112
+        - G115
+        - G204
+        - G402
+        - G404
+        - G501
+        - G505
+    govet:
+      enable:
+        - assign
+        - atomic
+        - bools
+        - buildtag
+        - composites
+        - copylocks
+        - fieldalignment
+        - httpresponse
+        - loopclosure
+        - lostcancel
+        - nilfunc
+        - printf
+        - unmarshal
+        - unreachable
+        - unusedresult
+      disable-all: true
+    reassign:
+      patterns:
+        - .*
+    staticcheck:
+      checks:
+        - -SA1019
+        - all
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - .*Mock.*
+      - .*_mock.*
+      - .*test.*
+      - .*mock.*
+      - .*example.*
+      - .*utils.*
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofumpt
+  exclusions:
+    generated: lax
+    paths:
+      - .*Mock.*
+      - .*_mock.*
+      - .*test.*
+      - .*mock.*
+      - .*example.*
+      - .*utils.*
+      - third_party$
+      - builtin$
+      - examples$
