@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -11,7 +12,7 @@ import (
 
 	"github.com/pkg/diff"
 	"github.com/pkg/diff/write"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 	"golang.org/x/mod/semver"
 
 	"github.com/make-go-great/color-go"
@@ -31,7 +32,7 @@ var (
 	ErrInvalidVersion  = errors.New("invalid version")
 )
 
-func (a *action) RunGenerate(c *cli.Context) error {
+func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 	a.getFlags(c)
 
 	// Show help if there is no flags
