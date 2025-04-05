@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## v1.24.0 (2025-04-06)
+
+### Added
+
+- feat: migrate urfave/cli v3 (2025-04-06)
+
+### Others
+
+- chore: golangci-lint fix (2025-03-25)
+
+- Merge branch 'main' of https://github.com/haunt98/changeloguru (2025-03-25)
+
+- chore: golangci-lint v2 (2025-03-25)
+
+- chore(changelog): generate v1.23.2 (2025-02-28)
+
+### Build
+
+- build(deps): bump golang.org/x/net from 0.35.0 to 0.36.0 (#139) (2025-03-13)
+
+- build(deps): bump golang.org/x/mod from 0.23.0 to 0.24.0 (#138) (2025-03-06)
+
+- build(deps): bump github.com/urfave/cli/v2 from 2.27.5 to 2.27.6 (#137) (2025-03-06)
+
 ## v1.23.2 (2025-02-28)
 
 ### Others
