@@ -106,11 +106,11 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 
 	finalOutput := a.getFinalOutput()
 
-	if err := a.generateChangelog(conventionalCommits, finalOutput, ver.String()); err != nil {
+	if err := a.generateChangelog(conventionalCommits, finalOutput, ver.Original()); err != nil {
 		return err
 	}
 
-	if err := a.doGit(finalOutput, ver.String()); err != nil {
+	if err := a.doGit(finalOutput, ver.Original()); err != nil {
 		return err
 	}
 
