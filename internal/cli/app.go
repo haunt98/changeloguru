@@ -23,10 +23,16 @@ const (
 	flagVersionUsage = "`VERSION` to generate, follow Semantic Versioning"
 
 	flagFromName  = "from"
-	flagFromUsage = "`FROM COMMIT`, which is kinda new commit, default is latest commit"
+	flagFromUsage = "same as --from-ref"
 
 	flagToName  = "to"
-	flagToUsage = "`TO COMMIT`, which is kinda old commit, default is oldest commit"
+	flagToUsage = "same as --to-ref"
+
+	flagFromReferenceName  = "from-ref"
+	flagFromReferenceUsage = "`FROM GIT REFERENCE (COMMIT/TAG)`, new commit, default is latest commit"
+
+	flagToReferenceName  = "to-ref"
+	flagToReferenceUsage = "`TO GIT REFERENCE (COMMIT/TAG)`, old commit, default is oldest commit"
 
 	flagRepositoryName  = "repository"
 	flagRepositoryUsage = "`REPOSITORY` directory path"
@@ -100,6 +106,14 @@ func NewApp() *App {
 					&cli.StringFlag{
 						Name:  flagToName,
 						Usage: flagToUsage,
+					},
+					&cli.StringFlag{
+						Name:  flagFromReferenceName,
+						Usage: flagFromReferenceUsage,
+					},
+					&cli.StringFlag{
+						Name:  flagToReferenceName,
+						Usage: flagToReferenceUsage,
 					},
 					&cli.StringFlag{
 						Name:  flagRepositoryName,

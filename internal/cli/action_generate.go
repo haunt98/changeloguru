@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -49,13 +50,13 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		a.flags.version = ioe.ReadInput()
 
 		if a.flags.interactiveFrom {
-			fmt.Printf("Input from (%s):\n", flagFromUsage)
-			a.flags.from = ioe.ReadInputEmpty()
+			fmt.Printf("Input from reference (%s):\n", flagFromUsage)
+			a.flags.fromRef = ioe.ReadInputEmpty()
 		}
 
 		if a.flags.interactiveTo {
-			fmt.Printf("Input to (%s):\n", flagToUsage)
-			a.flags.to = ioe.ReadInputEmpty()
+			fmt.Printf("Input to reference (%s):\n", flagToUsage)
+			a.flags.toRef = ioe.ReadInputEmpty()
 		} else {
 			fallbackLatestTag = true
 		}
@@ -82,23 +83,13 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		}
 
 		if fallbackLatestTag {
-			a.flags.to = tags[len(tags)-1].Version.Original()
+			a.flags.toRef = tags[len(tags)-1].Version.Original()
 		}
 	}
 
-	aliasFrom := a.flags.from
-	if aliasFrom == "" {
-		aliasFrom = "latest"
-	}
+	color.PrintAppOK(name, fmt.Sprintf("Generate changelog from [%s] to [%s]", cmp.Or(a.flags.fromRef, "latest"), cmp.Or(a.flags.toRef, "oldest")))
 
-	aliasTo := a.flags.to
-	if aliasTo == "" {
-		aliasTo = "earliest"
-	}
-
-	color.PrintAppOK(name, fmt.Sprintf("Generate changelog from [%s] to [%s]", aliasFrom, aliasTo))
-
-	commits, err := repo.Log(a.flags.from, a.flags.to)
+	commits, err := repo.Log(a.flags.fromRef, a.flags.toRef)
 	if err != nil {
 		return err
 	}

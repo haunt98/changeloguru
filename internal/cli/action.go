@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"cmp"
 	"context"
 	"log"
 
@@ -21,8 +22,8 @@ const (
 type action struct {
 	flags struct {
 		output          string
-		from            string
-		to              string
+		fromRef         string
+		toRef           string
 		version         string
 		repository      string
 		filename        string
@@ -45,8 +46,8 @@ func (a *action) RunHelp(ctx context.Context, c *cli.Command) error {
 func (a *action) getFlags(c *cli.Command) {
 	a.flags.verbose = c.Bool(flagVerboseName)
 	a.flags.version = c.String(flagVersionName)
-	a.flags.from = c.String(flagFromName)
-	a.flags.to = c.String(flagToName)
+	a.flags.fromRef = cmp.Or(c.String(flagFromName), c.String(flagFromReferenceName))
+	a.flags.toRef = cmp.Or(c.String(flagToName), c.String(flagToReferenceName))
 
 	a.flags.repository = c.String(flagRepositoryName)
 	if a.flags.repository == "" {

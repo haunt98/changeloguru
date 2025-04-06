@@ -166,7 +166,7 @@ func newIterFn(commits *[]Commit, beginFn, endFn stopFn) func(c *object.Commit) 
 	}
 }
 
-// Return SemVer tags from earliest to latest
+// Return SemVer tags from oldest to latest
 func (r *repo) SemVerTags() ([]SemVerTag, error) {
 	iter, err := r.gitRepo.Tags()
 	if err != nil {
