@@ -16,11 +16,10 @@ go install github.com/haunt98/changeloguru/cmd/changeloguru@latest
 
 ## Usage
 
-`--from` is commit in the future aka new.
+- `--from-ref` is new commit
+- `--to-ref` is old commit
 
-`--to` is commit in the past aka old.
-
-Go from **future** to the **past**.
+Generate log from **future** to the **past**.
 
 ```sh
 # Help
@@ -42,12 +41,6 @@ changeloguru generate -i --auto-commit --auto-tag --auto-push
 ## Thanks
 
 - [Command Line Interface Guidelines](https://clig.dev/)
-- [fatih/color](https://github.com/fatih/color)
-- [go-git/go-git](https://github.com/go-git/go-git)
-- [google/go-cmp](https://github.com/google/go-cmp)
-- [sebdah/goldie](https://github.com/sebdah/goldie)
-- [stretchr/testify](https://github.com/stretchr/testify)
-- [urfave/cli](https://github.com/urfave/cli)
 
 Made with [GoLand](https://www.jetbrains.com/go/). Thanks for supporting open
 source projects!
