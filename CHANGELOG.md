@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v1.25.0 (2025-04-06)
+
+### Added
+
+- feat: add --from-ref, --to-ref to clear ambigous --from, --to (2025-04-06)
+
+- feat: add dry run when exec command (2025-04-06)
+
+- feat: require input version > current tag version (#143) (2025-04-06)
+
+### Fixed
+
+- fix: bring back fallbackLatestTag (isLatestTag) (#144) (2025-04-06)
+
+### Others
+
+- chore(changelog): generate v1.24.0 (2025-04-06)
+
 ## v1.24.0 (2025-04-06)
 
 ### Added
