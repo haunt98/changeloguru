@@ -147,6 +147,7 @@ func (a *action) getVersion() (*version.Version, error) {
 		return nil, fmt.Errorf("empty version: %w", ErrInvalidVersion)
 	}
 
+	// I prefer having prefix `v` in version
 	if !strings.HasPrefix(a.flags.version, "v") {
 		a.flags.version = "v" + a.flags.version
 	}
