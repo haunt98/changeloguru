@@ -15,7 +15,7 @@ const (
 	thirdLevel  = 3
 )
 
-func GenerateMarkdown(commits []convention.Commit, version string, when time.Time) []markdown.Node {
+func GenerateMarkdown(commits []convention.Commit, ver string, when time.Time) []markdown.Node {
 	filteredCommits := filter(commits)
 	if filteredCommits == nil {
 		return nil
@@ -41,7 +41,7 @@ func GenerateMarkdown(commits []convention.Commit, version string, when time.Tim
 	}
 
 	// Adding title
-	versionHeader := generateVersionHeaderValue(version, when)
+	versionHeader := generateVersionHeaderValue(ver, when)
 	nodes = append([]markdown.Node{
 		markdown.NewHeader(firstLevel, title),
 		markdown.NewHeader(secondLevel, versionHeader),

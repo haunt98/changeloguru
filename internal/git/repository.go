@@ -2,13 +2,13 @@ package git
 
 import (
 	"fmt"
-	"sort"
+	"slices"
 
-	"github.com/Masterminds/semver/v3"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/storer"
+	"github.com/hashicorp/go-version"
 )
 
 const (
@@ -173,28 +173,30 @@ func (r *repo) SemVerTags() ([]SemVerTag, error) {
 		return nil, err
 	}
 
-	versions := make([]*semver.Version, 0, defaultTagCount)
+	vers := make([]*version.Version, 0, defaultTagCount)
 
 	if err := iter.ForEach(func(r *plumbing.Reference) error {
-		version, err := semver.NewVersion(r.Name().Short())
+		ver, err := version.NewVersion(r.Name().Short())
 		if err != nil {
 			// Ignore bad tag
 			return nil
 		}
 
-		versions = append(versions, version)
+		vers = append(vers, ver)
 
 		return nil
 	}); err != nil {
 		return nil, err
 	}
 
-	sort.Sort(semver.Collection(versions))
+	slices.SortFunc(vers, func(a, b *version.Version) int {
+		return a.Compare(b)
+	})
 
-	tags := make([]SemVerTag, 0, len(versions))
-	for _, version := range versions {
+	tags := make([]SemVerTag, 0, len(vers))
+	for _, ver := range vers {
 		tags = append(tags, SemVerTag{
-			Version: version,
+			Version: ver,
 		})
 	}
 

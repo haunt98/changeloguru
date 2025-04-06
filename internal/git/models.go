@@ -1,8 +1,8 @@
 package git
 
 import (
-	"github.com/Masterminds/semver/v3"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"github.com/hashicorp/go-version"
 )
 
 // Commit stores all git-commit information
@@ -24,5 +24,5 @@ func newCommit(c *object.Commit) Commit {
 }
 
 type SemVerTag struct {
-	Version *semver.Version
+	Version *version.Version
 }

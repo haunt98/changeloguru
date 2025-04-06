@@ -10,7 +10,7 @@ import (
 )
 
 // GenerateRST base on GenerateMarkdown
-func GenerateRST(commits []convention.Commit, version string, when time.Time) []rst.Node {
+func GenerateRST(commits []convention.Commit, ver string, when time.Time) []rst.Node {
 	filteredCommits := filter(commits)
 	if filteredCommits == nil {
 		return nil
@@ -32,7 +32,7 @@ func GenerateRST(commits []convention.Commit, version string, when time.Time) []
 		}
 	}
 
-	versionHeader := generateVersionHeaderValue(version, when)
+	versionHeader := generateVersionHeaderValue(ver, when)
 	nodes = append([]rst.Node{
 		rst.NewTitle(title),
 		rst.NewSection(versionHeader),
