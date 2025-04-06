@@ -40,6 +40,9 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		return cli.ShowSubcommandHelp(c)
 	}
 
+	// If user does not specific `flag to`, we automatically choose latest tag
+	fallbackLatestTag := false
+
 	if a.flags.interactive {
 		fmt.Printf("Input version (%s):\n", flagVersionUsage)
 		a.flags.version = ioe.ReadInput()
@@ -52,12 +55,34 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		if a.flags.interactiveTo {
 			fmt.Printf("Input to (%s):\n", flagToUsage)
 			a.flags.to = ioe.ReadInputEmpty()
+		} else {
+			fallbackLatestTag = true
 		}
 	}
 
 	repo, err := git.NewRepository(a.flags.repository)
 	if err != nil {
 		return err
+	}
+
+	tags, err := repo.SemVerTags()
+	if err != nil {
+		return err
+	}
+
+	ver, err := a.getVersion()
+	if err != nil {
+		return err
+	}
+
+	if len(tags) != 0 {
+		if ver.LessThanOrEqual(tags[len(tags)-1].Version) {
+			return fmt.Errorf("not latest version, expect > %s: %w", tags[len(tags)-1].Version.String(), ErrInvalidVersion)
+		}
+
+		if fallbackLatestTag {
+			a.flags.to = tags[len(tags)-1].Version.Original()
+		}
 	}
 
 	aliasFrom := a.flags.from
@@ -71,21 +96,6 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 	}
 
 	color.PrintAppOK(name, fmt.Sprintf("Generate changelog from [%s] to [%s]", aliasFrom, aliasTo))
-
-	ver, err := a.getVersion()
-	if err != nil {
-		return err
-	}
-
-	semVerTags, err := repo.SemVerTags()
-	if err != nil {
-		return err
-	}
-
-	if len(semVerTags) != 0 &&
-		ver.LessThanOrEqual(semVerTags[len(semVerTags)-1].Version) {
-		return fmt.Errorf("not latest version, expect > %s: %w", semVerTags[len(semVerTags)-1].Version.String(), ErrInvalidVersion)
-	}
 
 	commits, err := repo.Log(a.flags.from, a.flags.to)
 	if err != nil {
