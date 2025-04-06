@@ -3,8 +3,8 @@ module github.com/haunt98/changeloguru
 go 1.24
 
 require (
-	github.com/Masterminds/semver/v3 v3.3.1
 	github.com/go-git/go-git/v5 v5.14.0
+	github.com/hashicorp/go-version v1.7.0
 	github.com/make-go-great/color-go v0.5.0
 	github.com/make-go-great/date-go v0.5.0
 	github.com/make-go-great/ioe-go v0.4.0
@@ -14,7 +14,6 @@ require (
 	github.com/sebdah/goldie/v2 v2.5.5
 	github.com/stretchr/testify v1.10.0
 	github.com/urfave/cli/v3 v3.1.1
-	golang.org/x/mod v0.24.0
 )
 
 require (

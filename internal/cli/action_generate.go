@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/hashicorp/go-version"
 	"github.com/pkg/diff"
 	"github.com/pkg/diff/write"
 	"github.com/urfave/cli/v3"
-	"golang.org/x/mod/semver"
 
 	"github.com/make-go-great/color-go"
 	"github.com/make-go-great/ioe-go"
@@ -40,7 +40,6 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		return cli.ShowSubcommandHelp(c)
 	}
 
-	useLatestTag := false
 	if a.flags.interactive {
 		fmt.Printf("Input version (%s):\n", flagVersionUsage)
 		a.flags.version = ioe.ReadInput()
@@ -53,21 +52,12 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		if a.flags.interactiveTo {
 			fmt.Printf("Input to (%s):\n", flagToUsage)
 			a.flags.to = ioe.ReadInputEmpty()
-		} else {
-			useLatestTag = true
 		}
 	}
 
 	repo, err := git.NewRepository(a.flags.repository)
 	if err != nil {
 		return err
-	}
-
-	if useLatestTag {
-		tags, err := repo.SemVerTags()
-		if err == nil && len(tags) > 0 {
-			a.flags.to = tags[len(tags)-1].Version.Original()
-		}
 	}
 
 	aliasFrom := a.flags.from
@@ -82,6 +72,21 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 
 	color.PrintAppOK(name, fmt.Sprintf("Generate changelog from [%s] to [%s]", aliasFrom, aliasTo))
 
+	ver, err := a.getVersion()
+	if err != nil {
+		return err
+	}
+
+	semVerTags, err := repo.SemVerTags()
+	if err != nil {
+		return err
+	}
+
+	if len(semVerTags) != 0 &&
+		ver.LessThanOrEqual(semVerTags[len(semVerTags)-1].Version) {
+		return fmt.Errorf("not latest version, expect > %s: %w", semVerTags[len(semVerTags)-1].Version.String(), ErrInvalidVersion)
+	}
+
 	commits, err := repo.Log(a.flags.from, a.flags.to)
 	if err != nil {
 		return err
@@ -91,16 +96,11 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 
 	finalOutput := a.getFinalOutput()
 
-	version, err := a.getVersion()
-	if err != nil {
+	if err := a.generateChangelog(conventionalCommits, finalOutput, ver.String()); err != nil {
 		return err
 	}
 
-	if err := a.generateChangelog(conventionalCommits, finalOutput, version); err != nil {
-		return err
-	}
-
-	if err := a.doGit(finalOutput, version); err != nil {
+	if err := a.doGit(finalOutput, ver.String()); err != nil {
 		return err
 	}
 
@@ -132,36 +132,37 @@ func (a *action) getFinalOutput() string {
 	return finalOutput
 }
 
-func (a *action) getVersion() (string, error) {
+func (a *action) getVersion() (*version.Version, error) {
 	if a.flags.version == "" {
-		return "", fmt.Errorf("empty version: %w", ErrInvalidVersion)
+		return nil, fmt.Errorf("empty version: %w", ErrInvalidVersion)
 	}
 
 	if !strings.HasPrefix(a.flags.version, "v") {
 		a.flags.version = "v" + a.flags.version
 	}
 
-	if !semver.IsValid(a.flags.version) {
-		return "", fmt.Errorf("invalid semver %s: %w", a.flags.version, ErrInvalidVersion)
+	v, err := version.NewVersion(a.flags.version)
+	if err != nil {
+		return nil, fmt.Errorf("version: failed to new version: %w", err)
 	}
 
 	a.log("Version %s", a.flags.version)
 
-	return a.flags.version, nil
+	return v, nil
 }
 
-func (a *action) generateChangelog(commits []convention.Commit, finalOutput, version string) error {
+func (a *action) generateChangelog(commits []convention.Commit, finalOutput, ver string) error {
 	switch a.flags.filetype {
 	case markdownFiletype:
-		return a.generateMarkdownChangelog(finalOutput, version, commits)
+		return a.generateMarkdownChangelog(finalOutput, ver, commits)
 	case rstFiletype:
-		return a.generateRSTChangelog(finalOutput, version, commits)
+		return a.generateRSTChangelog(finalOutput, ver, commits)
 	default:
 		return fmt.Errorf("unknown filetype %s: %w", a.flags.filetype, ErrUnknownFiletype)
 	}
 }
 
-func (a *action) generateMarkdownChangelog(output, version string, commits []convention.Commit) error {
+func (a *action) generateMarkdownChangelog(output, ver string, commits []convention.Commit) error {
 	// If changelog file already exist, parse markdown from exist file
 	var oldNodes []markdown.Node
 	bytes, err := os.ReadFile(filepath.Clean(output))
@@ -170,7 +171,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	}
 
 	// Generate markdown from commits
-	nodes := changelog.GenerateMarkdown(commits, version, time.Now())
+	nodes := changelog.GenerateMarkdown(commits, ver, time.Now())
 
 	// Final changelog with new commits above old commits
 	nodes = append(nodes, oldNodes...)
@@ -193,7 +194,7 @@ func (a *action) generateMarkdownChangelog(output, version string, commits []con
 	return nil
 }
 
-func (a *action) generateRSTChangelog(output, version string, commits []convention.Commit) error {
+func (a *action) generateRSTChangelog(output, ver string, commits []convention.Commit) error {
 	// If changelog file already exist, parse markdown from exist file
 	var oldNodes []rst.Node
 	bytes, err := os.ReadFile(filepath.Clean(output))
@@ -202,7 +203,7 @@ func (a *action) generateRSTChangelog(output, version string, commits []conventi
 	}
 
 	// Generate markdown from commits
-	nodes := changelog.GenerateRST(commits, version, time.Now())
+	nodes := changelog.GenerateRST(commits, ver, time.Now())
 
 	// Final changelog with new commits above old commits
 	nodes = append(nodes, oldNodes...)
@@ -225,7 +226,7 @@ func (a *action) generateRSTChangelog(output, version string, commits []conventi
 	return nil
 }
 
-func (a *action) doGit(finalOutput, version string) error {
+func (a *action) doGit(finalOutput, ver string) error {
 	if !a.flags.autoGitCommit {
 		return nil
 	}
@@ -236,7 +237,7 @@ func (a *action) doGit(finalOutput, version string) error {
 	}
 	a.log("Git add output:\n%s", cmdOutput)
 
-	commitMsg := fmt.Sprintf(autoCommitMessageTemplate, version)
+	commitMsg := fmt.Sprintf(autoCommitMessageTemplate, ver)
 
 	cmdOutput, err = exec.Command("git", "commit", "-m", commitMsg).CombinedOutput()
 	if err != nil {
@@ -245,7 +246,7 @@ func (a *action) doGit(finalOutput, version string) error {
 	a.log("Git commit output:\n%s", cmdOutput)
 
 	if a.flags.autoGitTag {
-		cmdOutput, err = exec.Command("git", "tag", version, "-m", commitMsg).CombinedOutput()
+		cmdOutput, err = exec.Command("git", "tag", ver, "-m", commitMsg).CombinedOutput()
 		if err != nil {
 			return err
 		}
@@ -260,7 +261,7 @@ func (a *action) doGit(finalOutput, version string) error {
 		a.log("Git push output:\n%s", cmdOutput)
 
 		if a.flags.autoGitTag {
-			cmdOutput, err = exec.Command("git", "push", "origin", version).CombinedOutput()
+			cmdOutput, err = exec.Command("git", "push", "origin", ver).CombinedOutput()
 			if err != nil {
 				return err
 			}

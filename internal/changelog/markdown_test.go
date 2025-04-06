@@ -15,7 +15,7 @@ func TestGenerateMarkdown(t *testing.T) {
 	tests := []struct {
 		name    string
 		commits []convention.Commit
-		version string
+		ver     string
 		when    time.Time
 	}{
 		{
@@ -34,8 +34,8 @@ func TestGenerateMarkdown(t *testing.T) {
 					Type:      convention.ChoreType,
 				},
 			},
-			version: "v1.0.0",
-			when:    time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+			ver:  "v1.0.0",
+			when: time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
 		},
 		{
 			name: "many commits",
@@ -73,15 +73,15 @@ func TestGenerateMarkdown(t *testing.T) {
 					Type:      convention.MiscType,
 				},
 			},
-			version: "v1.0.0",
-			when:    time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
+			ver:  "v1.0.0",
+			when: time.Date(2020, 1, 18, 0, 0, 0, 0, time.Local),
 		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			g := goldie.New(t)
-			got := GenerateMarkdown(tc.commits, tc.version, tc.when)
+			got := GenerateMarkdown(tc.commits, tc.ver, tc.when)
 			g.Assert(t, t.Name(), []byte(markdown.GenerateText(got)))
 		})
 	}
