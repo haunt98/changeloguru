@@ -38,13 +38,10 @@ changeloguru --help
 changeloguru generate --version v1.0.0
 
 # Generate changelog v2.0.0 from HEAD to tag v1.0.0
-changeloguru generate --version v2.0.0 --to v1.0.0
+changeloguru generate --version v2.0.0 --to-ref v1.0.0
 
 # Generate changelog in dry run mode (without changing anything)
-changeloguru generate --version v2.0.0 --to v1.0.0 --dry-run
-
-# Generate changelog only for scope
-changeloguru generate --version v2.0.0 --to v1.0.0 --scope projectA --scope projectB
+changeloguru generate --version v2.0.0 --to-ref v1.0.0 --dry-run
 
 # Generate changelog in interactive mode (with instruction) and auto push commit, tag
 changeloguru generate -i --auto-commit --auto-tag --auto-push
