@@ -10,16 +10,8 @@ Tool to generate `CHANGELOG.md`, `CHANGELOG.rst` from
 
 ## Install
 
-With Go version `>= 1.16`:
-
 ```sh
 go install github.com/haunt98/changeloguru/cmd/changeloguru@latest
-```
-
-With Go version `< 1.16`:
-
-```sh
-GO111module=on go get github.com/haunt98/changeloguru/cmd/changeloguru
 ```
 
 ## Usage
