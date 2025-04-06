@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -242,43 +243,53 @@ func (a *action) doGit(finalOutput, ver string) error {
 		return nil
 	}
 
-	cmdOutput, err := exec.Command("git", "add", finalOutput).CombinedOutput()
-	if err != nil {
+	if err := a.execCommand([]string{"git", "add", finalOutput}); err != nil {
 		return err
 	}
-	a.log("Git add output:\n%s", cmdOutput)
 
 	commitMsg := fmt.Sprintf(autoCommitMessageTemplate, ver)
-
-	cmdOutput, err = exec.Command("git", "commit", "-m", commitMsg).CombinedOutput()
-	if err != nil {
+	if err := a.execCommand([]string{"git", "commit", "-m", commitMsg}); err != nil {
 		return err
 	}
-	a.log("Git commit output:\n%s", cmdOutput)
 
 	if a.flags.autoGitTag {
-		cmdOutput, err = exec.Command("git", "tag", ver, "-m", commitMsg).CombinedOutput()
-		if err != nil {
+		if err := a.execCommand([]string{"git", "tag", ver, "-m", commitMsg}); err != nil {
 			return err
 		}
-		a.log("Git tag output:\n%s", cmdOutput)
 	}
 
 	if a.flags.autoGitPush {
-		cmdOutput, err = exec.Command("git", "push").CombinedOutput()
-		if err != nil {
+		if err := a.execCommand([]string{"git", "push", "origin"}); err != nil {
 			return err
 		}
-		a.log("Git push output:\n%s", cmdOutput)
 
 		if a.flags.autoGitTag {
-			cmdOutput, err = exec.Command("git", "push", "origin", ver).CombinedOutput()
-			if err != nil {
+			if err := a.execCommand([]string{"git", "push", "origin", ver}); err != nil {
 				return err
 			}
-			a.log("Git push tag output:\n%s", cmdOutput)
 		}
 	}
+
+	return nil
+}
+
+// Wrap with dry run
+func (a *action) execCommand(cmds []string) error {
+	if a.flags.dryRun {
+		log.Printf("%s\n", strings.Join(cmds, " "))
+		return nil
+	}
+
+	// Safety check
+	if len(cmds) < 2 {
+		return nil
+	}
+
+	cmdOutput, err := exec.Command(cmds[0], cmds[1:]...).CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("exec: failed to command: %w", err)
+	}
+	a.log("%s\n%s", strings.Join(cmds, " "), cmdOutput)
 
 	return nil
 }
