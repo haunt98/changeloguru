@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.25.1 (2025-04-08)
+
+### Fixed
+
+- fix: use tag original when return err (2025-04-08)
+
+### Others
+
+- docs: clarify (2025-04-06)
+
+- docs: rm go 1.16 (2025-04-06)
+
+- docs: remove outdate guide (2025-04-06)
+
+- chore(changelog): generate v1.25.0 (2025-04-06)
+
 ## v1.25.0 (2025-04-06)
 
 ### Added
