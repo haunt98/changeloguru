@@ -79,7 +79,7 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 
 	if len(tags) != 0 {
 		if ver.LessThanOrEqual(tags[len(tags)-1].Version) {
-			return fmt.Errorf("not latest version, expect > %s: %w", tags[len(tags)-1].Version.String(), ErrInvalidVersion)
+			return fmt.Errorf("not latest version, expect > %s: %w", tags[len(tags)-1].Version.Original(), ErrInvalidVersion)
 		}
 
 		if fallbackLatestTag {
