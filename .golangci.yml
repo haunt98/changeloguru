@@ -5,6 +5,7 @@ linters:
   default: none
   enable:
     - bodyclose
+    - copyloopvar
     - err113
     - errcheck
     - errchkjson
@@ -69,8 +70,8 @@ linters:
         - .*
     staticcheck:
       checks:
-        - -SA1019
         - all
+        - -SA1019
   exclusions:
     generated: lax
     presets:
