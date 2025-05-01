@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## v1.25.2 (2025-05-01)
+
+### Added
+
+- feat(cli): improve error (2025-05-01)
+
+### Others
+
+- chore: better golangci-lint cfg (2025-04-11)
+
+- chore(changelog): generate v1.25.1 (2025-04-08)
+
+### Build
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.3.1 to 3.3.2 (#149) (2025-04-29)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.2.0 to 3.3.1 (#148) (2025-04-28)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.1.1 to 3.2.0 (#147) (2025-04-21)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.15.0 to 5.16.0 (#146) (2025-04-16)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.14.0 to 5.15.0 (#145) (2025-04-14)
+
 ## v1.25.1 (2025-04-08)
 
 ### Fixed
