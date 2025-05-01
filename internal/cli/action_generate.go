@@ -278,7 +278,7 @@ func (a *action) execCommand(cmds []string) error {
 
 	cmdOutput, err := exec.Command(cmds[0], cmds[1:]...).CombinedOutput()
 	if err != nil {
-		return fmt.Errorf("exec: failed to command: %w", err)
+		return fmt.Errorf("exec: failed to command: %s: %w", strings.Join(cmds, " "), err)
 	}
 	a.log("%s\n%s", strings.Join(cmds, " "), cmdOutput)
 
