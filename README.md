@@ -41,6 +41,3 @@ changeloguru generate -i --auto-commit --auto-tag --auto-push
 ## Thanks
 
 - [Command Line Interface Guidelines](https://clig.dev/)
-
-Made with [GoLand](https://www.jetbrains.com/go/). Thanks for supporting open
-source projects!
