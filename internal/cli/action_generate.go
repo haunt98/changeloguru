@@ -102,7 +102,7 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 		return err
 	}
 
-	if err := a.doGit(finalOutput, ver.Original()); err != nil {
+	if err := a.doGit(ctx, finalOutput, ver.Original()); err != nil {
 		return err
 	}
 
@@ -229,33 +229,33 @@ func (a *action) generateRSTChangelog(output, ver string, commits []convention.C
 	return nil
 }
 
-func (a *action) doGit(finalOutput, ver string) error {
+func (a *action) doGit(ctx context.Context, finalOutput, ver string) error {
 	if !a.flags.autoGitCommit {
 		return nil
 	}
 
-	if err := a.execCommand([]string{"git", "add", finalOutput}); err != nil {
+	if err := a.execCommand(ctx, "git", "add", finalOutput); err != nil {
 		return err
 	}
 
 	commitMsg := fmt.Sprintf(autoCommitMessageTemplate, ver)
-	if err := a.execCommand([]string{"git", "commit", "-m", commitMsg}); err != nil {
+	if err := a.execCommand(ctx, "git", "commit", "-m", commitMsg); err != nil {
 		return err
 	}
 
 	if a.flags.autoGitTag {
-		if err := a.execCommand([]string{"git", "tag", ver, "-m", commitMsg}); err != nil {
+		if err := a.execCommand(ctx, "git", "tag", ver, "-m", commitMsg); err != nil {
 			return err
 		}
 	}
 
 	if a.flags.autoGitPush {
-		if err := a.execCommand([]string{"git", "push", "origin"}); err != nil {
+		if err := a.execCommand(ctx, "git", "push", "origin"); err != nil {
 			return err
 		}
 
 		if a.flags.autoGitTag {
-			if err := a.execCommand([]string{"git", "push", "origin", ver}); err != nil {
+			if err := a.execCommand(ctx, "git", "push", "origin", ver); err != nil {
 				return err
 			}
 		}
@@ -265,7 +265,7 @@ func (a *action) doGit(finalOutput, ver string) error {
 }
 
 // Wrap with dry run
-func (a *action) execCommand(cmds []string) error {
+func (a *action) execCommand(ctx context.Context, cmds ...string) error {
 	if a.flags.dryRun {
 		log.Printf("%s\n", strings.Join(cmds, " "))
 		return nil
@@ -276,7 +276,7 @@ func (a *action) execCommand(cmds []string) error {
 		return nil
 	}
 
-	cmdOutput, err := exec.Command(cmds[0], cmds[1:]...).CombinedOutput()
+	cmdOutput, err := exec.CommandContext(ctx, cmds[0], cmds[1:]...).CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("exec: failed to command: %s: %w", strings.Join(cmds, " "), err)
 	}
