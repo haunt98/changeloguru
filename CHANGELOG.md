@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## v1.25.3 (2025-08-13)
+
+### Others
+
+- chore: fix lint (2025-08-13)
+
+- chore: update README (2025-06-10)
+
+- chore(changelog): generate v1.25.2 (2025-05-01)
+
+### Build
+
+- build(deps): bump actions/checkout from 4 to 5 (#162) (2025-08-13)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.3.8 to 3.4.1 (#163) (2025-08-13)
+
+- build(deps): bump github.com/sebdah/goldie/v2 from 2.6.0 to 2.7.1 (#156) (2025-07-10)
+
+- build(deps): bump github.com/sebdah/goldie/v2 from 2.5.5 to 2.6.0 (#155) (2025-07-09)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.3.3 to 3.3.8 (#154) (2025-06-13)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.16.1 to 5.16.2 (#153) (2025-06-10)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.16.0 to 5.16.1 (#152) (2025-06-05)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.3.2 to 3.3.3 (#151) (2025-05-12)
+
+- build(deps): bump golangci/golangci-lint-action from 7 to 8 (#150) (2025-05-05)
+
 ## v1.25.2 (2025-05-01)
 
 ### Added
