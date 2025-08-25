@@ -12,7 +12,7 @@ require (
 	github.com/make-go-great/rst-go v0.3.0
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/sebdah/goldie/v2 v2.7.1
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.0
 	github.com/urfave/cli/v3 v3.4.1
 )
 
