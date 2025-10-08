@@ -9,7 +9,7 @@ import (
 // [optional body]
 // [optional footer(s)]
 
-// Commit represens conventional commit
+// Commit represents conventional commit
 type Commit struct {
 	RawHeader string // Commit as is
 	Type      string
