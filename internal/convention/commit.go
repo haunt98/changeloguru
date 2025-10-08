@@ -11,11 +11,9 @@ import (
 
 // Commit represens conventional commit
 type Commit struct {
-	// Commit as is
-	RawHeader string
-
-	Type  string
-	Scope string
+	RawHeader string // Commit as is
+	Type      string
+	Scope     string
 }
 
 // NewCommit return conventional commit from git commit
@@ -28,14 +26,16 @@ func NewCommit(c git.Commit) (Commit, error) {
 }
 
 // NewCommitWithOptions return conventional commit with custom option
-func NewCommitWithOptions(opts ...OptionFn) (result Commit, err error) {
+func NewCommitWithOptions(opts ...OptionFn) (Commit, error) {
+	result := Commit{}
+
 	for _, opt := range opts {
-		if err = opt(&result); err != nil {
-			return
+		if err := opt(&result); err != nil {
+			return Commit{}, err
 		}
 	}
 
-	return
+	return result, nil
 }
 
 func (c *Commit) String() string {
