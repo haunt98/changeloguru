@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v1.25.4 (2025-10-08)
+
+### Others
+
+- chore: fix typo (2025-10-08)
+
+- chore: fix lint (2025-10-08)
+
+- chore(changelog): generate v1.25.3 (2025-08-13)
+
+### Build
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.16.2 to 5.16.3 (#168) (2025-10-06)
+
+- build(deps): bump actions/setup-go from 5 to 6 (#167) (2025-09-05)
+
+- build(deps): bump github.com/stretchr/testify from 1.11.0 to 1.11.1 (#166) (2025-08-28)
+
+- build(deps): bump github.com/stretchr/testify from 1.10.0 to 1.11.0 (#165) (2025-08-25)
+
 ## v1.25.3 (2025-08-13)
 
 ### Others
