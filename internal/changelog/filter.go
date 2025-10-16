@@ -9,7 +9,7 @@ func filter(commits []convention.Commit) map[string][]convention.Commit {
 		return nil
 	}
 
-	filteredCommits := make(map[string][]convention.Commit)
+	filteredCommits := make(map[string][]convention.Commit, len(changelogTypes))
 
 	for _, commitType := range changelogTypes {
 		filteredCommits[commitType] = make([]convention.Commit, 0, defaultLen)
