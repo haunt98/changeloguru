@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## v1.25.5 (2025-12-18)
+
+### Others
+
+- perf: make map with len (2025-10-16)
+
+- chore(changelog): generate v1.25.4 (2025-10-08)
+
+### Build
+
+- build: bump go.mod (2025-12-18)
+
+- build(deps): bump github.com/hashicorp/go-version from 1.7.0 to 1.8.0 (#177) (2025-11-28)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.16.3 to 5.16.4 (#176) (2025-11-24)
+
+- build(deps): bump actions/checkout from 5 to 6 (#175) (2025-11-21)
+
+- build(deps): bump golang.org/x/crypto from 0.37.0 to 0.45.0 (#174) (2025-11-20)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.6.0 to 3.6.1 (#173) (2025-11-18)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.5.0 to 3.6.0 (#171) (2025-11-10)
+
+- build(deps): bump golangci/golangci-lint-action from 8 to 9 (#172) (2025-11-10)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.4.1 to 3.5.0 (#170) (2025-10-22)
+
+- build(deps): bump github.com/sebdah/goldie/v2 from 2.7.1 to 2.8.0 (#169) (2025-10-13)
+
 ## v1.25.4 (2025-10-08)
 
 ### Others
