@@ -6,7 +6,7 @@ require (
 	github.com/go-git/go-git/v5 v5.16.4
 	github.com/hashicorp/go-version v1.8.0
 	github.com/make-go-great/color-go v0.5.0
-	github.com/make-go-great/date-go v0.5.0
+	github.com/make-go-great/date-go v0.6.0
 	github.com/make-go-great/ioe-go v0.4.0
 	github.com/make-go-great/markdown-go v0.5.0
 	github.com/make-go-great/rst-go v0.3.0
