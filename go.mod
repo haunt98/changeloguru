@@ -8,7 +8,7 @@ require (
 	github.com/make-go-great/color-go v0.6.0
 	github.com/make-go-great/date-go v0.6.0
 	github.com/make-go-great/ioe-go v0.6.0
-	github.com/make-go-great/markdown-go v0.5.0
+	github.com/make-go-great/markdown-go v0.7.0
 	github.com/make-go-great/rst-go v0.4.0
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/sebdah/goldie/v2 v2.8.0
