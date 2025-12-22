@@ -55,8 +55,8 @@ github.com/make-go-great/date-go v0.6.0 h1:iEH0vdndkzZQWbvCYSadWcwTVA/iCBWjqetZh
 github.com/make-go-great/date-go v0.6.0/go.mod h1:cbwAVKPL6VlNb5co8SlyhRktxSHa2ZXjwcb1rzpbOfo=
 github.com/make-go-great/ioe-go v0.6.0 h1:WqxZ1hc6ArIMNVxQgvORX645UdjWIBTAmGuJ/qhzOfc=
 github.com/make-go-great/ioe-go v0.6.0/go.mod h1:bRlEmH+T57zGSSoI4vG6HFJrIME+a67eeLp/OI7ersI=
-github.com/make-go-great/markdown-go v0.5.0 h1:Tt/0i3/X02x4EW1mhSvTaqd0K+ElmfuscLTfEfpAWF4=
-github.com/make-go-great/markdown-go v0.5.0/go.mod h1:0vY248a4ZvnC90Tjj8/hI1hWYZc5K0fGi4f1z/VEEOg=
+github.com/make-go-great/markdown-go v0.7.0 h1:UUvgIUiuVWt9Kqj7IOvL/47hulHYwq2QVeovrVZw5O8=
+github.com/make-go-great/markdown-go v0.7.0/go.mod h1:ctubdARsvaxkW7PPD8wz0DK1GVc9Uq57Vato9Psttls=
 github.com/make-go-great/rst-go v0.4.0 h1:LkY90H8QfJ1yJHsCnD+9fSDvY3ZN/mjvsg+xo6Ir2Tk=
 github.com/make-go-great/rst-go v0.4.0/go.mod h1:0xGTeojHxYjKpPjxhgqrLwdKX2qGrUr9GwrIv24+C1g=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
