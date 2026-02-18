@@ -1,0 +1,46 @@
+---
+version: 2
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    ldflags:
+      - "-X main.version={{.Version}}"
+    main: ./cmd/changeloguru
+checksum:
+  name_template: "checksums.txt"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+# .goreleaser.yaml
+brews:
+  - # GitHub/GitLab repository to push the formula to
+    repository:
+      owner: steffakasid
+      name: homebrew-changeloguru
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}  "
+
+    # Git author used to commit to the repository.
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@steffen-rumpf.de
+
+    # The project name and current git tag are used in the format string.
+    commit_msg_template: "choreÖ Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+
+    # Folder inside the repository to put the formula.
+    # Default is the root directory.
+    directory: Formula
+
+    homepage: https://github.com/haunt98/changeloguru
+    description: ""
+    license: Apache-2.0
