@@ -42,43 +42,32 @@ linters:
         - G101
         - G112
         - G115
+        - G117
         - G204
         - G402
-        - G404
-        - G501
-        - G505
+        - G703
+        - G704
     govet:
-      enable:
-        - assign
-        - atomic
-        - bools
-        - buildtag
-        - composites
-        - copylocks
-        - fieldalignment
-        - httpresponse
-        - loopclosure
-        - lostcancel
-        - nilfunc
-        - printf
-        - unmarshal
-        - unreachable
-        - unusedresult
-      disable-all: true
+      enable-all: true
+      disable:
+        - shadow
     reassign:
       patterns:
         - .*
     staticcheck:
       checks:
         - all
+        - -ST1000
+        - -ST1003
+        - -ST1005
         - -SA1019
   exclusions:
     generated: lax
     presets:
       - comments
+      - std-error-handling
       - common-false-positives
       - legacy
-      - std-error-handling
     paths:
       - .*Mock.*
       - .*_mock.*
@@ -86,9 +75,6 @@ linters:
       - .*mock.*
       - .*example.*
       - .*utils.*
-      - third_party$
-      - builtin$
-      - examples$
 formatters:
   enable:
     - gofumpt
@@ -101,6 +87,3 @@ formatters:
       - .*mock.*
       - .*example.*
       - .*utils.*
-      - third_party$
-      - builtin$
-      - examples$
