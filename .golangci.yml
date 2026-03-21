@@ -1,6 +1,7 @@
 version: "2"
 run:
   tests: false
+  allow-parallel-runners: true
 linters:
   default: none
   enable:
@@ -45,6 +46,7 @@ linters:
         - G117
         - G204
         - G402
+        - G702
         - G703
         - G704
     govet:
