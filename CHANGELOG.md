@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## v1.25.6 (2026-03-23)
+
+### Others
+
+- chore: lint (2026-03-21)
+
+- chore: update lint (2026-03-21)
+
+- lint (2026-03-10)
+
+- chore: ubuntu-latest -> ubuntu-slim (2025-12-20)
+
+- chore(changelog): generate v1.25.5 (2025-12-18)
+
+### Build
+
+- build(deps): bump github.com/make-go-great/color-go from 0.6.0 to 0.7.0 (#187) (2026-03-23)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.6.2 to 3.7.0 (#186) (2026-03-02)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.16.5 to 5.17.0 (#185) (2026-02-26)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.16.4 to 5.16.5 (#184) (2026-02-10)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.6.1 to 3.6.2 (#183) (2026-01-19)
+
+- build(deps): bump github.com/make-go-great/markdown-go from 0.5.0 to 0.7.0 (#181) (2025-12-22)
+
+- build(deps): bump github.com/make-go-great/ioe-go from 0.4.0 to 0.6.0 (#180) (2025-12-22)
+
+- build(deps): bump github.com/make-go-great/rst-go from 0.3.0 to 0.4.0 (#182) (2025-12-22)
+
+- build(deps): bump github.com/make-go-great/color-go from 0.5.0 to 0.6.0 (#178) (2025-12-18)
+
+- build(deps): bump github.com/make-go-great/date-go from 0.5.0 to 0.6.0 (#179) (2025-12-18)
+
 ## v1.25.5 (2025-12-18)
 
 ### Others
