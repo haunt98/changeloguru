@@ -3,7 +3,7 @@ module github.com/haunt98/changeloguru
 go 1.25.0
 
 require (
-	github.com/go-git/go-git/v5 v5.17.1
+	github.com/go-git/go-git/v5 v5.17.2
 	github.com/hashicorp/go-version v1.9.0
 	github.com/make-go-great/color-go v0.7.0
 	github.com/make-go-great/date-go v0.6.0
