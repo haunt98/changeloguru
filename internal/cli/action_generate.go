@@ -234,7 +234,7 @@ func (a *action) doGit(ctx context.Context, finalOutput, ver string) error {
 		return nil
 	}
 
-	if err := a.execCommand(ctx, "git", "add", finalOutput); err != nil {
+	if err := a.execCommandCombinedOutput(ctx, "git", "add", finalOutput); err != nil {
 		return err
 	}
 
@@ -244,18 +244,18 @@ func (a *action) doGit(ctx context.Context, finalOutput, ver string) error {
 	}
 
 	if a.flags.autoGitTag {
-		if err := a.execCommand(ctx, "git", "tag", ver, "-m", commitMsg); err != nil {
+		if err := a.execCommand(ctx, "git", "tag", "-a", ver, "-m", commitMsg); err != nil {
 			return err
 		}
 	}
 
 	if a.flags.autoGitPush {
-		if err := a.execCommand(ctx, "git", "push", "origin"); err != nil {
+		if err := a.execCommandCombinedOutput(ctx, "git", "push", "origin"); err != nil {
 			return err
 		}
 
 		if a.flags.autoGitTag {
-			if err := a.execCommand(ctx, "git", "push", "origin", ver); err != nil {
+			if err := a.execCommandCombinedOutput(ctx, "git", "push", "origin", ver); err != nil {
 				return err
 			}
 		}
@@ -265,7 +265,7 @@ func (a *action) doGit(ctx context.Context, finalOutput, ver string) error {
 }
 
 // Wrap with dry run
-func (a *action) execCommand(ctx context.Context, cmds ...string) error {
+func (a *action) execCommandCombinedOutput(ctx context.Context, cmds ...string) error {
 	if a.flags.dryRun {
 		log.Printf("%s\n", strings.Join(cmds, " "))
 		return nil
@@ -281,6 +281,28 @@ func (a *action) execCommand(ctx context.Context, cmds ...string) error {
 		return fmt.Errorf("exec: failed to command: %s: %w", strings.Join(cmds, " "), err)
 	}
 	a.log("%s\n%s", strings.Join(cmds, " "), cmdOutput)
+
+	return nil
+}
+
+func (a *action) execCommand(ctx context.Context, cmds ...string) error {
+	if a.flags.dryRun {
+		log.Printf("%s\n", strings.Join(cmds, " "))
+		return nil
+	}
+
+	// Safety check
+	if len(cmds) < 2 {
+		return nil
+	}
+
+	cmd := exec.CommandContext(ctx, cmds[0], cmds[1:]...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("exec: failed to command: %s: %w", strings.Join(cmds, " "), err)
+	}
 
 	return nil
 }
