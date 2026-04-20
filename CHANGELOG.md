@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v1.26.0 (2026-04-20)
+
+### Added
+
+- feat: support git commit, tag sign (2026-04-20)
+
+### Others
+
+- chore(changelog): generate v1.25.6 (2026-03-23)
+
+### Build
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.17.1 to 5.17.2 (#191) (2026-04-01)
+
+- build(deps): bump github.com/hashicorp/go-version from 1.8.0 to 1.9.0 (#190) (2026-03-31)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.17.0 to 5.17.1 (#189) (2026-03-30)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.7.0 to 3.8.0 (#188) (2026-03-26)
+
 ## v1.25.6 (2026-03-23)
 
 ### Others
