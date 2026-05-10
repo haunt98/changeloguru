@@ -26,8 +26,11 @@ linters:
     - reassign
     - sqlclosecheck
     - staticcheck
+    - testifylint
     - unconvert
     - unused
+    - usestdlibvars
+    - usetesting
   settings:
     gocritic:
       disabled-checks:
@@ -44,6 +47,7 @@ linters:
         - G112
         - G115
         - G117
+        - G124
         - G204
         - G402
         - G702
