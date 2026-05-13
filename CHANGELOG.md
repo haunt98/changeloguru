@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v1.26.1 (2026-05-13)
+
+### Others
+
+- chore: update lint (2026-05-10)
+
+- chore(changelog): generate v1.26.0 (2026-04-20)
+
+### Build
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.8.0 to 3.9.0 (#194) (2026-05-13)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.18.0 to 5.19.0 (#193) (2026-05-07)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.17.2 to 5.18.0 (#192) (2026-04-23)
+
 ## v1.26.0 (2026-04-20)
 
 ### Added
