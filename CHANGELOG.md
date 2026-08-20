@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.26.3 (2026-08-20)
+
+### Others
+
+- chore(changelog): generate v1.26.2 (2026-08-20)
+
+### Build
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.10.1 to 3.11.0 (#204) (2026-08-20)
+
 ## v1.26.2 (2026-08-20)
 
 ### Others
