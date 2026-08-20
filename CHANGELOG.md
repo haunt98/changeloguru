@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## v1.26.2 (2026-08-20)
+
+### Others
+
+- chore: better log (2026-08-20)
+
+- chore(changelog): generate v1.26.1 (2026-05-13)
+
+### Build
+
+- build: bump go deps (2026-08-19)
+
+- build(deps): bump github.com/stretchr/testify from 1.11.1 to 1.12.0 (#203) (2026-08-18)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.19.1 to 5.19.2 (#202) (2026-07-30)
+
+- build(deps): bump actions/setup-go from 6 to 7 (#201) (2026-07-16)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.10.0 to 3.10.1 (#200) (2026-06-29)
+
+- build(deps): bump actions/checkout from 6 to 7 (#199) (2026-06-19)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.9.1 to 3.10.0 (#198) (2026-06-15)
+
+- build(deps): bump github.com/urfave/cli/v3 from 3.9.0 to 3.9.1 (#197) (2026-06-11)
+
+- build(deps): bump gitleaks/gitleaks-action from 2 to 3 (#196) (2026-06-02)
+
+- build(deps): bump github.com/go-git/go-git/v5 from 5.19.0 to 5.19.1 (#195) (2026-05-20)
+
 ## v1.26.1 (2026-05-13)
 
 ### Others
