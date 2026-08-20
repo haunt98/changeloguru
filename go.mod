@@ -13,7 +13,7 @@ require (
 	github.com/pkg/diff v0.0.0-20241224192749-4e6772a4315c
 	github.com/sebdah/goldie/v2 v2.8.0
 	github.com/stretchr/testify v1.12.0
-	github.com/urfave/cli/v3 v3.10.1
+	github.com/urfave/cli/v3 v3.11.0
 )
 
 require (
