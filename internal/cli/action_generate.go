@@ -97,6 +97,7 @@ func (a *action) RunGenerate(ctx context.Context, c *cli.Command) error {
 	conventionalCommits := a.getConventionalCommits(commits)
 
 	finalOutput := a.getFinalOutput()
+	finalOutput = filepath.Clean(finalOutput)
 
 	if err := a.generateChangelog(conventionalCommits, finalOutput, ver.Original()); err != nil {
 		return err
@@ -168,7 +169,7 @@ func (a *action) generateChangelog(commits []convention.Commit, finalOutput, ver
 func (a *action) generateMarkdownChangelog(output, ver string, commits []convention.Commit) error {
 	// If changelog file already exist, parse markdown from exist file
 	var oldNodes []markdown.Node
-	bytes, err := os.ReadFile(filepath.Clean(output))
+	bytes, err := os.ReadFile(output)
 	if err == nil {
 		oldNodes = changelog.ParseMarkdown(string(bytes))
 	}
@@ -177,8 +178,10 @@ func (a *action) generateMarkdownChangelog(output, ver string, commits []convent
 	nodes := changelog.GenerateMarkdown(commits, ver, time.Now())
 
 	// Final changelog with new commits above old commits
-	nodes = append(nodes, oldNodes...)
-	changelogText := markdown.GenerateText(nodes)
+	finalNodes := make([]markdown.Node, 0, len(nodes)+len(oldNodes))
+	finalNodes = append(finalNodes, nodes...)
+	finalNodes = append(finalNodes, oldNodes...)
+	changelogText := markdown.GenerateText(finalNodes)
 
 	// Demo run
 	if a.flags.dryRun {
@@ -200,7 +203,7 @@ func (a *action) generateMarkdownChangelog(output, ver string, commits []convent
 func (a *action) generateRSTChangelog(output, ver string, commits []convention.Commit) error {
 	// If changelog file already exist, parse markdown from exist file
 	var oldNodes []rst.Node
-	bytes, err := os.ReadFile(filepath.Clean(output))
+	bytes, err := os.ReadFile(output)
 	if err == nil {
 		oldNodes = changelog.ParseRST(string(bytes))
 	}
@@ -209,8 +212,10 @@ func (a *action) generateRSTChangelog(output, ver string, commits []convention.C
 	nodes := changelog.GenerateRST(commits, ver, time.Now())
 
 	// Final changelog with new commits above old commits
-	nodes = append(nodes, oldNodes...)
-	changelogText := rst.GenerateText(nodes)
+	finalNodes := make([]rst.Node, 0, len(nodes)+len(oldNodes))
+	finalNodes = append(finalNodes, nodes...)
+	finalNodes = append(finalNodes, oldNodes...)
+	changelogText := rst.GenerateText(finalNodes)
 
 	// Demo run
 	if a.flags.dryRun {
@@ -267,7 +272,7 @@ func (a *action) doGit(ctx context.Context, finalOutput, ver string) error {
 // Wrap with dry run
 func (a *action) execCommandCombinedOutput(ctx context.Context, cmds ...string) error {
 	if a.flags.dryRun {
-		log.Printf("%s\n", strings.Join(cmds, " "))
+		log.Printf("%s", strings.Join(cmds, " "))
 		return nil
 	}
 
@@ -287,7 +292,7 @@ func (a *action) execCommandCombinedOutput(ctx context.Context, cmds ...string) 
 
 func (a *action) execCommand(ctx context.Context, cmds ...string) error {
 	if a.flags.dryRun {
-		log.Printf("%s\n", strings.Join(cmds, " "))
+		log.Printf("%s", strings.Join(cmds, " "))
 		return nil
 	}
 

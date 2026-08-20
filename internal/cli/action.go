@@ -57,19 +57,19 @@ func (a *action) getFlags(c *cli.Command) {
 
 	a.flags.output = c.String(flagOutputName)
 	if a.flags.output == "" {
-		a.log("Fallback to default output [%s]\n", defaultOutput)
+		a.log("Fallback to default output [%s]", defaultOutput)
 		a.flags.output = defaultOutput
 	}
 
 	a.flags.filename = c.String(flagFilenameName)
 	if a.flags.filename == "" {
-		a.log("Fallback to default filename [%s]\n", defaultFilename)
+		a.log("Fallback to default filename [%s]", defaultFilename)
 		a.flags.filename = defaultFilename
 	}
 
 	a.flags.filetype = c.String(flagFiletypeName)
 	if a.flags.filetype == "" {
-		a.log("Fallback to default filetype [%s]\n", defaultFiletype)
+		a.log("Fallback to default filetype [%s]", defaultFiletype)
 		a.flags.filetype = defaultFiletype
 	}
 
@@ -81,7 +81,7 @@ func (a *action) getFlags(c *cli.Command) {
 	a.flags.autoGitTag = c.Bool(flagAutoGitTagName)
 	a.flags.autoGitPush = c.Bool(flagAutoGitPushName)
 
-	a.log("Flags %+v\n", a.flags)
+	a.log("Flags %+v", a.flags)
 }
 
 func (a *action) log(format string, v ...any) {
