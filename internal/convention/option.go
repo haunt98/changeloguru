@@ -33,9 +33,7 @@ func GetRawHeader(gitCommit git.Commit) OptionFn {
 		}
 
 		message := strings.TrimSpace(gitCommit.Message)
-		messages := strings.Split(message, "\n")
-
-		c.RawHeader = messages[0]
+		c.RawHeader, _, _ = strings.Cut(message, "\n")
 
 		return nil
 	}
@@ -52,8 +50,8 @@ func GetTypeAndScope(gitCommit git.Commit) OptionFn {
 		headerSubmatches := headerRegex.FindStringSubmatch(c.RawHeader)
 		c.Type = strings.ToLower(headerSubmatches[1])
 		c.Scope = strings.ToLower(headerSubmatches[2])
-		c.Scope = strings.TrimLeft(c.Scope, leftScope)
-		c.Scope = strings.TrimRight(c.Scope, rightScope)
+		c.Scope, _ = strings.CutPrefix(c.Scope, leftScope)
+		c.Scope, _ = strings.CutSuffix(c.Scope, rightScope)
 
 		return nil
 	}
